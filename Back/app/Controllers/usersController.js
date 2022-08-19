@@ -23,6 +23,25 @@ const usersController = {
 
     },
 
+    getUserById: async (req, res) => {
+
+        try {
+            const id = req.params.id;
+            const userById = await User.findByPk(id);
+            console.log(userById);
+            return res.status(200).json({
+                id: userById.dataValues.id,
+                username: userById.dataValues.username,
+                firstname: userById.dataValues.firstname,
+                lastname: userById.dataValues.lastname,
+                email: userById.dataValues.email,
+
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(404).json({ error: "Un problème est survenu sur la route getUserById" })
+        }
+    },
 
     createUser: async (req, res, next) => {
         try {

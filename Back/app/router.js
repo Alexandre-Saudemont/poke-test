@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const pokemonController = require('./Controllers/pokemonController');
 const typesController = require('./Controllers/typesController');
-const usersController=require('./Controllers/usersController');
+const usersController = require('./Controllers/usersController');
 const deckController = require('./Controllers/deckController');
-const jwtVerify = require ('./Middleware/Middleware');
+const jwtVerify = require('./Middleware/Middleware');
 
 router.get('/', (_, res) => {
     res.send('We are in homepage')
@@ -15,7 +15,8 @@ router.get(`/Pokemon/:id`, pokemonController.getPokemonById);
 router.get('/Types', typesController.getAllTypes);
 router.get(`/Types/:id`, pokemonController.getPokemonByTypes);
 router.get('/Users', usersController.getAllUser);
-router.get('/Deck/:id',  jwtVerify, deckController.getDeck);
+router.get('/User/:id', jwtVerify, usersController.getUserById);
+router.get('/Deck/:id', jwtVerify, deckController.getDeck);
 
 // POST
 router.post(`/Inscription`, usersController.createUser);

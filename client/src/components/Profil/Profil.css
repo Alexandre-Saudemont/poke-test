@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+}
+.profil-card{
+    align-items:center;
+    background-color: #0f0;
+    justify-content: center;
+}
+
+.profil-modal{
+    display: flex;
+    
+}
+
+.profil-form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Noto Sans', sans-serif;
+    color: white;
+    background-color: lightblue;
+    justify-content: center;
+    margin: auto;
+    padding: 1rem;
+    
+}

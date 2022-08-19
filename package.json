@@ -9,6 +9,7 @@
     "jsonwebtoken": "^8.5.1",
     "jwtoken": "^0.0.0",
     "pg": "^8.7.3",
+    "react-hook-form": "^7.34.2",
     "sequelize": "^6.21.2"
   }
 }
