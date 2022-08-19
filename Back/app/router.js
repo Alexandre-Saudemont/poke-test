@@ -23,11 +23,11 @@ router.post(`/Inscription`, usersController.createUser);
 router.post('/Connexion', usersController.connectUser);
 
 //PUT
-router.put('/Users/:id', jwtVerify, usersController.updateUser);
+router.put('/User/:id', jwtVerify, usersController.updateUser);
 // router.put('/Deck/:id', jwtVerify, deckController.updateDeck);
 
 //DELETE
-router.delete('/Users/:id', jwtVerify, usersController.deleteUser);
+router.delete('/User/:id', jwtVerify, usersController.deleteUser);
 
 
 

@@ -233,6 +233,7 @@ const usersController = {
             const user = await User.findByPk(id);
 
             const { username, firstname, lastname, email } = req.body
+            console.log(email)
 
             const userCheckEmail = await User.findOne({
                 where: {
@@ -275,8 +276,8 @@ const usersController = {
         } catch (error) {
             console.error(error);
             res.status(404).json({
-                code: "Mauvais ID",
-                message: `L'utilisateur n'existe pas`
+                
+                error: `L'utilisateur n'existe pas`
             });
         }
     },

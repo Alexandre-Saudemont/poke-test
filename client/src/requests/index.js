@@ -45,3 +45,13 @@ export function DeckRequest(id) {
 export function saveAuthorization(token) {
     axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
+
+export function UserUpdateRequest(id, data){
+    const response = axiosInstance.put(`/User/${id}`, {username : data.username, firstname: data.firstname, lastname:data.lastname, email:data.email});
+    return response;
+}
+
+export function UserDeleteRequest(id){
+    const response = axiosInstance.delete(`/User/${id}`);
+    return response;
+}

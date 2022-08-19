@@ -30,7 +30,7 @@ function Connexion({ setIsLogged, success, setSuccess }) {
 
         } catch (error) {
 
-            console.error("erreur:", error);
+            console.error(error);
             setError(error.response.data.error);
             setEmail("");
             setPassword("");

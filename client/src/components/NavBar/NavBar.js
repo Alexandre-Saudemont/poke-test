@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 // import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 // import MenuIcon from '@mui/icons-material/Menu';
-
+import SearchIcon from '@mui/icons-material/Search';
 
 
 function Navbar({ isLogged, setIsLogged, setSuccess }) {
@@ -58,6 +58,7 @@ function Navbar({ isLogged, setIsLogged, setSuccess }) {
     }));
 
     const token = sessionStorage.getItem("token");
+    const id = localStorage.getItem("id");
 
     // const setIsLogged = useState(false);
 
@@ -69,11 +70,12 @@ function Navbar({ isLogged, setIsLogged, setSuccess }) {
     };
 
     useEffect(() => {
-        if (token) {
+        if (id) {
             setIsLogged(true);
         }
+        setIsLogged(false)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLogged])
+    }, [id])
 
     function handleChange(event) {
         console.log(event.target.value)
@@ -109,10 +111,11 @@ function Navbar({ isLogged, setIsLogged, setSuccess }) {
 
                         </IconButton>
                         <Search>
-
+                       
                             <StyledInputBase
                                 onChange={handleChange}
                                 placeholder="Recherche…"
+                                // startAdornment={<SearchIcon/>}
                                 inputProps={{}}
                             />
                         </Search>
