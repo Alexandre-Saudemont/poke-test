@@ -1,0 +1,101 @@
+.type-container {
+    margin: 1rem;
+    display: flex;
+    flex-direction: row;
+
+}
+.TypesPokemon{
+    display: flex;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: linear-gradient(90deg, rgba(2,82,198,1) 0%, rgba(114,27,143,1) 50%, rgba(150,108,6,1) 100%);
+    gap: 3rem;
+}
+.type-button{
+    width: 15rem;
+height: 7.5rem;
+    font-size: 2rem;
+    border-radius: 1rem;
+    transition: all .5s ease-in;
+}
+
+.types-title{
+    background-color:rgba(10, 29, 55, 0.876);
+    padding:1.3rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color:rgb(186, 195, 203);    
+    -webkit-box-shadow: 0rem 0.625rem 0.70rem 0.75rem rgba(10, 29, 55, 0.876); 
+    box-shadow: 0rem 0.75rem 0rem  0rem rgba(10, 29, 55, 1);
+    margin-bottom:.8rem;
+}
+
+
+
+.type-button-Feu:hover{
+    background-color: #ff4422;
+    color: rgba(255, 255, 255, 0.876)
+}
+
+.type-button-Acier:hover {
+    background-color: #aaaabb;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Combat:hover {
+    background-color: #bb5544;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Dragon:hover {
+    background-color: #7766ee;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Eau:hover {
+    background-color: #3399ff;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Electrik:hover {
+    background-color: #ffbb33;
+    color: rgba(255, 255, 255, 0.876)
+}
+
+.type-button-Glace:hover {
+    background-color: #77ddff;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Insecte:hover {
+    background-color: #aabb22;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Normal:hover {
+    background-color: #bbaabb;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Plante:hover {
+    background-color: #77cc55;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Poison:hover {
+    background-color: #aa5599;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Psy:hover {
+    background-color: #ff5599;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Roche:hover {
+    background-color: #bbaa66;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Sol:hover {
+    background-color: #ddbb55;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Spectre:hover {
+    background-color: #6666bb;
+    color: rgba(255, 255, 255, 0.876)
+}
+.type-button-Vol:hover {
+    background-color: #6699ff;
+    color: rgba(255, 255, 255, 0.876)
+}

@@ -1,0 +1,21 @@
+.pokemons{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.detail-container{
+    
+    justify-content: center;
+    width:fit-content;
+    height:fit-content;
+    border: black 1px solid;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: lightblue;
+    color:white;
+}
+
+.detail-name{
+    text-align:center;
+    color: black;
+}
