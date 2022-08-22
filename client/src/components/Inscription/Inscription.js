@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import Navbar from "../NavBar/NavBar";
 import { RegisterRequest } from '../../requests'
 
-function Inscription(){
+function Inscription() {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -12,17 +11,16 @@ function Inscription(){
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
 
-    async function handleSubmit(e){
+    async function handleSubmit(e) {
 
         e.preventDefault()
         try {
-
-            const response = await RegisterRequest({email, password, username, lastname, firstname});
-            if(response.status===200){
+            const response = await RegisterRequest({ email, password, username, lastname, firstname });
+            if (response.status === 200) {
                 setError(response.data.error)
             }
 
-            if (response.status===201){
+            if (response.status === 201) {
                 setSuccess(response.data.success);
                 console.log(response.data.success);
                 setEmail("");
@@ -37,90 +35,85 @@ function Inscription(){
         }
     }
 
-    return(
+    return (
 
         <div className="Inscription">
-       
+            {success ?
+                <p className="success">{success}</p> :
+                <>
+                    <h2>Inscription</h2><form
+                        action="submit"
+                        onSubmit={handleSubmit}
+                    >
 
-        <h2>Inscription</h2>
+                        <label>
+                            Pseudo
+                            <input
+                                type="text"
+                                name="username"
+                                value={username}
+                                placeholder="DarkSasukedu92"
+                                onChange={(e) => setUsername(e.target.value)} />
 
-        <form 
-        action="submit"
-        onSubmit={handleSubmit}
-        >
+                        </label>
 
-        <label>
-            Pseudo
-            <input 
-            type="text"
-            name="username"
-            value={username}
-            placeholder="DarkSasukedu92"
-            onChange={(e)=> setUsername(e.target.value)} 
-            />
+                        <label>
+                            Adresse Email
+                            <input
+                                type="email"
+                                name="email"
+                                value={email}
+                                placeholder="pikachu@gmail.com"
+                                onChange={(e) => setEmail(e.target.value)} />
 
-        </label>
+                        </label>
 
-        <label>
-            Adresse Email
-            <input 
-            type="email"
-            name="email"
-            value={email}
-            placeholder="pikachu@gmail.com"
-            onChange={(e)=> setEmail(e.target.value)}
-            />
+                        <label>
+                            Nom
+                            <input
+                                type="text"
+                                name="lastname"
+                                value={lastname}
+                                placeholder="Dubois"
+                                onChange={(e) => setLastname(e.target.value)} />
+                        </label>
+                        <label>
+                            Prénom
+                            <input
+                                type="text"
+                                name="firstname"
+                                value={firstname}
+                                placeholder="Jean-Eude"
+                                onChange={(e) => setFirstname(e.target.value)} />
 
-        </label>
+                        </label>
 
-        <label>
-            Nom
-            <input 
-            type="text"
-            name="lastname"
-            value={lastname}
-            placeholder="Dubois"
-            onChange={(e)=> setLastname(e.target.value)}
-            />
-        </label>
-        <label>
-            Prénom
-            <input 
-            type="text"
-            name="firstname"
-            value={firstname}
-            placeholder="Jean-Eude"
-            onChange={(e)=> setFirstname(e.target.value)}
-             />
+                        <label>
+                            Mot de passe
+                            <input
+                                type="password"
+                                name="password"
+                                value={password}
+                                placeholder="****"
+                                onChange={(e) => setPassword(e.target.value)} />
 
-        </label>
+                        </label>
 
-        <label>
-            Mot de passe
-            <input 
-            type="password"
-            name="password"
-            value={password}
-            placeholder="****"
-            onChange={(e)=> setPassword(e.target.value)}
-             />
+                        <button
+                            type="submit"
+                        >Envoyer
+                        </button>
 
-        </label>
+                    </form>
+                </>
 
-        <button type="submit">Envoyer</button>
 
-        </form>
+            }
+            {error && !success &&
 
-        { success &&
+                <p className="error">{error}</p>
 
-        <p className="success">{success}</p>
-
-        }
-        { error &&
-
-        <p className="error">{error}</p>
-
-        }
+            }
         </div>
     )
 }
