@@ -1,11 +1,10 @@
 import Pokemon from './Pokemon/Pokemon.js';
-
 import { useEffect, useState }  from 'react';
 import { PokemonRequest } from '../../requests/index.js';
 
 
-function Pokemons (){
-    const [pokedex, setPokedex] = useState([]);
+function Pokemons ({setPokedex, pokedex}){
+    
 
     async function requestForPokemon(){
         try {
@@ -13,14 +12,12 @@ function Pokemons (){
             setPokedex(response.data);
             
         } catch (error){
-            console.error(error) 
+            console.error(error)         
         }          
     }
    
-    useEffect(() => {
-       
-       requestForPokemon();
-        
+    useEffect(() => {       
+       requestForPokemon();        
     }, []);
 
 
@@ -28,15 +25,13 @@ function Pokemons (){
         <>
         
         <div className="pokemons">
-     {pokedex.length > 0 && pokedex.map((pokemon)=>(
-
+        {pokedex.length > 0 && pokedex.map((pokemon)=>(
         <Pokemon key={pokemon.id} {...pokemon}/>
-     ))
-    }
-    </div>
-    </>
+        ))
+        }
+        </div>
+        </>
     )
-
 }
 
 export default Pokemons;

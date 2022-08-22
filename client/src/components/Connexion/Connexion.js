@@ -3,14 +3,13 @@ import { LoginRequest, saveAuthorization } from "../../requests";
 
 
 function Connexion({ setIsLogged, success, setSuccess }) {
-    // console.log("setislogger dans connextion", setIsLogged);
+   
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("")
     const [error, setError] = useState("");
 
-    console.log(error)
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -25,7 +24,6 @@ function Connexion({ setIsLogged, success, setSuccess }) {
                 setUsername(response.data.username)
                 sessionStorage.setItem("token", response.data.token);
                 saveAuthorization(response.data.token);
-
             }
 
         } catch (error) {

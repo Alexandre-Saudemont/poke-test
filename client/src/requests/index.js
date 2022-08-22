@@ -38,10 +38,22 @@ export function userInfosRequest(id) {
     return response;
 }
 
+export function UpdateUserRequest(id, data) {
+    const response = axiosInstance.put(`/User/${id}`, {username:data.username, lastname:data.lastname, firstname:data.firstname, email: data.email});
+    return response;
+}
+
 export function DeckRequest(id) {
     const response = axiosInstance.get(`/Deck/${id}`);
     return response;
 }
+
+
 export function saveAuthorization(token) {
     axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
+
+export function UserDeleteRequest(id){
+    const response = axiosInstance.delete(`/User/${id}`);
+    return response;
+} 

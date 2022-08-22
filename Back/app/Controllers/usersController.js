@@ -184,9 +184,7 @@ const usersController = {
                         userId: getUser.id,
                         userEmail: getUser.email
                     },
-
                     process.env.accessTokenSecret,
-
                     {
                         expiresIn: "24h"
                     }
@@ -198,28 +196,19 @@ const usersController = {
                 return res.status(200).json({
 
                     success: "Vous êtes connecté",
-
                     id: getUser.id,
                     email: getUser.email,
-
                     username: getUser.username,
-
                     firstname: getUser.firstname,
-
                     lastname: getUser.lastname,
-
                     token
-
                 });
             }
         } catch (error) {
 
             console.error(error);
-
             res.status(400).json({
-
                 error: "ereur lors de la requête"
-
             })
 
         }
@@ -275,8 +264,7 @@ const usersController = {
         } catch (error) {
             console.error(error);
             res.status(404).json({
-                code: "Mauvais ID",
-                message: `L'utilisateur n'existe pas`
+                error: `L'utilisateur n'existe pas`
             });
         }
     },
