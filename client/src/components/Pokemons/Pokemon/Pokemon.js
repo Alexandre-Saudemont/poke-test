@@ -1,6 +1,8 @@
 import './Pokemon.css';
 import {PokemonRequestByID} from '../../../requests/index.js'
 import { useNavigate } from 'react-router-dom';
+import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
+import Button from '@mui/material/Button'
 
 function Pokemon ({nom, url, id}){
     
@@ -28,8 +30,14 @@ function Pokemon ({nom, url, id}){
     return (
         <div className="pokemon-container">
             <button  onClick={handleClick}>            
-            <img src={url} alt="pokemon" />  
-            <p >{nom}</p>
+            <img className="pokemon-img" src={url} alt="pokemon" />
+            <div className= "pokemon-title">            
+            <h3 className="pokemon-nom">{nom}</h3>
+            <Button className="pokemon-icon"> 
+            <ControlPointRoundedIcon sx={{pd: '1rem'}}/>
+            </Button>  
+            </div>
+            
             </button>
         </div>
     )
