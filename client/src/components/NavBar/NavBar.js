@@ -9,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 
 function Navbar({ isLogged, setIsLogged, setSuccess, pokedex, setPokedex }) {
@@ -35,7 +37,7 @@ function Navbar({ isLogged, setIsLogged, setSuccess, pokedex, setPokedex }) {
         setValue(event.target.value);
         requestForFilteredPokemon(event.target.value);
     }
-    
+
     async function requestForFilteredPokemon(pokemonSearched) {
 
         try {
@@ -52,15 +54,19 @@ function Navbar({ isLogged, setIsLogged, setSuccess, pokedex, setPokedex }) {
             console.error(error)
         }
     }
-    
+
     return (
         <nav>
             <ul className='items'>
                 <AppBar position="static" >
                     <Toolbar className="navbar">
                         <div>
-                            <NavLink className="nav-menu" to="/">Accueil </NavLink>
-                            <NavLink className="nav-menu" to="/types">Types </NavLink>
+                            <Button>
+                                <NavLink className="nav-menu" to="/">Accueil </NavLink>
+                            </Button>
+                            <Button>
+                                <NavLink className="nav-menu" to="/types">Types </NavLink>
+                            </Button>
                             {isLogged ?
                                 <>
                                     <NavLink className="nav-menu" to="/Deck">Deck</NavLink>
@@ -68,10 +74,19 @@ function Navbar({ isLogged, setIsLogged, setSuccess, pokedex, setPokedex }) {
                                     <button type="button" onClick={handleClick}>Déconnexion</button>
                                 </> :
                                 <>
-                                    <NavLink className="nav-menu" to="/Inscription">Inscription</NavLink>
-                                    <NavLink className="nav-menu" to="/Connexion">Connexion</NavLink>
+                                    <Button >
+                                        <NavLink className="nav-menu" to="/Inscription">Inscription</NavLink>
+                                    </Button>
+                                    <Button sx={{ ":hover": { bgcolor: "lightblue" } }}>
+                                        <NavLink className="nav-menu " to="/Connexion">Connexion</NavLink>
+                                    </Button>
                                 </>
                             }
+                        </div>
+                        <div className="nav-pokedex">
+                            <Typography variant="h2" id="nav-pokedex-typo">
+                                Pokedex
+                            </Typography>
                         </div>
                         <div className="nav-element-right">
                             <IconButton
@@ -83,19 +98,19 @@ function Navbar({ isLogged, setIsLogged, setSuccess, pokedex, setPokedex }) {
                             >
                             </IconButton>
                             <InputLabel htmlFor="search" />
-                            <Input sx={{ display: "inline-flex" }}
+                            <Input sx={{ display: "inline-flex", paddingLeft: "2rem" }}
                                 className="nav-search"
                                 id="search"
                                 type="search"
                                 value={value}
                                 onChange={handleChange}
-                                placeholder="Pikachu..."
+                                placeholder="Rechercher..."
                             />
                         </div>
                     </Toolbar>
                 </AppBar>
             </ul>
-        </nav>
+        </nav >
     )
 
 }
