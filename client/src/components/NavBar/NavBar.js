@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import {  NavLink, useNavigate}  from "react-router-dom";
 import { styled, alpha } from '@mui/material/styles';
 import { PokemonRequest } from "../../requests";
 import "./NavBar.css";
@@ -11,11 +11,14 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
-function Navbar({ isLogged, setIsLogged, setSuccess, pokedex, setPokedex }) {
 
 
+function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex }) {
+
+    const navigate = useNavigate();
     const token = sessionStorage.getItem("token");
     const [value, setValue] = useState("");
 
@@ -23,6 +26,7 @@ function Navbar({ isLogged, setIsLogged, setSuccess, pokedex, setPokedex }) {
         sessionStorage.removeItem("token");
         setIsLogged(false);
         setSuccess("");
+        navigate("/");
     };
 
     useEffect(() => {
@@ -54,7 +58,12 @@ function Navbar({ isLogged, setIsLogged, setSuccess, pokedex, setPokedex }) {
             console.error(error)
         }
     }
-
+    const theme = createTheme({
+        typography: {
+            "fontFamily": `"Alumni Sans Collegiate One", sans-serif`,
+            // "padding-left": "1em"
+        }
+    })
     return (
         <nav>
             <ul className='items'>
@@ -69,9 +78,13 @@ function Navbar({ isLogged, setIsLogged, setSuccess, pokedex, setPokedex }) {
                             </Button>
                             {isLogged ?
                                 <>
+                                <Button>
                                     <NavLink className="nav-menu" to="/Deck">Deck</NavLink>
+                                </Button>
+                                <Button>  
                                     <NavLink className="nav-menu" to="/Profil"> Profil</NavLink>
-                                    <button type="button" onClick={handleClick}>Déconnexion</button>
+                                </Button> 
+                                    <Button sx={{ ":hover": { bgcolor: "lightblue" } }} className="nav-menu" type="button" onClick={handleClick}>Déconnexion</Button>
                                 </> :
                                 <>
                                     <Button >
@@ -84,9 +97,13 @@ function Navbar({ isLogged, setIsLogged, setSuccess, pokedex, setPokedex }) {
                             }
                         </div>
                         <div className="nav-pokedex">
+                           
+                            <img className="nav-logo" src="/img/pokeball.png" alt="logo pokeball" />
+                            <ThemeProvider theme={theme}>
                             <Typography variant="h2" id="nav-pokedex-typo">
                                 Pokedex
                             </Typography>
+                            </ThemeProvider>
                         </div>
                         <div className="nav-element-right">
                             <IconButton

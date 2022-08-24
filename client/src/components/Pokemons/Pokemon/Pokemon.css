@@ -24,25 +24,30 @@
 }
 
 .pokemon-nom{
-    padding-top:1rem;
+    padding-top:0.5rem;
     font-weight: bold;
     cursor: pointer;
     margin:0;
-    height:3rem
+    padding-bottom: 0.5rem;
 }
+
 .pokemon-title{
     display: flex;
-    gap: 25%;
+    gap: 35%;
     text-align: center;
     justify-content: flex-end;
-    padding:1em
+    
 }
 
 .pokemon-icon{
-    cursor:pointer
+    cursor:pointer;
+    padding:0;
+    border: white;
+    background-color: transparent;
 }
 .MuiSvgIcon-root{
-    padding:1rem;
+    background-color: none;
+    color:blue
 }
 h3{
     margin:0

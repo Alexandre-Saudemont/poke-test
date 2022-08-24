@@ -29,13 +29,15 @@ function Pokemon ({nom, url, id}){
    
     return (
         <div className="pokemon-container">
+        <div className="pokemon-header"></div>
+       
             <button  onClick={handleClick}>            
             <img className="pokemon-img" src={url} alt="pokemon" />
             <div className= "pokemon-title">            
             <h3 className="pokemon-nom">{nom}</h3>
-            <Button className="pokemon-icon"> 
-            <ControlPointRoundedIcon sx={{pd: '1rem'}}/>
-            </Button>  
+            <button className="pokemon-icon"> 
+            <ControlPointRoundedIcon />
+            </button>  
             </div>
             
             </button>
