@@ -20,7 +20,7 @@ function App() {
     <div className="App">
       <Navbar setSuccess={setSuccess} isLogged={isLogged} setIsLogged={setIsLogged} setPokedex={setPokedex} />
       <Routes>
-        <Route path="/" element={<Pokemons pokedex={pokedex} setPokedex={setPokedex} />} />
+        <Route path="/" element={<Pokemons pokedex={pokedex} setPokedex={setPokedex} isLogged={isLogged}/>} />
         <Route path="/detailsPokemon" element={<DetailsPokemon />} />
         <Route path="/detailsType" element={<DetailsType />} />
         <Route path="/types" element={<TypesPokemon />} />

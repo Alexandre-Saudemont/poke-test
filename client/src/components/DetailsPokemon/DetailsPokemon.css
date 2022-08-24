@@ -1,17 +1,30 @@
 
 .detail-container{
-    
-    justify-content: center;
+    /* display:flex;
+    justify-content: center; */
     width:fit-content;
     height:fit-content;
-    border: black 1px solid;
     margin: 1rem;
     padding: 1rem;
-    background-color: lightblue;
+    background-color: lightcoral;
     color:white;
+    border-radius: 2%;
 }
 
 .detail-name{
+    font-size: 1em;
     text-align:center;
     color: black;
+}
+#detail-pokemon-comp{
+    display:flex;
+    
+}
+.detail-pokemon-stats{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+#detail-pokemon-list-stats{
+    margin: auto;
+    padding: 0 5rem;
 }

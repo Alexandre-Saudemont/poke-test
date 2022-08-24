@@ -61,7 +61,6 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex }) {
     const theme = createTheme({
         typography: {
             "fontFamily": `"Alumni Sans Collegiate One", sans-serif`,
-            // "padding-left": "1em"
         }
     })
     return (
@@ -115,7 +114,7 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex }) {
                             >
                             </IconButton>
                             <InputLabel htmlFor="search" />
-                            <Input sx={{ display: "inline-flex", paddingLeft: "2rem" }}
+                            <Input sx={{ display: "inline-flex", paddingLeft: "2rem", width: "80%" }}
                                 className="nav-search"
                                 id="search"
                                 type="search"

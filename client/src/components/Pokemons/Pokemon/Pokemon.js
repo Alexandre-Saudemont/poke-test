@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import Button from '@mui/material/Button'
 
-function Pokemon ({nom, url, id}){
+function Pokemon ({nom, url, id, isLogged}){
     
     const navigate = useNavigate();
 
@@ -34,10 +34,18 @@ function Pokemon ({nom, url, id}){
             <button  onClick={handleClick}>            
             <img className="pokemon-img" src={url} alt="pokemon" />
             <div className= "pokemon-title">            
-            <h3 className="pokemon-nom">{nom}</h3>
-            <button className="pokemon-icon"> 
-            <ControlPointRoundedIcon />
-            </button>  
+            <h1 className="pokemon-nom">{nom}</h1>
+            
+            
+            {/* Est que mon state isLogged est vide ou plein ? Si il est rempli, alors j'ai un utilisateur connecté et j'affiche le bouton  */}
+            {isLogged && 
+            <div className="pokemon-button"> 
+                <button className="pokemon-icon"> 
+                <ControlPointRoundedIcon />
+                </button>   
+            </div>
+            
+            }
             </div>
             
             </button>

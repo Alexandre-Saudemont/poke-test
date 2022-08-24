@@ -3,7 +3,7 @@ import { useEffect, useState }  from 'react';
 import { PokemonRequest } from '../../requests/index.js';
 
 
-function Pokemons ({setPokedex, pokedex}){
+function Pokemons ({setPokedex, pokedex, isLogged}){
     
 
     async function requestForPokemon(){
@@ -26,7 +26,7 @@ function Pokemons ({setPokedex, pokedex}){
         
         <div className="pokemons">
         {pokedex.length > 0 && pokedex.map((pokemon)=>(
-        <Pokemon key={pokemon.id} {...pokemon}/>
+        <Pokemon key={pokemon.id} {...pokemon} isLogged={isLogged}/>
         ))
         }
         </div>
