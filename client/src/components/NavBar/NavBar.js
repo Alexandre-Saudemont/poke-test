@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import {  NavLink, useNavigate}  from "react-router-dom";
-import { styled, alpha } from '@mui/material/styles';
 import { PokemonRequest } from "../../requests";
 import "./NavBar.css";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
