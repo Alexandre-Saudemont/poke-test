@@ -1,18 +1,31 @@
-const Deck = require('../Models/deckModel');
-const Pokemon = require('../Models/pokemonModel');
-const DeckPokemon = require('../Models/deck_pokemonModel');
-const { removeAttribute } = require('../Models/deckModel');
+// const Deck = require('../Models/deckModel');
+// const Pokemon = require('../Models/pokemonModel');
+// const DeckPokemon = require('../Models/deck_pokemonModel');
+const {Deck, Pokemon, DeckPokemon} = require('../Models');
+
 
 const deckController = {
     getDeck: async (req, res) => {
         try {
             const id = req.params.id;
             console.log(id)
-            const deck = await Deck.findOne({
-                where: {
-                    user_id: id
+
+            /*
+            Je veux afficher le deck d'un utilisateur qui a l'id correspondant. 
+            Je veux donc interroger la table deck en passant par l'association avec la table Pokemon
+            Je récupère un tableau vide au lieu de récupérer les informations de la table DeckPokemon (association entre pokemon & deck)
+            
+            */
+            const deck = await Deck.findAll({
+                include:{
+                    association:"deckPokemon",                    
+                    where: {
+                       id: id
+                    }
                 }
             });
+
+            console.log("deck",deck)
             res.status(200).json(deck);
             console.log(deck)
 
