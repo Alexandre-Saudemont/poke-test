@@ -34,9 +34,7 @@ const deckController = {
                 where: {
                     user_id: UserId
                 }
-            });
-
-            
+            });            
 
             if (!deck) {
                 return res.status(404).json({ 
@@ -44,7 +42,6 @@ const deckController = {
                 })
             }
             const deckId = deck.dataValues.id;
-
             const { id, pokemon_id } = req.body;           
 
             const pokemonIdCheck = await Pokemon.findByPk(pokemon_id)
@@ -55,6 +52,12 @@ const deckController = {
                 })
             }
             
+            /*
+            Je veux ajouter un pokemon dans la table d'association entre deck et pokemon en fonction de l'id du deck
+            qui est lui-même lié à l'id de l'utilisateur connecté
+            Si il y a déjà 5 pokemon pour ce deck, alors je rentre dans une erreur
+            Sinon, je créé une ligne dans ma table deckPokemon
+            */
             const deckPokemon = await DeckPokemon.findAll({
                     where: {
                         deck_id: deckId
