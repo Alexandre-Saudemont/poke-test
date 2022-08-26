@@ -30,19 +30,14 @@
     cursor: pointer;
     margin:0;
     padding-bottom: 0.5rem;
+    width:100%
     
 }
 
 .pokemon-title{
-    display: flex;
-   
-    text-align: center;
-    justify-content: center;
-    
+    display: flex;    
 }
-.pokemon-button{
-    position: relative;
-    left: 8rem;
+.pokemon-button{    
     padding-top: 0.3rem;
 }
 .pokemon-icon{

@@ -5,16 +5,12 @@
     color: black;
     font-weight: bold;
 }
+
 .nav-pokedex{
     display:flex;
     width: 25rem;
     
 }
-/* .css-1sra7t5-MuiTypography-root{
-    font-family: 'Alumni Sans Collegiate One', sans-serif;
-    align-items: center;
-    padding-left: 1em
-} */
 
 .css-1frpczi-MuiTypography-root{
     padding-left:1em;
@@ -22,8 +18,7 @@
 }
 .navbar{
     background-color: lightcoral;
-    justify-content: space-between;
-    /* padding: auto; */
+    justify-content: space-between;    
 }
 
 .nav-search{
@@ -36,7 +31,6 @@
 }
 
 .nav-menu:hover{
-    /* color: white; */
     box-sizing: border-box;
     border-bottom: solid white .15em;
 }
@@ -57,3 +51,4 @@
 .items{
     padding:0
 }
+

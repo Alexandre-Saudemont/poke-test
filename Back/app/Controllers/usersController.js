@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { User, Deck } = require('../Models');
+const { User, Deck, DeckPokemon } = require('../Models');
 const bcrypt = require("bcrypt");
 const emailValidator = require('email-validator');
 const jwt = require('jsonwebtoken');
@@ -146,6 +146,12 @@ const usersController = {
             await deck.save();
             console.log("after save", deck);
 
+            // const deckPokemon = DeckPokemon.build({
+            //     id,
+            //     deck_id: deck.dataValues.id
+            // })
+
+            // deckPokemon.save();
             return res.status(201).json({
                 success: "Utilisateur créé avec succès."
             });

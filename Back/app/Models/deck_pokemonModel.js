@@ -15,7 +15,7 @@ DeckPokemon.init({
     },
     pokemon_id: {
         type: Sequelize.INTEGER,
-        allowNull:false
+        allowNull:true
     }
     
 },

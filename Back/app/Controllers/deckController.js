@@ -1,6 +1,7 @@
 const Deck = require('../Models/deckModel');
 const Pokemon = require('../Models/pokemonModel');
-const DeckPokemon = require('../Models');
+const DeckPokemon = require('../Models/deck_pokemonModel');
+const { removeAttribute } = require('../Models/deckModel');
 
 const deckController = {
     getDeck: async (req, res) => {
@@ -13,6 +14,7 @@ const deckController = {
                 }
             });
             res.status(200).json(deck);
+            console.log(deck)
 
         } catch (error) {
             console.error(error);
@@ -20,50 +22,61 @@ const deckController = {
         }
 
     },
-    updateDeck: async (req, res) => {
+    addPokemonToDeck: async (req, res) => {
         try {
-            const id = req.params.id;
+            const UserId = req.params.id;
             const deck = await Deck.findOne({
                 where: {
-                    user_id: id
+                    user_id: UserId
                 }
             });
-            console.log(deck);
-            const { pokemon_id } = req.body;
-            console.log(pokemon_id);
 
-            const array = []
-            if (pokemon_id.length > 0) {
-                pokemon_id.forEach(async id_pokemon => {
-                    const pokemonIdCheck = await Pokemon.findByPk(id_pokemon)
+            
 
-                    if (!pokemonIdCheck) {
-                        array.push({ error: `Pas de pokemon correspond à l'id ${id_pokemon}` })
-                        // return res.status(404).json({
-                        //     error: `Pas de pokemon correspond à l'id ${id_pokemon}`
-                        // })
-                    } else {
-                        const newArray = Number(deck.pokemon_id);
-
-                        deck.pokemon_id = newArray;
-                        deck.save();
-                        console.log("dans la boucle", deck)
-                        //     res.status(200).json({
-                        //        success: "Modification mise à jour avec succès",
-                        //        deck
-                        //    });
-                    }
-                });
-                if (array.length > 0) {
-                    return res.status(404).json({
-                        error: `Pas de pokemon correspond à l'id ${id_pokemon}`
-                    })
-                }
-                res.status(200).json({
-                    success: "Modification mise à jour avec succès",
-                    deck
-                });
+            if (!deck) {
+                return res.status(404).json({ 
+                    error:"Pas de deck pour l'utilisateur demandé"
+                })
             }
+            const deckId = deck.dataValues.id;
+
+            const { id, pokemon_id } = req.body;           
+
+            const pokemonIdCheck = await Pokemon.findByPk(pokemon_id)
+
+            if (!pokemonIdCheck) {
+                return res.status(404).json({
+                    error: `Pas de pokemon correspond à l'id ${pokemon_id}`
+                })
+            }
+            
+            const deckPokemon = await DeckPokemon.findAll({
+                    where: {
+                        deck_id: deckId
+                    }
+            })
+
+            console.log("deckPokemon",deckPokemon)
+            if (deckPokemon.length === 5){               
+                return res.status(404).json({
+                    error: `Vous avez déjà 5 pokemons enregistrés dans votre deck.`
+                })
+            }
+            if (deckPokemon.dataValues.pokemon_id === pokemon_id){
+                return res.status(404).json({
+                    error:"Vous avez déjà ajouté ce pokemon dans votre Deck"
+                })
+            }
+            const newDeckPokemon = DeckPokemon.build({
+                id, 
+                deck_id:deckId,
+                pokemon_id : pokemon_id
+            })
+            
+            newDeckPokemon.save();
+            return res.status(200).json({
+            success: `Ajout de ${pokemonIdCheck.nom} effectuée avec succès`
+            })
 
         } catch (error) {
             console.error(error);
@@ -72,6 +85,8 @@ const deckController = {
             })
         }
     }
+                        
+
 }
 
 module.exports = deckController;

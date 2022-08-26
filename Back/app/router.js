@@ -21,10 +21,10 @@ router.get('/Deck/:id', jwtVerify, deckController.getDeck);
 // POST
 router.post(`/Inscription`, usersController.createUser);
 router.post('/Connexion', usersController.connectUser);
+router.post('/Deck/:id', jwtVerify, deckController.addPokemonToDeck);
 
 //PUT
 router.put('/User/:id', jwtVerify, usersController.updateUser);
-// router.put('/Deck/:id', jwtVerify, deckController.updateDeck);
 
 //DELETE
 router.delete('/User/:id', jwtVerify, usersController.deleteUser);
