@@ -8,22 +8,22 @@ const deckController = {
     getDeck: async (req, res) => {
         try {
             const id = req.params.id;          
-            const PokemonDeck = await Pokemon.findAll({
+            const pokemonDeck = await Pokemon.findAll({
                 include:{
                     association:"pokeDeck",                    
                     where: {
                        id: id
                     }
                 }
-            });
-
-            
-            res.status(200).json(PokemonDeck);
-          
+            });   
+           
+           return res.status(200).json(pokemonDeck);          
 
         } catch (error) {
             console.error(error);
-
+            return res.status(404).json({
+                error: "Problème survenu sur la méthode getDeck"
+            })
         }
 
     },
