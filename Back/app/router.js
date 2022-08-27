@@ -28,7 +28,8 @@ router.put('/User/:id', jwtVerify, usersController.updateUser);
 
 //DELETE
 router.delete('/User/:id', jwtVerify, usersController.deleteUser);
-
+router.delete('/Deck/Pokemon/:id', jwtVerify, deckController.deleteOnePokemonToDeck);
+router.delete('/Deck/AllPokemons/:id', jwtVerify, deckController.deleteAllPokemonsToDeck)
 
 
 module.exports = router;

@@ -92,7 +92,112 @@ const deckController = {
                 error: "Problème avec la requête de modification de Deck"
             })
         }
+    },
+
+    deleteOnePokemonToDeck: async (req,res) =>{
+        try {
+
+           /*
+           Je veux aller chercher le deck correspondant à mon utilisateur dans la table Deck
+           avec l'id du deck je vais aller chercher les instances existantes pour cet utiliseur           
+           puis aller vérifier si l'id du pokemon que je veux supprimer est présent dans une de ces instances
+           Si oui, je supprime l'instance correspondant (id, deck_id, pokemon_id)
+           Sinon je ne fais rien
+           */
+           const UserId = req.params.id;
+           const deck = await Deck.findOne({
+               where: {
+                   user_id: UserId
+               }
+           }); 
+           
+           if (!deck) {
+               return res.status(404).json({ 
+                   error:"Pas de deck pour l'utilisateur demandé"
+               })
+           }
+           const deckId = deck.dataValues.id;
+           const  {pokemon_id } = req.body;           
+
+           const pokemonIdCheck = await Pokemon.findByPk(pokemon_id)
+
+           if (!pokemonIdCheck) {
+               return res.status(404).json({
+                   error: `Pas de pokemon correspond à l'id ${pokemon_id}`
+               })
+           }
+           const deckPokemon = await DeckPokemon.findAll({
+                where: {
+                    deck_id: deckId
+                }
+            });    
+           
+
+            if (deckPokemon.length >1){
+                deckPokemon.forEach((pokemon) =>{
+                    
+                    if (pokemon.dataValues.pokemon_id === Number(pokemon_id)){
+                        pokemon.destroy();
+                        return res.status(200).json({
+                            success: `${pokemonIdCheck.dataValues.nom} a bien été supprimé de votre deck`
+                        })
+                }})
+            } else {
+
+                deckPokemon.destroy();
+                return res.status(200).json({
+                    success: `${pokemonIdCeck.dataValues.nom} a bien été supprimé de votre deck`
+                })
+            }
+
+        } catch (error) {
+           console.error(error);
+        }        
+    },
+
+    deleteAllPokemonsToDeck: async (req,res) =>{
+        try {
+            const UserId = req.params.id;
+           const deck = await Deck.findOne({
+               where: {
+                   user_id: UserId
+               }
+           }); 
+           
+           if (!deck) {
+               return res.status(404).json({ 
+                   error:"Pas de deck pour l'utilisateur demandé"
+               })
+           }
+           const deckId = deck.dataValues.id;
+           
+           const deckPokemon = await DeckPokemon.findAll({
+                where: {
+                    deck_id: deckId
+                }
+            });
+            console.log(deckPokemon)
+            if (!deckPokemon){
+                return res.status(404).json({
+                    error: "Votre deck est déjà vide"
+                })
+            }
+            deckPokemon.forEach(pokemon=>{
+                pokemon.destroy();
+            })
+            
+            return res.status(200).json({
+                success: "Votre deck a été réinitialisé avec succès"
+            })
+            /*
+            Je veux aller chercher le deck correspondant à mon utilisateur comme dans la méthode getDeck
+            Supprimer toutes les instances de pokemon_deck correspondant à cet utilisateur
+            */
+        } catch (error) {
+            console.error(error);
+        }
     }
+    // fonctionne mais a un bug important. Malgré la présence du jwtVerify, avec le même token, j'ai pu supprimé les informations de deckPokemon pour 2 deck_id différents, le 10 et le 12
                         
 
 }
