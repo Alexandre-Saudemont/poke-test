@@ -52,39 +52,54 @@ const deckController = {
                 })
             }
             
-            /*
-            Je veux ajouter un pokemon dans la table d'association entre deck et pokemon en fonction de l'id du deck
-            qui est lui-même lié à l'id de l'utilisateur connecté
-            Si il y a déjà 5 pokemon pour ce deck, alors je rentre dans une erreur
-            Sinon, je créé une ligne dans ma table deckPokemon
-            */
             const deckPokemon = await DeckPokemon.findAll({
                     where: {
                         deck_id: deckId
                     }
             })
 
-            console.log("deckPokemon",deckPokemon)
             if (deckPokemon.length === 5){               
+                
                 return res.status(404).json({
                     error: `Vous avez déjà 5 pokemons enregistrés dans votre deck.`
                 })
             }
-            if (deckPokemon.dataValues.pokemon_id === pokemon_id){
-                return res.status(404).json({
-                    error:"Vous avez déjà ajouté ce pokemon dans votre Deck"
+           
+            if (deckPokemon.length > 0) {
+                
+                const deckPokemonFilter = deckPokemon.filter(pokemon=>pokemon.dataValues.pokemon_id === Number(pokemon_id))
+                  
+                    if (deckPokemonFilter.length >0) {
+                        return res.status(404).json({
+                            error: "Vous avez déjà ajouté ce pokemon dans votre Deck"
+                        })    
+
+                    }                    
+           
+                const newDeckPokemon = DeckPokemon.build({
+                    id, 
+                    deck_id:deckId,
+                    pokemon_id : pokemon_id
+                })
+                
+                newDeckPokemon.save();
+                console.log("juste avant le return quand tout va bien")
+                return res.status(200).json({
+                success: `Ajout de ${pokemonIdCheck.nom} effectuée avec succès`
                 })
             }
-            const newDeckPokemon = DeckPokemon.build({
-                id, 
-                deck_id:deckId,
-                pokemon_id : pokemon_id
-            })
-            
-            newDeckPokemon.save();
-            return res.status(200).json({
-            success: `Ajout de ${pokemonIdCheck.nom} effectuée avec succès`
-            })
+
+                const newDeckPokemon = DeckPokemon.build({
+                    id, 
+                    deck_id:deckId,
+                    pokemon_id : pokemon_id
+                })
+                
+                newDeckPokemon.save();
+                console.log("juste avant le return quand tout va bien")
+                return res.status(200).json({
+                success: `Ajout de ${pokemonIdCheck.nom} effectuée avec succès`
+                })
 
         } catch (error) {
             console.error(error);
