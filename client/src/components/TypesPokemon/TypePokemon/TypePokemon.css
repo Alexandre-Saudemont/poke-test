@@ -14,20 +14,20 @@
 }
 .type-button{
     width: 15rem;
-height: 7.5rem;
+    height: 7.5rem;
     font-size: 2rem;
     border-radius: 1rem;
     transition: all .5s ease-in;
 }
 
 .types-title{
-    background-color:rgba(10, 29, 55, 0.876);
+    background-color:rgba(255, 204, 01);
     padding:1.3rem;
     font-size: 2rem;
     font-weight: 700;
-    color:rgb(186, 195, 203);    
+    color:rgb(45, 106, 180);    
     -webkit-box-shadow: 0rem 0.625rem 0.70rem 0.75rem rgba(10, 29, 55, 0.876); 
-    box-shadow: 0rem 0.75rem 0rem  0rem rgba(10, 29, 55, 1);
+    box-shadow: 0rem 1rem 0rem  0rem rgba(10, 29, 55, 1);
     margin-bottom:.8rem;
 }
 

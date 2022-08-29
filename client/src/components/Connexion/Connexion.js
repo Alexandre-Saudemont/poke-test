@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { LoginRequest, saveAuthorization } from "../../requests";
-
-
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import Button from '@mui/material/Button'
+import './Connexion.css'
 function Connexion({ setIsLogged, success, setSuccess }) {
-   
+
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -37,37 +39,46 @@ function Connexion({ setIsLogged, success, setSuccess }) {
 
     return (
 
-        <div className="Connexion">
+        <div className="connexion-container">
             {success ?
                 <p className="success">{success}. Bienvenue {username}</p> :
-                <><h3>Se connecter</h3><form
-                    action="submit"
-                    onSubmit={handleSubmit}
-                >
-                    <label>
-                        Adresse Email
-                        <input
-                            type="email"
-                            name="email"
-                            value={email}
-                            placeholder="pikachu@gmail.com"
-                            onChange={(e) => setEmail(e.target.value)} />
-                    </label>
-                    <label>
-                        Mot de passe
-                        <input
-                            type="password"
-                            name="password"
-                            value={password}
-                            placeholder="*******"
-                            onChange={(e) => setPassword(e.target.value)} />
-                    </label>
-                    <button type="submit">Envoyer</button>
-                </form></>
+                <>
+                    <div className="connexion-subcontainer">
+                        <h2 className="connexion-title">Se connecter</h2>
+                        <form
+                            action="submit"
+                            onSubmit={handleSubmit}
+                        >
+                            <InputLabel htmlFor="email">
+                                Adresse Email
+                            </InputLabel>
+                            <Input
+                                type="email"
+                                name="email"
+                                value={email}
+                                placeholder="pikachu@gmail.com"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <InputLabel htmlFor="password">
+                                Mot de passe
+                            </InputLabel>
+                            <Input
+                                type="password"
+                                name="password"
+                                value={password}
+                                placeholder="*******"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <Button type="submit">
+                                Envoyer
+                            </Button>
 
+                        </form>
+                    </div>
+                </>
             }
-
-            {error && !success &&
+            {
+                error && !success &&
                 <p className="error">{error}</p>
             }
         </div>

@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import { RegisterRequest } from '../../requests'
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import Button from '@mui/material/Button';
+import { FormHelperText } from '@mui/material';
+import './Inscription.css';
 
 function Inscription() {
 
@@ -36,83 +41,86 @@ function Inscription() {
     }
 
     return (
-
-        <div className="Inscription">
+        <div className="inscription-container">
             {success ?
                 <p className="success">{success}</p> :
                 <>
-                    <h2>Inscription</h2><form
-                        action="submit"
-                        onSubmit={handleSubmit}
-                    >
-
-                        <label>
-                            Pseudo
-                            <input
+                    <div>
+                        <h2 className="inscription-title">Inscription</h2>
+                        <form
+                            action="submit"
+                            onSubmit={handleSubmit}
+                        >
+                            <InputLabel htmlFor='username'>
+                                Pseudo
+                            </InputLabel>
+                            <Input
+                                id="username"
                                 type="text"
                                 name="username"
                                 value={username}
                                 placeholder="DarkSasukedu92"
-                                onChange={(e) => setUsername(e.target.value)} />
-
-                        </label>
-
-                        <label>
-                            Adresse Email
-                            <input
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <InputLabel htmlFor='email'>
+                                Adresse Email
+                            </InputLabel>
+                            <Input
                                 type="email"
+                                id="email"
                                 name="email"
                                 value={email}
                                 placeholder="pikachu@gmail.com"
-                                onChange={(e) => setEmail(e.target.value)} />
-
-                        </label>
-
-                        <label>
-                            Nom
-                            <input
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <InputLabel htmlFor='lastname'>
+                                Nom
+                            </InputLabel>
+                            <Input
                                 type="text"
                                 name="lastname"
                                 value={lastname}
                                 placeholder="Dubois"
-                                onChange={(e) => setLastname(e.target.value)} />
-                        </label>
-                        <label>
-                            Prénom
-                            <input
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <InputLabel htmlFor='firstname'>
+                                Prénom
+                            </InputLabel>
+                            <Input
+                                id="prénom"
                                 type="text"
-                                name="firstname"
+                                name="username"
                                 value={firstname}
                                 placeholder="Jean-Eude"
-                                onChange={(e) => setFirstname(e.target.value)} />
-
-                        </label>
-
-                        <label>
-                            Mot de passe
-                            <input
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <InputLabel htmlFor='password'>
+                                Mot de passe
+                            </InputLabel>
+                            <Input
+                                id="password"
                                 type="password"
                                 name="password"
                                 value={password}
-                                placeholder="****"
-                                onChange={(e) => setPassword(e.target.value)} />
+                                aria-describedby="password-text"
+                                placeholder="*********"
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <FormHelperText
+                                id="password-text">
+                                8 caractères requis
+                            </FormHelperText>
+                            <Button type="submit">
+                                Envoyer
+                            </Button>
 
-                        </label>
-
-                        <button
-                            type="submit"
-                        >Envoyer
-                        </button>
-
-                    </form>
+                        </form>
+                    </div>
                 </>
-
-
             }
-            {error && !success &&
-
+            {
+                error && !success &&
                 <p className="error">{error}</p>
-
             }
         </div>
     )

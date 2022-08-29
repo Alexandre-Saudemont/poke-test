@@ -1,0 +1,13 @@
+.connexion-container{
+    display: flex;
+    justify-content: center;
+}
+
+.connexion-title{
+    font-size: 2rem;
+    padding: 1rem 0 1rem 0;
+}
+
+.connexion-subcontainer{
+    max-width: 12rem;
+}
