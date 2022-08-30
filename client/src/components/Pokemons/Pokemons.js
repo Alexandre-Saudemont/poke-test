@@ -17,7 +17,8 @@ function Pokemons ({setPokedex, pokedex, isLogged}){
     }
    
     useEffect(() => {       
-       requestForPokemon();        
+       requestForPokemon();  
+          
     }, []);
 
 
@@ -26,7 +27,7 @@ function Pokemons ({setPokedex, pokedex, isLogged}){
         
         <div className="pokemons">
         {pokedex.length > 0 && pokedex.map((pokemon)=>(
-        <Pokemon key={pokemon.id} {...pokemon} isLogged={isLogged}/>
+        <Pokemon key={pokemon.id} {...pokemon} isLogged={isLogged} />
         ))
         }
         </div>

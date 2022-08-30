@@ -1,13 +1,12 @@
 import { DeckRequest, saveAuthorization } from '../../requests';
-import { useState, useEffect } from 'react';
+import {useState, useEffect } from 'react';
 
 function Deck() {
     const token = sessionStorage.getItem("token");
     const userId = localStorage.getItem("id");
-    const [deck, setDeck] = useState();
+    const [deck, setDeck] =useState([]);
     
-
-
+    
     async function RequestForDeck(){
 
         try {
@@ -15,6 +14,7 @@ function Deck() {
             const response = await DeckRequest(userId);
             if (response.status === 200) {
             setDeck(response.data);
+            localStorage.setItem("deck", JSON.stringify(response.data));
             }            
         } catch (error) {
             console.error(error)

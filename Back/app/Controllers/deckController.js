@@ -133,8 +133,9 @@ const deckController = {
            }
            const deckId = deck.dataValues.id;
            const  {pokemon_id } = req.body;           
-
+           
            const pokemonIdCheck = await Pokemon.findByPk(pokemon_id)
+           
 
            if (!pokemonIdCheck) {
                return res.status(404).json({

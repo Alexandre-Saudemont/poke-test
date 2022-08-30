@@ -62,3 +62,9 @@ export function addPokemonToDeck(id, pokemon_id) {
     const response = axiosInstance.post(`/Deck/${id}`, pokemon_id);
     return response;
 }       
+
+export function deletePokemon(id, pokemon_id){
+    const response = axiosInstance.delete(`/Deck/Pokemon/${id}`, pokemon_id);
+    return response;
+
+}
