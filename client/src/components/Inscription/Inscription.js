@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RegisterRequest } from '../../requests'
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import { FormHelperText } from '@mui/material';
 import './Inscription.css';
 
-function Inscription() {
+function Inscription({setIsActive}) {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -27,7 +27,8 @@ function Inscription() {
 
             if (response.status === 201) {
                 setSuccess(response.data.success);
-                console.log(response.data.success);
+                
+                setIsActive(false)
                 setEmail("");
                 setFirstname("");
                 setLastname("");
@@ -39,7 +40,9 @@ function Inscription() {
             console.error(error);
         }
     }
-
+    useEffect(() => {
+        setIsActive(false);
+        }, []);
     return (
         <div className="inscription-container">
             {success ?

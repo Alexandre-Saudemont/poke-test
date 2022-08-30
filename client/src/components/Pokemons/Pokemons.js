@@ -3,13 +3,14 @@ import { useEffect, useState }  from 'react';
 import { PokemonRequest } from '../../requests/index.js';
 
 
-function Pokemons ({setPokedex, pokedex, isLogged}){
+function Pokemons ({setPokedex, pokedex, isLogged, setIsActive}){
     
 
     async function requestForPokemon(){
         try {
             const response = await PokemonRequest();
             setPokedex(response.data);
+            setIsActive(true)
             
         } catch (error){
             console.error(error)         

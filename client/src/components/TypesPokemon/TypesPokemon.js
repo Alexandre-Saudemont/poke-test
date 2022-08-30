@@ -5,14 +5,15 @@ import "./TypesPokemon.css"
 import { useState, useEffect } from 'react';
 
 
-function TypesPokemon () {
+function TypesPokemon ({setIsActive}) {
    
     const [types, setTypes] = useState([]);
 
     async function RequestForTypes(){
         try {
             const response = await TypesRequest();
-            setTypes(response.data)            
+            setTypes(response.data)  
+            setIsActive(false)          
         } catch (error) {
           console.error(error); 
         }
@@ -20,6 +21,7 @@ function TypesPokemon () {
 
     useEffect(()=>{
         RequestForTypes();
+        // setIsActive(false);
     }, []);
 
     return (

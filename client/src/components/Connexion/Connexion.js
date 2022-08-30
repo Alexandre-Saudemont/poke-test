@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LoginRequest, saveAuthorization } from "../../requests";
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button'
 import './Connexion.css'
-function Connexion({ setIsLogged, success, setSuccess }) {
+function Connexion({ setIsLogged, success, setSuccess, setIsActive }) {
 
 
     const [email, setEmail] = useState("");
@@ -36,7 +36,9 @@ function Connexion({ setIsLogged, success, setSuccess }) {
             setPassword("");
         }
     }
-
+    useEffect(() => {
+        setIsActive(false);
+        }, []);
     return (
 
         <div className="connexion-container">

@@ -14,7 +14,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
 
-function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex }) {
+function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
 
     const navigate = useNavigate();
     const token = sessionStorage.getItem("token");
@@ -102,6 +102,8 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex }) {
                             </Typography>
                             </ThemeProvider>
                         </div>
+                        {isActive && 
+                       
                         <div className="nav-element-right">
                             <IconButton
                                 size="large"
@@ -121,6 +123,7 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex }) {
                                 placeholder="Rechercher..."
                             />
                         </div>
+                         }
                     </Toolbar>
                 </AppBar>
             </ul>

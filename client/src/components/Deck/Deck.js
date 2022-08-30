@@ -2,7 +2,7 @@ import { DeckRequest, saveAuthorization, deleteAllPokemons } from '../../request
 import {useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 
-function Deck() {
+function Deck({setIsActive}) {
     const token = sessionStorage.getItem("token");
     const userId = localStorage.getItem("id");
     const [deck, setDeck] =useState([]);
@@ -39,6 +39,7 @@ function Deck() {
     console.log("deck", deck)
     useEffect(()=>{
         RequestForDeck();
+        setIsActive(false)
     }, [])
 
     return (

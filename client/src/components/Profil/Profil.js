@@ -14,7 +14,7 @@ import InputLabel from '@mui/material/InputLabel'
 import {useNavigate} from 'react-router-dom';
 
 
-function Profil({setIsLogged}) {
+function Profil({setIsLogged, setIsActive}) {
     
     const token = sessionStorage.getItem("token");
     const id = localStorage.getItem("id");
@@ -115,6 +115,7 @@ function Profil({setIsLogged}) {
 
     useEffect(() => {
         requestInfoUser();
+        setIsActive(false)
 
     }, [])
 

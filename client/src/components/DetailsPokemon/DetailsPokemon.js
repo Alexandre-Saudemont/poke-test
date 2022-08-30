@@ -1,12 +1,15 @@
 import './DetailsPokemon.css';
+import {useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 
 
-function DetailsPokemon() {
+function DetailsPokemon({setIsActive}) {
 
     const { state } = useLocation();
-
+    useEffect(() => {
+        setIsActive(false);
+        }, []);
     return (
         <>
             <div className="pokemons">
