@@ -66,8 +66,8 @@ function Inscription() {
                                 Adresse Email
                             </InputLabel>
                             <Input
-                                type="email"
-                                id="email"
+                            i   id="email"
+                                type="email"                               
                                 name="email"
                                 value={email}
                                 placeholder="pikachu@gmail.com"
@@ -77,22 +77,23 @@ function Inscription() {
                                 Nom
                             </InputLabel>
                             <Input
+                                id="lastname"
                                 type="text"
                                 name="lastname"
                                 value={lastname}
                                 placeholder="Dubois"
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => setLastname(e.target.value)}
                             />
                             <InputLabel htmlFor='firstname'>
                                 Prénom
                             </InputLabel>
                             <Input
-                                id="prénom"
+                                id="firstname"
                                 type="text"
                                 name="username"
                                 value={firstname}
                                 placeholder="Jean-Eude"
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => setFirstname(e.target.value)}
                             />
                             <InputLabel htmlFor='password'>
                                 Mot de passe
@@ -104,7 +105,7 @@ function Inscription() {
                                 value={password}
                                 aria-describedby="password-text"
                                 placeholder="*********"
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                             <FormHelperText
                                 id="password-text">

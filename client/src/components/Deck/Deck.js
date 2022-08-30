@@ -3,16 +3,19 @@ import { useState, useEffect } from 'react';
 
 function Deck() {
     const token = sessionStorage.getItem("token");
+    const userId = localStorage.getItem("id");
     const [deck, setDeck] = useState();
-    const id = localStorage.getItem("id");
+    
+
 
     async function RequestForDeck(){
 
         try {
             saveAuthorization(token);
-            const response = await DeckRequest(id);
+            const response = await DeckRequest(userId);
+            if (response.status === 200) {
             setDeck(response.data);
-            
+            }            
         } catch (error) {
             console.error(error)
         }
@@ -24,10 +27,16 @@ function Deck() {
 
     return (
         <div>
-            <h1>Bonjour je suis dans le deck</h1>
+            <h1>Votre deck</h1>
             
-            {deck && 
-            <p>{deck.user_id}</p>
+            {deck && deck.map((pokemon)=>(
+                <div key={pokemon.id}>
+                    <p>{pokemon.nom}</p>
+                    <img src= {pokemon.url} alt={pokemon.nom}></img>
+                </div>
+
+            ))
+            
             }
         </div>
     );

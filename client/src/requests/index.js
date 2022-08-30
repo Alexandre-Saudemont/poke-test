@@ -57,3 +57,8 @@ export function UserDeleteRequest(id){
     const response = axiosInstance.delete(`/User/${id}`);
     return response;
 } 
+
+export function addPokemonToDeck(id, pokemon_id) {
+    const response = axiosInstance.post(`/Deck/${id}`, pokemon_id);
+    return response;
+}       
