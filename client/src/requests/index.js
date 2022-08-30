@@ -68,3 +68,9 @@ export function deletePokemon(id, pokemon_id){
     return response;
 
 }
+
+export function deleteAllPokemons(id){
+    const response = axiosInstance.delete(`/Deck/AllPokemons/${id}`);
+    return response;
+
+}
