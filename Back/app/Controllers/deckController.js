@@ -42,13 +42,14 @@ const deckController = {
                 })
             }
             const deckId = deck.dataValues.id;
-            const { id, pokemon_id } = req.body;           
+            const { id, pokemon_id } = req.body;      
+            console.log(req.body)     
 
             const pokemonIdCheck = await Pokemon.findByPk(pokemon_id)
 
             if (!pokemonIdCheck) {
                 return res.status(404).json({
-                    error: `Pas de pokemon correspond à l'id ${pokemon_id}`
+                    error: `Pas de pokemon correspondant à l'id ${pokemon_id}`
                 })
             }
             
@@ -132,14 +133,14 @@ const deckController = {
                })
            }
            const deckId = deck.dataValues.id;
-           const  {pokemon_id } = req.body;           
-           
+           const  {id, pokemon_id } = req.body;           
+           console.log(req.body)
            const pokemonIdCheck = await Pokemon.findByPk(pokemon_id)
            
 
            if (!pokemonIdCheck) {
                return res.status(404).json({
-                   error: `Pas de pokemon correspond à l'id ${pokemon_id}`
+                   error: `Pas de pokemon correspondant à l'id ${pokemon_id}`
                })
            }
            const deckPokemon = await DeckPokemon.findAll({
@@ -160,9 +161,9 @@ const deckController = {
                 }})
             } else {
 
-                deckPokemon.destroy();
+                deckPokemon[0].destroy();
                 return res.status(200).json({
-                    success: `${pokemonIdCeck.dataValues.nom} a bien été supprimé de votre deck`
+                    success: `${pokemonIdCheck.dataValues.nom} a bien été supprimé de votre deck`
                 })
             }
 

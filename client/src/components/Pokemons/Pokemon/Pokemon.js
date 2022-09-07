@@ -71,8 +71,8 @@ function Pokemon({ nom, url, id, isLogged }) {
         }
     }
 
-    async function handleDelete(e){
-        console.log(e)
+    async function handleDelete(){
+        
         
         try {
             console.log(id)
@@ -118,8 +118,8 @@ function Pokemon({ nom, url, id, isLogged }) {
                             {deckFilter.length>0 && 
                              <button 
                              className="pokemon-icon"
-                             name="pokemon_id"
-                             value={id}
+                            //  name="pokemon_id"
+                            //  value={id}
                              onClick={handleDelete}
                             >
                                 <RemoveCircleOutlineIcon />

@@ -12,6 +12,7 @@ const jwtVerify = (req, res, next)=>{
             })
         }
         jwt.verify(token, process.env.accessTokenSecret)
+        const user = jwt.decode(token, process.env.accessTokenSecret)
     } catch (error) {
         console.error(error);
         return res.status(401).json({
