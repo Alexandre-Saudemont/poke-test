@@ -1,4 +1,4 @@
-import { DeckRequest, saveAuthorization, deleteAllPokemons } from '../../requests';
+import { DeckRequest, saveAuthorization, deleteAllPokemons, deletePokemon } from '../../requests';
 import {useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 
@@ -23,7 +23,7 @@ function Deck({setIsActive}) {
             console.error(error)
         }
     } 
-    async function handleDelete () {
+    async function handleDeleteDeck () {
         try {
             const response = await deleteAllPokemons(userId);
             if (response.status === 200) {
@@ -38,7 +38,23 @@ function Deck({setIsActive}) {
             setError(error.response.data.error)
         }
     }
-    console.log("deck", deck)
+    async function handleDeletePokemon(e){
+        console.log(e);
+        console.log(e.target);
+        console.log(e.target.value)
+        try {
+            saveAuthorization(token);
+            const response = await deletePokemon(userId, {pokemon_id : e.target.value});
+            console.log(response);
+            if (response.status === 200) {
+                 
+                const newDeckFiltered = deck.filter((pokemon => pokemon.id !== e.target.value));
+                localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
+            } 
+        } catch (error) {
+            console.error(error)
+        }
+    }
     useEffect(()=>{
         RequestForDeck();
         setIsActive(false)
@@ -48,7 +64,7 @@ function Deck({setIsActive}) {
         <div>
             <h1>Votre deck</h1>
             <Button 
-            onClick={handleDelete}
+            onClick={handleDeleteDeck}
             >
                 Réinitaliser votre deck
             </Button>
@@ -64,6 +80,11 @@ function Deck({setIsActive}) {
                 <div key={pokemon.id}>
                     <p>{pokemon.nom}</p>
                     <img src= {pokemon.url} alt={pokemon.nom}></img>
+                    <button
+                    onClick={handleDeletePokemon}
+                    value={pokemon.id}> 
+                        Supprimer {pokemon.nom} de votre Deck 
+                    </button>
                 </div>
 
             ))
