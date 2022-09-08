@@ -38,7 +38,7 @@ function Connexion({ setIsLogged, success, setSuccess, setIsActive }) {
     }
     useEffect(() => {
         setIsActive(false);
-        }, []);
+        }, [success]);
     return (
 
         <div className="connexion-container">

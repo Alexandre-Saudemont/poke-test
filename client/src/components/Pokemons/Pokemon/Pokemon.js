@@ -16,14 +16,10 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
     const [errorPokemonAdded, setErrorPokemonAdded] = useState("");
     const [successPokemonAdded, setSuccessPokemonAdded] = useState("");
     const [open, setOpen] = useState(false);
-    const [buttonAddPokemon, setButtonAddPokemon] = useState(true);
-    const [buttonDeletePokemon, setButtonDeletePokemon] = useState(false);
     const deck = JSON.parse(localStorage.getItem('deck'));
     console.log(typeof deck)
     
-    // const deckFilter = deck.filter((pokemon => pokemon.id === id))
-    // console.log(deckFilter)
-   
+       
     console.log("deck", deck)
     const handleClose = () => {
         setOpen(false);
@@ -57,8 +53,7 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
             const response = await addPokemonToDeck(UserId, {pokemon_id : id});
             console.log(response);
             if (response.status === 200) {
-                setSuccessPokemonAdded(response.data.success);                
-                setButtonAddPokemon(false)
+                setSuccessPokemonAdded(response.data.success); 
                 setOpen(true) 
                 const res = await DeckRequest(UserId);
                 if (res.status === 200) {
@@ -91,7 +86,6 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
                 const newDeckFiltered = deck.filter((pokemon => pokemon.id !== id));
                 localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
                 setOpen(true);
-                setButtonDeletePokemon(true);
             }
             setErrorPokemonAdded(response.data.error);
             setOpen(true)

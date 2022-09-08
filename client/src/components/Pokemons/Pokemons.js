@@ -1,5 +1,5 @@
 import Pokemon from './Pokemon/Pokemon.js';
-import { useEffect, useState }  from 'react';
+import { useEffect}  from 'react';
 import { PokemonRequest } from '../../requests/index.js';
 
 
@@ -18,8 +18,7 @@ function Pokemons ({setPokedex, pokedex, isLogged, setIsActive}){
     }
    
     useEffect(() => {       
-       requestForPokemon();  
-          
+       requestForPokemon();           
     }, []);
 
 
