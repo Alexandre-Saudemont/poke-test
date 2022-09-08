@@ -21,8 +21,8 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
     const deck = JSON.parse(localStorage.getItem('deck'));
     console.log(typeof deck)
     
-    const deckFilter = deck.filter((pokemon => pokemon.id === id))
-    console.log(deckFilter)
+    // const deckFilter = deck.filter((pokemon => pokemon.id === id))
+    // console.log(deckFilter)
    
     console.log("deck", deck)
     const handleClose = () => {
@@ -104,7 +104,7 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
     }
     useEffect(() => {
 
-    },[deckFilter.length])
+    },[deck])
 
     return (
         <div className="pokemon-container">
@@ -121,7 +121,7 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
                     {isLogged && 
                         <div className="pokemon-button">
 
-                            { deckFilter.length===1
+                            { deck && deck.some(pokemon=> pokemon.id === id)
                             ?
                             <button 
                              className="pokemon-icon"
