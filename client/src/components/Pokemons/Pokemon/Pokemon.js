@@ -1,14 +1,14 @@
 import './Pokemon.css';
-import { PokemonRequestByID,addPokemonToDeck, saveAuthorization, deletePokemon } from '../../../requests/index.js'
+import { PokemonRequestByID,addPokemonToDeck, saveAuthorization, deletePokemon, DeckRequest } from '../../../requests/index.js'
 import { useNavigate } from 'react-router-dom';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import  Modal  from '@mui/material/Modal';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 
 
-function Pokemon({ nom, url, id, isLogged }) {
+function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense, attaque, isLogged }) {
 
     const navigate = useNavigate();
     const UserId= localStorage.getItem('id');
@@ -17,6 +17,7 @@ function Pokemon({ nom, url, id, isLogged }) {
     const [successPokemonAdded, setSuccessPokemonAdded] = useState("");
     const [open, setOpen] = useState(false);
     const [buttonAddPokemon, setButtonAddPokemon] = useState(true);
+    const [buttonDeletePokemon, setButtonDeletePokemon] = useState(false);
     const deck = JSON.parse(localStorage.getItem('deck'));
     console.log(typeof deck)
     
@@ -58,11 +59,16 @@ function Pokemon({ nom, url, id, isLogged }) {
             if (response.status === 200) {
                 setSuccessPokemonAdded(response.data.success);                
                 setButtonAddPokemon(false)
-                setOpen(true)               
+                setOpen(true) 
+                const res = await DeckRequest(UserId);
+                if (res.status === 200) {
+                    
+                    localStorage.setItem("deck", JSON.stringify(res.data));
+                }   
+                        
             }
             setErrorPokemonAdded(response.data.error);
                 setOpen(true)
-
 
         } catch (error) {
             console.error(error)
@@ -76,12 +82,16 @@ function Pokemon({ nom, url, id, isLogged }) {
         
         try {
             console.log(id)
+            console.log(deck)
             saveAuthorization(token);
             const response = await deletePokemon(UserId, {pokemon_id : id});
             console.log(response);
             if (response.status === 200) {
                 setSuccessPokemonAdded(response.data.success);  
-                setOpen(true)
+                const newDeckFiltered = deck.filter((pokemon => pokemon.id !== id));
+                localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
+                setOpen(true);
+                setButtonDeletePokemon(true);
             }
             setErrorPokemonAdded(response.data.error);
             setOpen(true)
@@ -92,7 +102,10 @@ function Pokemon({ nom, url, id, isLogged }) {
             setOpen(true)
         }
     }
-    
+    useEffect(() => {
+
+    },[deckFilter.length])
+
     return (
         <div className="pokemon-container">
             <div className="pokemon-header"></div>
@@ -107,15 +120,33 @@ function Pokemon({ nom, url, id, isLogged }) {
                     {/* Est que mon state isLogged est vide ou plein ? Si il est rempli, alors j'ai un utilisateur connecté et j'affiche le bouton  */}
                     {isLogged && 
                         <div className="pokemon-button">
-                            { buttonAddPokemon && deckFilter.length===0&&
+
+                            { deckFilter.length===1
+                            ?
+                            <button 
+                             className="pokemon-icon"
+                            //  name="pokemon_id"
+                            //  value={id}
+                             onClick={handleDelete}
+                            >
+                                <RemoveCircleOutlineIcon />
+                            </button>:  
+                            <button 
+                            className="pokemon-icon"
+                            onClick={handleAdd}>
+                                <ControlPointRoundedIcon />
+                            </button>}
+
+                             {/* buttonAddPokemon && deckFilter.length===0&& 
+                            
                             <button 
                             className="pokemon-icon"
                             onClick={handleAdd}>
                                 <ControlPointRoundedIcon />
                             </button>
-                            }
-
-                            {deckFilter.length>0 && 
+                            */ }
+                    
+                            { /* deckFilter.length>0 && 
                              <button 
                              className="pokemon-icon"
                             //  name="pokemon_id"
@@ -124,7 +155,7 @@ function Pokemon({ nom, url, id, isLogged }) {
                             >
                                 <RemoveCircleOutlineIcon />
                             </button>
-                    }   
+                         */ }   
                         </div>
 
 }

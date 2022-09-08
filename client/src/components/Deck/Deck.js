@@ -28,6 +28,8 @@ function Deck({setIsActive}) {
             const response = await deleteAllPokemons(userId);
             if (response.status === 200) {
                 setSuccess(response.data.success);
+                setDeck([]);
+                localStorage.setItem("deck",)
             }
             setError(response.data.error);
                 
@@ -40,7 +42,7 @@ function Deck({setIsActive}) {
     useEffect(()=>{
         RequestForDeck();
         setIsActive(false)
-    }, [])
+    }, [deck.length])
 
     return (
         <div>
