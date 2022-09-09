@@ -8,7 +8,6 @@ function Deck({setIsActive}) {
     const [deck, setDeck] =useState([]);
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
-    // const deck = JSON.parse(localStorage.getItem("deck"));
     
     
     async function RequestForDeck(){
@@ -42,17 +41,15 @@ function Deck({setIsActive}) {
     }
     async function handleDeletePokemon(e){
         try {
-            console.log(Number(e.target.value))
+            
             saveAuthorization(token);
             const response = await deletePokemon(userId, {pokemon_id : e.target.value});
-            console.log(response);
+            
             if (response.status === 200) {
-                console.log("dans le if response.status===200")
+               
                 const newDeckFiltered = deck.filter((pokemon => pokemon.id !== Number(e.target.value)));
-                console.log("filter deck", newDeckFiltered)
                 setSuccess(response.data.success);
-                setDeck(newDeckFiltered);  
-                console.log("dans la réponse de la requête",deck.length)             
+                setDeck(newDeckFiltered);            
                 localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
             } 
         } catch (error) {
@@ -61,8 +58,6 @@ function Deck({setIsActive}) {
     }
   
     useEffect(()=>{
-        console.log("dans le useeffect",deck.length)
-        console.log("montage du composant")
         RequestForDeck();
         setIsActive(false)
     }, [deck.length])
