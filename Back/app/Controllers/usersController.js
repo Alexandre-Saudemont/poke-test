@@ -177,7 +177,7 @@ const usersController = {
                 })
             }
             if (getUser) {
-                const passwordCheck = bcrypt.compare(req.body.password, getUser.password);
+                const passwordCheck = await bcrypt.compare(req.body.password, getUser.password);
                 console.log("passwordCheck", passwordCheck)
                 if (!passwordCheck) {
                     return res.status(400).json({

@@ -1,5 +1,6 @@
 import { DeckRequest, saveAuthorization, deleteAllPokemons, deletePokemon } from '../../requests';
 import {useState, useEffect } from 'react';
+import './Deck.css';
 import Button from '@mui/material/Button';
 
 function Deck({setIsActive}) {
@@ -63,7 +64,7 @@ function Deck({setIsActive}) {
     }, [deck.length])
 
     return (
-        <div>
+        <div className="deck">
             <h1>Votre deck</h1>
             <Button 
             onClick={handleDeleteDeck}
