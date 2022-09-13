@@ -1,31 +1,31 @@
 import { DeckRequest, saveAuthorization, deleteAllPokemons, deletePokemon } from '../../requests';
-import {useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Deck.css';
 import Button from '@mui/material/Button';
 
-function Deck({setIsActive}) {
+function Deck({ setIsActive }) {
     const token = sessionStorage.getItem("token");
     const userId = localStorage.getItem("id");
-    const [deck, setDeck] =useState([]);
+    const [deck, setDeck] = useState([]);
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
-    
-    
-    async function RequestForDeck(){
+
+
+    async function RequestForDeck() {
 
         try {
             saveAuthorization(token);
             const response = await DeckRequest(userId);
             console.log(response)
             if (response.status === 200) {
-            setDeck(response.data);
-            localStorage.setItem("deck", JSON.stringify(response.data));
-            }            
+                setDeck(response.data);
+                localStorage.setItem("deck", JSON.stringify(response.data));
+            }
         } catch (error) {
             console.error(error)
         }
-    } 
-    async function handleDeleteDeck () {
+    }
+    async function handleDeleteDeck() {
         try {
             const response = await deleteAllPokemons(userId);
             if (response.status === 200) {
@@ -34,67 +34,80 @@ function Deck({setIsActive}) {
                 localStorage.setItem("deck",)
             }
             setError(response.data.error);
-                
+
         } catch (error) {
             console.error(error)
             setError(error.response.data.error)
         }
     }
-    async function handleDeletePokemon(e){
+    async function handleDeletePokemon(e) {
         try {
-            
+
             saveAuthorization(token);
-            const response = await deletePokemon(userId, {pokemon_id : e.target.value});
-            
+            const response = await deletePokemon(userId, { pokemon_id: e.target.value });
+
             if (response.status === 200) {
-               
+
                 const newDeckFiltered = deck.filter((pokemon => pokemon.id !== Number(e.target.value)));
                 setSuccess(response.data.success);
-                setDeck(newDeckFiltered);            
+                setDeck(newDeckFiltered);
                 localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
-            } 
+            }
         } catch (error) {
             console.error(error)
         }
     }
-  
-    useEffect(()=>{
+
+    useEffect(() => {
         RequestForDeck();
         setIsActive(false)
     }, [deck.length])
 
     return (
-        <div className="deck">
-            <h1>Votre deck</h1>
-            <Button 
-            onClick={handleDeleteDeck}
-            >
-                Réinitaliser votre deck
-            </Button>
-            {success && 
-            <p>{success}
-            </p>
-            }
-            {error && 
-            <p>{error}
-            </p>
-            }
-            {deck && deck.map((pokemon)=>(
-                <div key={pokemon.id}>
-                    <p>{pokemon.nom}</p>
-                    <img src= {pokemon.url} alt={pokemon.nom}></img>
-                    <button
-                    onClick={handleDeletePokemon}
-                    value={pokemon.id}> 
-                        Supprimer {pokemon.nom} de votre Deck 
-                    </button>
-                </div>
+        <>
+            <h1 className="deck-title">
+                Votre deck de Pokemons
+            </h1>
+            <div className="deck-button">
+                <Button
+                    sx={{ m: 'auto' }}
+                    justify="center"
+                    onClick={handleDeleteDeck}
+                >
+                    Réinitaliser mon deck
+                </Button>
+            </div>
 
-            ))
-            
-            }
+            <div className="deck-container">
+                {success &&
+                    <p>{success}
+                    </p>
+                }
+                {error &&
+                    <p>{error}
+                    </p>
+                }
+                {deck && deck.map((pokemon) => (
+                    <>
+                        <div key={pokemon.id} className="deck-pokemon">
+                            <p>{pokemon.nom}</p>
+                            <div className='deck-image'>
+                                <img src={pokemon.url} alt={pokemon.nom}></img>
+                            </div>
+                            <button
+                                className="deck-buttonDelete-pokemon"
+                                onClick={handleDeletePokemon}
+                                value={pokemon.id}>
+                                Supprimer {pokemon.nom} de votre Deck
+                            </button>
+                        </div>
+                    </>
+                ))
 
-        </div>
+                }
+
+            </div>
+        </>
     );
 }
 
