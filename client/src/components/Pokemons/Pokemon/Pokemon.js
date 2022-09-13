@@ -1,9 +1,9 @@
 import './Pokemon.css';
-import { PokemonRequestByID,addPokemonToDeck, saveAuthorization, deletePokemon, DeckRequest } from '../../../requests/index.js'
+import { PokemonRequestByID, addPokemonToDeck, saveAuthorization, deletePokemon, DeckRequest } from '../../../requests/index.js'
 import { useNavigate } from 'react-router-dom';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import { useEffect, useState } from 'react';
-import  Modal  from '@mui/material/Modal';
+import Modal from '@mui/material/Modal';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 
@@ -11,16 +11,33 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense, attaque, isLogged }) {
 
     const navigate = useNavigate();
-    const UserId= localStorage.getItem('id');
+    const UserId = localStorage.getItem('id');
     const token = sessionStorage.getItem('token');
     const [errorPokemonAdded, setErrorPokemonAdded] = useState("");
     const [successPokemonAdded, setSuccessPokemonAdded] = useState("");
     const [open, setOpen] = useState(false);
     const deck = JSON.parse(localStorage.getItem('deck'));
-    console.log(typeof deck)
-    
-       
-    console.log("deck", deck)
+
+    const style = {
+        display: 'flex',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: "20rem",
+        maxheigth: "500px",
+        bgcolor: 'rgba(54, 89, 89, 0.65)',
+        textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        border: '2px solid #000',
+        color: "#C7C7C7",
+        boxShadow: 24,
+        p: 4,
+        borderRadius: '15px',
+        fontWeigth: 'bold',
+    };
+
     const handleClose = () => {
         setOpen(false);
     }
@@ -48,22 +65,22 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
 
     async function handleAdd() {
         try {
-            
+
             saveAuthorization(token);
-            const response = await addPokemonToDeck(UserId, {pokemon_id : id});
+            const response = await addPokemonToDeck(UserId, { pokemon_id: id });
             console.log(response);
             if (response.status === 200) {
-                setSuccessPokemonAdded(response.data.success); 
-                setOpen(true) 
+                setSuccessPokemonAdded(response.data.success);
+                setOpen(true)
                 const res = await DeckRequest(UserId);
                 if (res.status === 200) {
-                    
+
                     localStorage.setItem("deck", JSON.stringify(res.data));
-                }   
-                        
+                }
+
             }
             setErrorPokemonAdded(response.data.error);
-                setOpen(true)
+            setOpen(true)
 
         } catch (error) {
             console.error(error)
@@ -72,17 +89,17 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
         }
     }
 
-    async function handleDelete(){
-        
-        
+    async function handleDelete() {
+
+
         try {
             console.log(id)
             console.log(deck)
             saveAuthorization(token);
-            const response = await deletePokemon(UserId, {pokemon_id : id});
+            const response = await deletePokemon(UserId, { pokemon_id: id });
             console.log(response);
             if (response.status === 200) {
-                setSuccessPokemonAdded(response.data.success);  
+                setSuccessPokemonAdded(response.data.success);
                 const newDeckFiltered = deck.filter((pokemon => pokemon.id !== id));
                 localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
                 setOpen(true);
@@ -98,7 +115,7 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
     }
     useEffect(() => {
 
-    },[deck])
+    }, [deck])
 
     return (
         <div className="pokemon-container">
@@ -107,31 +124,31 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
             <button onClick={handleClick}>
                 <img className="pokemon-img" src={url} alt="pokemon" />
             </button>
-                <div className="pokemon-title">
-                    <h1 className="pokemon-nom">{nom}</h1>
+            <div className="pokemon-title">
+                <h1 className="pokemon-nom">{nom}</h1>
 
 
-                    {/* Est que mon state isLogged est vide ou plein ? Si il est rempli, alors j'ai un utilisateur connecté et j'affiche le bouton  */}
-                    {isLogged && 
-                        <div className="pokemon-button">
+                {/* Est que mon state isLogged est vide ou plein ? Si il est rempli, alors j'ai un utilisateur connecté et j'affiche le bouton  */}
+                {isLogged &&
+                    <div className="pokemon-button">
 
-                            { deck && deck.some(pokemon=> pokemon.id === id)
+                        {deck && deck.some(pokemon => pokemon.id === id)
                             ?
-                            <button 
-                             className="pokemon-icon"
-                            //  name="pokemon_id"
-                            //  value={id}
-                             onClick={handleDelete}
+                            <button
+                                className="pokemon-icon"
+                                //  name="pokemon_id"
+                                //  value={id}
+                                onClick={handleDelete}
                             >
                                 <RemoveCircleOutlineIcon />
-                            </button>:  
-                            <button 
-                            className="pokemon-icon"
-                            onClick={handleAdd}>
+                            </button> :
+                            <button
+                                className="pokemon-icon"
+                                onClick={handleAdd}>
                                 <ControlPointRoundedIcon />
                             </button>}
 
-                             {/* buttonAddPokemon && deckFilter.length===0&& 
+                        {/* buttonAddPokemon && deckFilter.length===0&& 
                             
                             <button 
                             className="pokemon-icon"
@@ -139,8 +156,8 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
                                 <ControlPointRoundedIcon />
                             </button>
                             */ }
-                    
-                            { /* deckFilter.length>0 && 
+
+                        { /* deckFilter.length>0 && 
                              <button 
                              className="pokemon-icon"
                             //  name="pokemon_id"
@@ -149,24 +166,25 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
                             >
                                 <RemoveCircleOutlineIcon />
                             </button>
-                         */ }   
-                        </div>
+                         */ }
+                    </div>
 
-}
+                }
+            </div>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                sx={style}
+            >
+                <div>
+                    {errorPokemonAdded &&
+                        <p>{errorPokemonAdded}</p>
+                    }
+                    {successPokemonAdded &&
+                        <p>{successPokemonAdded}</p>
+                    }
                 </div>
-        <Modal
-        open={open}
-        onClose={handleClose}
-        > 
-        <div>
-        {errorPokemonAdded && 
-        <p>{errorPokemonAdded}</p>
-        }
-         {successPokemonAdded && 
-        <p>{successPokemonAdded}</p>
-        }
-        </div>
-        </Modal>
+            </Modal>
         </div>
     )
 }
