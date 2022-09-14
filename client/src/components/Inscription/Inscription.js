@@ -70,6 +70,7 @@ function Inscription({setIsActive}) {
         }
     }
     useEffect(() => {
+        
         setIsActive(false);
         }, []);
     return (

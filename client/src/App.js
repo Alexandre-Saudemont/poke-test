@@ -17,7 +17,9 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [pokedex, setPokedex] = useState([]);
   const [isActive, setIsActive] = useState(false);
+
   
+ 
   return (
     <div className="App">
       <Navbar setSuccess={setSuccess} isLogged={isLogged} setIsLogged={setIsLogged} setPokedex={setPokedex} isActive={isActive} />

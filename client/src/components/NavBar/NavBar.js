@@ -19,6 +19,7 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
     const navigate = useNavigate();
     const token = sessionStorage.getItem("token");
     const [value, setValue] = useState("");
+    
 
     function handleClick() {
         sessionStorage.removeItem("token");
@@ -28,6 +29,7 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
     };
 
     useEffect(() => {
+       
         if (token) {
             setIsLogged(true);
         }
@@ -102,7 +104,7 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
                             </Typography>
                             </ThemeProvider>
                         </div>
-                        {isActive && 
+                        {isActive ?
                        
                         <div className="nav-element-right">
                             <IconButton
@@ -122,7 +124,8 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
                                 onChange={handleChange}
                                 placeholder="Rechercher..."
                             />
-                        </div>
+                        </div> : 
+                        <div className="nav-element-right-empty"></div>
                          }
                     </Toolbar>
                 </AppBar>

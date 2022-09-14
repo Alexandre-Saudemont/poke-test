@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 
@@ -67,10 +68,10 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
         try {
 
             saveAuthorization(token);
-            const response = await addPokemonToDeck(UserId, { pokemon_id: id });
-            console.log(response);
+            const response = await addPokemonToDeck(UserId, { pokemon_id: id });            
             if (response.status === 200) {
                 setSuccessPokemonAdded(response.data.success);
+                setErrorPokemonAdded("");
                 setOpen(true)
                 const res = await DeckRequest(UserId);
                 if (res.status === 200) {
@@ -78,8 +79,8 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
                     localStorage.setItem("deck", JSON.stringify(res.data));
                 }
 
-            }
-            setErrorPokemonAdded(response.data.error);
+            }           
+            setErrorPokemonAdded(response.data.error);            
             setOpen(true)
 
         } catch (error) {
@@ -174,16 +175,17 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
             <Modal
                 open={open}
                 onClose={handleClose}
-                sx={style}
+                
             >
-                <div>
+                <Box
+                sx={style}>
                     {errorPokemonAdded &&
                         <p>{errorPokemonAdded}</p>
                     }
                     {successPokemonAdded &&
                         <p>{successPokemonAdded}</p>
                     }
-                </div>
+                </Box>
             </Modal>
         </div>
     )
