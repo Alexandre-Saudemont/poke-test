@@ -1,11 +1,102 @@
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom'
-import {Box} from '@mui/material'
+import {Box, Modal, Button} from '@mui/material'
+import {addPokemonToDeck, saveAuthorization, deletePokemon, DeckRequest } from '../../requests/index.js'
+import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+
 import './DetailsType.css';
+
+
 
 
 
 function DetailsType() {
     const { state } = useLocation();
+    console.log(state)
+    const UserId = localStorage.getItem('id');
+    const token = sessionStorage.getItem('token');
+    const [errorPokemonAdded, setErrorPokemonAdded] = useState("");
+    const [successPokemonAdded, setSuccessPokemonAdded] = useState("");
+    const deck = JSON.parse(localStorage.getItem('deck'));
+    const [open, setOpen] = useState(false);
+
+    const handleClose= () => {
+        setOpen(false);
+    }
+
+    const style = {
+        display: 'flex',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: "20rem",
+        maxheigth: "500px",
+        bgcolor: 'rgba(54, 89, 89, 0.65)',
+        textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        border: '2px solid #000',
+        color: "#C7C7C7",
+        boxShadow: 24,
+        p: 4,
+        borderRadius: '15px',
+        fontWeigth: 'bold',
+    };
+
+    async function handleAdd(e) {
+        try {
+
+            saveAuthorization(token);
+            const response = await addPokemonToDeck(UserId, { pokemon_id: e.target.value });            
+            if (response.status === 200) {
+                setSuccessPokemonAdded(response.data.success);
+                setErrorPokemonAdded("");
+                setOpen(true)
+                const res = await DeckRequest(UserId);
+                if (res.status === 200) {
+                    localStorage.setItem("deck", JSON.stringify(res.data));
+                }
+
+            }           
+            setErrorPokemonAdded(response.data.error);            
+            setOpen(true)
+
+        } catch (error) {
+            console.error(error)
+            setErrorPokemonAdded(error.response.data.error);
+            setOpen(true)
+        }
+    }
+   
+
+    async function handleDelete(e) {
+       
+        try {
+            console.log(deck)
+            saveAuthorization(token);
+            const response = await deletePokemon(UserId, { pokemon_id: e.target.value});
+            console.log(response);
+            if (response.status === 200) {
+                setSuccessPokemonAdded(response.data.success);
+                const newDeckFiltered = deck.filter((pokemon => pokemon.id !== e.target.value));
+                localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
+                setOpen(true);
+            }
+            setErrorPokemonAdded(response.data.error);
+            setOpen(true)
+
+        } catch (error) {
+            console.error(error)
+            setErrorPokemonAdded(error.response.data.error);
+            setOpen(true)
+        }
+    }
+    useEffect(() => {
+
+    }, [deck])
+
     return (
         <>
         <div className="detail-type">
@@ -21,21 +112,42 @@ function DetailsType() {
                     <h3>Défense spéciale : {data.defense_spe}</h3>
                     <h3>Vitesse : {data.vitesse}</h3>
                     </Box>
+                    {deck && deck.some(pokemon => pokemon.id === data.id) ?
+                            <Button
+                                className="pokemon-icon"                                
+                                onClick={(e)=>{
+                                    e.target.value=data.id
+                                    handleDelete(e)}}
+                            >
+                                <RemoveCircleOutlineIcon/>
+                            </Button> :
+                            <button
+                                className="pokemon-icon"                                
+                                onClick={(e)=>{
+                                    e.target.value=data.id
+                                    handleAdd(e)}}>
+                                <ControlPointRoundedIcon />
+                            </button>
+                        }
+                    
                 </div>
             ))}
-        </div>
-            {/* <div className="pokemons"> 
-        <div className="detail-container">
-            <h2 className="detail-name"> {state.nom}</h2>
-            <img src={state.url} alt="pokemon" />
-            <h3>pv : {state.pv}</h3>
-            <h3>attaque : {state.attaque}</h3>
-            <h3>attaque spé : {state.attaque_spe}</h3>
-            <h3>defense : {state.defense}</h3>
-            <h3>defense spé : {state.defense_spe}</h3>
-            <h3>vitesse : {state.vitesse}</h3>
-        </div>
-        </div> */}
+            <Modal
+                open={open}
+                onClose={handleClose}                
+            >
+                <Box
+                sx={style}>
+                    {errorPokemonAdded &&
+                        <p className="pokemon-modal-text">{errorPokemonAdded}</p>
+                    }
+                    {successPokemonAdded &&
+                        <p className="pokemon-modal-text">{successPokemonAdded}</p>
+                    }
+                </Box>
+            </Modal>    
+            
+        </div>           
         </>
     )
 }

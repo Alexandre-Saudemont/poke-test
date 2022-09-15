@@ -91,8 +91,6 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
     }
 
     async function handleDelete() {
-
-
         try {
             console.log(id)
             console.log(deck)
