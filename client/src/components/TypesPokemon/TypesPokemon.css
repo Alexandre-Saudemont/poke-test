@@ -1,3 +1,12 @@
 .types-title{
     text-align:center
 }
+
+.types-pokemon{
+    display: flex;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: linear-gradient(90deg, rgba(2,82,198,1) 0%, rgba(114,27,143,1) 50%, rgba(150,108,6,1) 100%);
+    gap: 3rem;
+}

@@ -1,0 +1,14 @@
+.detail{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    
+}
+.detail-name{
+    color:white;
+    font-weight: bold;
+}
+
+.detail-container{
+    text-align:center
+}

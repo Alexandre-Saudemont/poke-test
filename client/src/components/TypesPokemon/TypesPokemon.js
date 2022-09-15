@@ -28,7 +28,7 @@ function TypesPokemon ({setIsActive}) {
         <>
         
         <h2 className="types-title">Types de Pokemon </h2>
-        <div className="TypesPokemon">
+        <div className="types-pokemon">
             
             
             {types.length > 0 && types.map((type)=>(
