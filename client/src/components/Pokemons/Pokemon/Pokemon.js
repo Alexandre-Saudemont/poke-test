@@ -9,7 +9,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 
 
-function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense, attaque, isLogged }) {
+function Pokemon({ nom, url, id, isLogged }) {
 
     const navigate = useNavigate();
     const UserId = localStorage.getItem('id');

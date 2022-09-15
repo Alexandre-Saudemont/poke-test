@@ -7,13 +7,8 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import './DetailsType.css';
 
-
-
-
-
 function DetailsType() {
     const { state } = useLocation();
-    console.log(state)
     const UserId = localStorage.getItem('id');
     const token = sessionStorage.getItem('token');
     const [errorPokemonAdded, setErrorPokemonAdded] = useState("");
