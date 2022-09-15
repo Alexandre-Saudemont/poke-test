@@ -7,7 +7,6 @@
 
 .pokemon-container{
     text-align:center;
-    justify-content: center;
     width:fit-content;
     height:fit-content;
     border: black 1px solid;
@@ -52,4 +51,8 @@
 }
 h3{
     margin:0
+}
+
+.pokemon-modal-text{
+    font-weight: 700;
 }

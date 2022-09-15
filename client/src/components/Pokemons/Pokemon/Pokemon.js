@@ -119,8 +119,7 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
     }, [deck])
 
     return (
-        <div className="pokemon-container">
-            <div className="pokemon-header"></div>
+        <div className="pokemon-container">            
 
             <button onClick={handleClick}>
                 <img className="pokemon-img" src={url} alt="pokemon" />
@@ -133,12 +132,9 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
                 {isLogged &&
                     <div className="pokemon-button">
 
-                        {deck && deck.some(pokemon => pokemon.id === id)
-                            ?
+                        {deck && deck.some(pokemon => pokemon.id === id) ?
                             <button
-                                className="pokemon-icon"
-                                //  name="pokemon_id"
-                                //  value={id}
+                                className="pokemon-icon"                                
                                 onClick={handleDelete}
                             >
                                 <RemoveCircleOutlineIcon />
@@ -147,43 +143,23 @@ function Pokemon({ nom, url, id, pv, vitesse, attaque_spe, defense_spe, defense,
                                 className="pokemon-icon"
                                 onClick={handleAdd}>
                                 <ControlPointRoundedIcon />
-                            </button>}
-
-                        {/* buttonAddPokemon && deckFilter.length===0&& 
-                            
-                            <button 
-                            className="pokemon-icon"
-                            onClick={handleAdd}>
-                                <ControlPointRoundedIcon />
                             </button>
-                            */ }
+                        }
 
-                        { /* deckFilter.length>0 && 
-                             <button 
-                             className="pokemon-icon"
-                            //  name="pokemon_id"
-                            //  value={id}
-                             onClick={handleDelete}
-                            >
-                                <RemoveCircleOutlineIcon />
-                            </button>
-                         */ }
                     </div>
-
                 }
             </div>
             <Modal
                 open={open}
-                onClose={handleClose}
-                
+                onClose={handleClose}                
             >
                 <Box
                 sx={style}>
                     {errorPokemonAdded &&
-                        <p>{errorPokemonAdded}</p>
+                        <p className="pokemon-modal-text">{errorPokemonAdded}</p>
                     }
                     {successPokemonAdded &&
-                        <p>{successPokemonAdded}</p>
+                        <p className="pokemon-modal-text">{successPokemonAdded}</p>
                     }
                 </Box>
             </Modal>
