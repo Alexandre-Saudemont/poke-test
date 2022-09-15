@@ -1,6 +1,7 @@
 .connexion-container{
     display: flex;
     justify-content: center;
+    margin-top:2em
 }
 
 .connexion-title{
@@ -11,3 +12,8 @@
 .connexion-subcontainer{
     max-width: 12rem;
 }
+.connexion-input-label{
+    margin-top:1em;
+    text-align:center
+}
+

@@ -16,7 +16,7 @@ function Connexion({ setIsLogged, setIsActive }) {
         setOpen(false)
     }
 
-    const style = {
+    const styleModalBox = {
         display: 'flex',
         position: 'absolute',
         top: '50%',
@@ -36,6 +36,11 @@ function Connexion({ setIsLogged, setIsActive }) {
         fontWeigth: 'bold',
     };
 
+    const styleBox={
+        bgcolor: 'lightgrey',
+        p:"2rem",
+        textAlign:"center"
+      }
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -62,16 +67,22 @@ function Connexion({ setIsLogged, setIsActive }) {
     useEffect(() => {
         setIsActive(false);
         }, []);
-    return (
 
-        <div className="connexion-container">           
+    return (
+        <div className="connexion-container"> 
+        <Box 
+        sx={styleBox}
+        >           
             <div className="connexion-subcontainer">
                 <h2 className="connexion-title">Se connecter</h2>
                 <form
                     action="submit"
                     onSubmit={handleSubmit}
                 >
-                    <InputLabel htmlFor="email">
+                    <InputLabel 
+                    htmlFor="email"
+                    className="connexion-input-label"
+                    >
                         Adresse Email
                     </InputLabel>
                     <Input
@@ -81,7 +92,10 @@ function Connexion({ setIsLogged, setIsActive }) {
                         placeholder="pikachu@gmail.com"
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <InputLabel htmlFor="password">
+                    <InputLabel 
+                    htmlFor="password"
+                    className="connexion-input-label"
+                    >
                         Mot de passe
                     </InputLabel>
                     <Input
@@ -91,10 +105,13 @@ function Connexion({ setIsLogged, setIsActive }) {
                         placeholder="*******"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <Button type="submit">
+                    <div> 
+                        <Button 
+                        type="submit"
+                        >
                         Envoyer
-                    </Button>
-
+                        </Button>
+                    </div>
                 </form>
             </div>
              
@@ -105,12 +122,13 @@ function Connexion({ setIsLogged, setIsActive }) {
             onClose={handleClose}
            >
             <Box
-            sx={style}>
+            sx={styleModalBox}>
                 {error}
             </Box>
             
             </Modal>
             }
+        </Box>
         </div>
     )
 }

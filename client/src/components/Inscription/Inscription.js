@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
 import { RegisterRequest } from '../../requests'
 import {useNavigate} from "react-router-dom"
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
-import Button from '@mui/material/Button';
-import { FormHelperText } from '@mui/material';
-import  Modal  from '@mui/material/Modal';
+import { FormHelperText, InputLabel, Input, Modal, Box, Button } from '@mui/material';
+
 import './Inscription.css';
 
 function Inscription({setIsActive}) {
@@ -20,7 +17,8 @@ function Inscription({setIsActive}) {
     const [open, setOpen] = useState(false);
     const [number, setNumber] = useState(5)
     const navigate = useNavigate();
-    const style = {
+
+    const styleModal = {
         position: 'relative',
         top: '30%',
         left: '50%',
@@ -37,6 +35,12 @@ function Inscription({setIsActive}) {
         borderRadius:'15px',
         fontWeigth:'bold',
       };
+    
+      const styleBox={
+        bgcolor: 'lightgrey',
+        p:"2rem",
+        textAlign:"center"
+      }
 
     const timeOutFunction = () => {
         navigate('/Connexion');
@@ -80,7 +84,7 @@ function Inscription({setIsActive}) {
                     open={open} 
                     onClose={handleClose} 
                     className="inscription-modal"
-                    sx={style}
+                    sx={styleModal}
                 >
                     <div>
                          {success} 
@@ -90,13 +94,16 @@ function Inscription({setIsActive}) {
                          
                 </Modal> :
                 <>
-                    <div>
+                    <Box sx={styleBox}>
                         <h2 className="inscription-title">Inscription</h2>
                         <form
                             action="submit"
                             onSubmit={handleSubmit}
                         >
-                            <InputLabel htmlFor='username'>
+                            <InputLabel 
+                            htmlFor='username'
+                            className="inscription-input-label"
+                            >
                                 Pseudo
                             </InputLabel>
                             <Input
@@ -107,7 +114,10 @@ function Inscription({setIsActive}) {
                                 placeholder="DarkSasukedu92"
                                 onChange={(e) => setUsername(e.target.value)}
                             />
-                            <InputLabel htmlFor='email'>
+                            <InputLabel 
+                            htmlFor='email'
+                            className="inscription-input-label"
+                            >
                                 Adresse Email
                             </InputLabel>
                             <Input
@@ -118,7 +128,10 @@ function Inscription({setIsActive}) {
                                 placeholder="pikachu@gmail.com"
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <InputLabel htmlFor='lastname'>
+                            <InputLabel 
+                            htmlFor='lastname'
+                            className="inscription-input-label"
+                            >
                                 Nom
                             </InputLabel>
                             <Input
@@ -129,7 +142,10 @@ function Inscription({setIsActive}) {
                                 placeholder="Dubois"
                                 onChange={(e) => setLastname(e.target.value)}
                             />
-                            <InputLabel htmlFor='firstname'>
+                            <InputLabel 
+                            htmlFor='firstname'
+                            className="inscription-input-label"
+                            >
                                 Prénom
                             </InputLabel>
                             <Input
@@ -140,7 +156,10 @@ function Inscription({setIsActive}) {
                                 placeholder="Jean-Eude"
                                 onChange={(e) => setFirstname(e.target.value)}
                             />
-                            <InputLabel htmlFor='password'>
+                            <InputLabel 
+                            htmlFor='password'
+                            className="inscription-input-label"
+                            >
                                 Mot de passe
                             </InputLabel>
                             <Input
@@ -153,15 +172,18 @@ function Inscription({setIsActive}) {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <FormHelperText
-                                id="password-text">
+                                id="password-text"
+                            >
                                 8 caractères requis
                             </FormHelperText>
-                            <Button type="submit">
+                            <Button 
+                            type="submit"
+                            >
                                 Envoyer
                             </Button>
 
                         </form>
-                    </div>
+                    </Box>
                 </>
             }
             {

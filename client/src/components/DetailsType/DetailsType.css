@@ -1,14 +1,22 @@
-.detail{
+.detail-type{
     display:flex;
     flex-wrap: wrap;
     justify-content: center; 
     
 }
-.detail-name{
+.detail-type-name{
     color:white;
     font-weight: bold;
+    font-size:1.4em;
 }
 
-.detail-container{
+.detail-type-container{
+    width:fit-content;
+    height:fit-content;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: lightcoral;
+    color:white;
+    border-radius: 2%;
     text-align:center
 }

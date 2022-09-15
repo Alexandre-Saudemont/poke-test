@@ -1,6 +1,7 @@
 .inscription-container{
     display: flex;
     justify-content: center;
+    margin-top:2em
 }
 
 .inscription-title{
@@ -11,5 +12,9 @@
 .inscription-modal{
     display: flex;
  
+}
+.inscription-input-label{
+    margin-top: 1em;
+    text-align: center;
 }
 

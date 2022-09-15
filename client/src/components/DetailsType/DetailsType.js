@@ -8,18 +8,18 @@ function DetailsType() {
     const { state } = useLocation();
     return (
         <>
-        <div className="detail">
+        <div className="detail-type">
             {state.data.map((data) => (
-                <div className="detail-container" key={data.id}>
-                    <h2 className="detail-name"> {data.nom}</h2>
+                <div className="detail-type-container" key={data.id}>
+                    <h2 className="detail-type-name"> {data.nom}</h2>
                     <img src={data.url} alt="pokemon" />
                     <Box>
-                    <h3 >pv : {data.pv}</h3>
-                    <h3>attaque : {data.attaque}</h3>
-                    <h3>attaque spé : {data.attaque_spe}</h3>
-                    <h3>defense : {data.defense}</h3>
-                    <h3>defense spé : {data.defense_spe}</h3>
-                    <h3>vitesse : {data.vitesse}</h3>
+                    <h3 >Pv : {data.pv}</h3>
+                    <h3>Attaque : {data.attaque}</h3>
+                    <h3>Attaque spéciale : {data.attaque_spe}</h3>
+                    <h3>Défense : {data.defense}</h3>
+                    <h3>Défense spéciale : {data.defense_spe}</h3>
+                    <h3>Vitesse : {data.vitesse}</h3>
                     </Box>
                 </div>
             ))}
