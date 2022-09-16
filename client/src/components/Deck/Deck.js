@@ -148,6 +148,14 @@ function Deck({ setIsActive }) {
                             <p className="deck-pokemon-nom">{pokemon.nom}</p>
                             <div className='deck-image'>
                                 <img src={pokemon.url} alt={pokemon.nom}></img>
+                                    <Box>
+                                    <h3 className="deck-type-comp">Pv : {pokemon.pv}</h3>
+                                    <h3 className="deck-type-comp">Attaque : {pokemon.attaque}</h3>
+                                    <h3 className="deck-type-comp">Attaque spéciale : {pokemon.attaque_spe}</h3>
+                                    <h3 className="deck-type-comp">Défense : {pokemon.defense}</h3>
+                                    <h3 className="deck-type-comp">Défense spéciale : {pokemon.defense_spe}</h3>
+                                    <h3 className="deck-type-comp">Vitesse : {pokemon.vitesse}</h3>
+                                    </Box>
                             </div>
                             <Button
                                 sx={styledelete}
