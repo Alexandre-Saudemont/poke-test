@@ -8,6 +8,7 @@
     color:white;
     font-weight: bold;
     font-size:1.4em;
+    
 }
 
 .detail-type-container{
@@ -18,5 +19,10 @@
     background-color: lightcoral;
     color:white;
     border-radius: 2%;
-    text-align:center
+    text-align:center;
+    margin:3em;
+}
+.detail-type-comp{
+    padding-top:.4em;
+    font-size:1.2em
 }

@@ -78,9 +78,13 @@ function DetailsType() {
                 const newDeckFiltered = deck.filter((pokemon => pokemon.id !== e.target.value));
                 localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
                 setOpen(true);
+                setErrorPokemonAdded();
+            } else {
+
+                setErrorPokemonAdded(response.data.error);
+                setOpen(true)
+                setSuccessPokemonAdded();
             }
-            setErrorPokemonAdded(response.data.error);
-            setOpen(true)
 
         } catch (error) {
             console.error(error)
@@ -100,13 +104,14 @@ function DetailsType() {
                     <h2 className="detail-type-name"> {data.nom}</h2>
                     <img src={data.url} alt="pokemon" />
                     <Box>
-                    <h3 >Pv : {data.pv}</h3>
-                    <h3>Attaque : {data.attaque}</h3>
-                    <h3>Attaque spéciale : {data.attaque_spe}</h3>
-                    <h3>Défense : {data.defense}</h3>
-                    <h3>Défense spéciale : {data.defense_spe}</h3>
-                    <h3>Vitesse : {data.vitesse}</h3>
+                    <h3 className="detail-type-comp">Pv : {data.pv}</h3>
+                    <h3 className="detail-type-comp">Attaque : {data.attaque}</h3>
+                    <h3 className="detail-type-comp">Attaque spéciale : {data.attaque_spe}</h3>
+                    <h3 className="detail-type-comp">Défense : {data.defense}</h3>
+                    <h3 className="detail-type-comp">Défense spéciale : {data.defense_spe}</h3>
+                    <h3 className="detail-type-comp">Vitesse : {data.vitesse}</h3>
                     </Box>
+                    <Box sx={{pt:".3em"}}>
                     {deck && deck.some(pokemon => pokemon.id === data.id) ?
                             <Button
                                 className="pokemon-icon"                                
@@ -115,15 +120,18 @@ function DetailsType() {
                                     handleDelete(e)}}
                             >
                                 <RemoveCircleOutlineIcon/>
-                            </Button> :
-                            <button
+                            </Button>                             
+                            :
+                 
+                            <Button
                                 className="pokemon-icon"                                
                                 onClick={(e)=>{
                                     e.target.value=data.id
                                     handleAdd(e)}}>
                                 <ControlPointRoundedIcon />
-                            </button>
-                        }
+                            </Button>
+                    }
+                    </Box>
                     
                 </div>
             ))}
@@ -136,7 +144,7 @@ function DetailsType() {
                     {errorPokemonAdded &&
                         <p className="pokemon-modal-text">{errorPokemonAdded}</p>
                     }
-                    {successPokemonAdded &&
+                    {successPokemonAdded && !errorPokemonAdded &&
                         <p className="pokemon-modal-text">{successPokemonAdded}</p>
                     }
                 </Box>

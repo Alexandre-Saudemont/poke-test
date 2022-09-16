@@ -2,6 +2,8 @@
     margin: 1rem;
     display: flex;
     flex-direction: row;
+    width:22%;
+    justify-content: center
 }
 
 .type-button{
@@ -9,7 +11,7 @@
     height: 7.5rem;
     font-size: 2rem;
     border-radius: 1rem;
-    transition: all .5s ease-in;
+    transition: all .1s ease-in;
 }
 
 .types-title{
@@ -18,12 +20,10 @@
     font-size: 2rem;
     font-weight: 700;
     color:rgb(45, 106, 180);    
-    -webkit-box-shadow: 0rem 0.625rem 0.70rem 0.75rem rgba(10, 29, 55, 0.876); 
-    box-shadow: 0rem 1rem 0rem  0rem rgba(10, 29, 55, 1);
+    -webkit-box-shadow: 0rem 0.625rem 0.70rem 0.75rem rgba(255, 204, 01, 0.876); 
+    box-shadow: 0rem 1rem 0rem  0rem rgba(255, 204, 01, 1);
     margin-bottom: .8rem;
 }
-
-
 
 .type-button-Feu:hover{
     background-color: #ff4422;
