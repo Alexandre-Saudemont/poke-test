@@ -56,3 +56,21 @@ h3{
 .pokemon-modal-text{
     font-weight: 700;
 }
+
+@media (max-width: 500PX){
+    .pokemon-container{
+        flex-direction: column;
+        max-width: 7rem;
+        width: fit-content;
+        max-height: 9rem;
+        margin: 1rem;
+        
+    }
+
+    .pokemon-img{
+        max-width: 8rem;
+        width: fit-content;
+        max-height: 6rem;
+    }
+
+}

@@ -55,3 +55,16 @@
 .nav-element-right-empty{
     width:8.3vw
 }
+
+@media (max-width:500px) {
+    .navbar{
+       flex-direction: column;
+       width: fit-content;
+       
+    }
+    .nav-pokedex{
+        width: fit-content;
+        
+    }
+
+}
