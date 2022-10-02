@@ -1,0 +1,13 @@
+.footer-container{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.footer-title{
+    
+    background-color: lightcoral;
+    text-align: center;
+    
+}

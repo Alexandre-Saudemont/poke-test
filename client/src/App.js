@@ -9,6 +9,7 @@ import DetailsType from './components/DetailsType/DetailsType.js'
 import Navbar from './components/NavBar/NavBar.js';
 import Deck from './components/Deck/Deck';
 import Profil from './components/Profil/Profil';
+import Footer from './components/Footer/Footer';
 import { Route, Routes } from 'react-router-dom'
 import { useState } from 'react';
 
@@ -18,21 +19,22 @@ function App() {
   const [pokedex, setPokedex] = useState([]);
   const [isActive, setIsActive] = useState(false);
 
-  
- 
+
+
   return (
     <div className="App">
       <Navbar setSuccess={setSuccess} isLogged={isLogged} setIsLogged={setIsLogged} setPokedex={setPokedex} isActive={isActive} />
       <Routes>
-        <Route path="/" element={<Pokemons pokedex={pokedex} setPokedex={setPokedex} isLogged={isLogged} setIsActive={setIsActive}/>} />
-        <Route path="/detailsPokemon" element={<DetailsPokemon setIsActive={setIsActive}/>} />
-        <Route path="/detailsType" element={<DetailsType setIsActive={setIsActive}/>} />
-        <Route path="/types" element={<TypesPokemon setIsActive={setIsActive}/>} />
-        <Route path="Inscription" element={<Inscription setIsActive={setIsActive}/>} />
-        <Route path="Connexion" element={<Connexion success={success} setSuccess={setSuccess} isLogged={isLogged} setIsLogged={setIsLogged} setIsActive={setIsActive}/>} />
-        <Route path="/Deck" element={<Deck setIsActive={setIsActive}/>} />
-        <Route path="/Profil" element={<Profil setIsLogged={setIsLogged} setIsActive={setIsActive} /> }/>
+        <Route path="/" element={<Pokemons pokedex={pokedex} setPokedex={setPokedex} isLogged={isLogged} setIsActive={setIsActive} />} />
+        <Route path="/detailsPokemon" element={<DetailsPokemon setIsActive={setIsActive} />} />
+        <Route path="/detailsType" element={<DetailsType setIsActive={setIsActive} />} />
+        <Route path="/types" element={<TypesPokemon setIsActive={setIsActive} />} />
+        <Route path="Inscription" element={<Inscription setIsActive={setIsActive} />} />
+        <Route path="Connexion" element={<Connexion success={success} setSuccess={setSuccess} isLogged={isLogged} setIsLogged={setIsLogged} setIsActive={setIsActive} />} />
+        <Route path="/Deck" element={<Deck setIsActive={setIsActive} />} />
+        <Route path="/Profil" element={<Profil setIsLogged={setIsLogged} setIsActive={setIsActive} />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
