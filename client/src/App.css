@@ -1,1 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Collegiate+One:ital@1&display=swap');
+
+.App{
+    position: relative;
+  min-height: 100vh;
+}

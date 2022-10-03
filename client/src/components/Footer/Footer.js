@@ -1,15 +1,11 @@
 import React from 'react';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import Box from '@mui/material/Box';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Avatar from '@mui/material/Avatar';
-import { CardActionArea } from '@mui/material';
+import { NavLink, useNavigate } from "react-router-dom";
 import './Footer.css';
-import { width } from '@mui/system';
+
 
 function Footer() {
     return (
@@ -22,15 +18,29 @@ function Footer() {
 
                 <Typography >
                     Adam Gaoua
-                    <BottomNavigationAction label="Linkedin" icon={<LinkedInIcon />} />
-                    <BottomNavigationAction label="GitHub" icon={<GitHubIcon />} />
+                    <BottomNavigationAction
+                        label="Linkedin"
+                        icon={<LinkedInIcon />}
+                        onClick={() => window.open("https://www.linkedin.com/in/adam-gaoua-05092b238")}
+                    />
+                    <BottomNavigationAction
+                        label="GitHub"
+                        icon={<GitHubIcon />}
+                        onClick={() => window.open("https://github.com/AdamGaoua")}
+                    />
                 </Typography>
-
-
                 <Typography >
                     Alexandre Saudemont
-                    <BottomNavigationAction label="Linkedin" icon={<LinkedInIcon />} />
-                    <BottomNavigationAction label="GitHub" icon={<GitHubIcon />} />
+                    <BottomNavigationAction
+                        label="Linkedin"
+                        icon={<LinkedInIcon />}
+                        onClick={() => window.open("https://www.linkedin.com/in/alexandre-saudemont-535481239/")}
+                    />
+                    <BottomNavigationAction
+                        label="GitHub"
+                        icon={<GitHubIcon />}
+                        onClick={() => window.open("https://github.com/Alexandre-Saudemont")}
+                    />
                 </Typography>
 
             </div>
