@@ -1,7 +1,7 @@
 .connexion-container{
     display: flex;
     justify-content: center;
-    margin-top:2em
+    padding:3%
 }
 
 .connexion-title{

@@ -122,14 +122,14 @@ function DetailsType() {
                                 <RemoveCircleOutlineIcon/>
                             </Button>                             
                             :
-                 
-                            <Button
-                                className="pokemon-icon"                                
-                                onClick={(e)=>{
-                                    e.target.value=data.id
-                                    handleAdd(e)}}>
-                                <ControlPointRoundedIcon />
-                            </Button>
+                             <></>       
+                            // <Button
+                            //     className="pokemon-icon"                                
+                            //     onClick={(e)=>{
+                            //         e.target.value=data.id
+                            //         handleAdd(e)}}>
+                            //     <ControlPointRoundedIcon />
+                            // </Button>
                     }
                     </Box>
                     

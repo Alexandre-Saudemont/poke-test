@@ -107,7 +107,7 @@ function Deck({ setIsActive }) {
     }, [deck.length])
 
     return (
-        <>
+        <div id="deck">
             <h1 className="deck-title">
                 Votre deck de Pokemons
             </h1>
@@ -172,7 +172,7 @@ function Deck({ setIsActive }) {
                 }
 
             </div>
-        </>
+        </div>
     );
 }
 

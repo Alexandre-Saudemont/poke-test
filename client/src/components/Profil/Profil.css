@@ -1,5 +1,10 @@
-.container {
+/* .container {
     display: flex;
+} */ 
+/* c'est quoi .container ?*/
+
+#profil{
+    padding:3%
 }
 .profil-card{
     align-items:center;

@@ -1,8 +1,10 @@
+
 .types-title{
-    text-align:center
+    text-align:center;
 }
 
 .types-pokemon{
+    padding:3%;
     display: flex;
     box-sizing: border-box;
     flex-wrap: wrap;

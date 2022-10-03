@@ -1,7 +1,7 @@
 .detail-type{
     display:flex;
     flex-wrap: wrap;
-    justify-content: center; 
+    justify-content: space-between; 
     
 }
 .detail-type-name{

@@ -120,11 +120,11 @@ function Profil({setIsLogged, setIsActive}) {
     }, [])
 
     return (
-        <div>
+        <div id="profil">
             {infosUser &&
                 <>
                     <Box sx={{ display: 'flex', justifyContent: 'center', height: '80vh' }}>
-                        <Card className="profil-card">
+                        <Card className="profil-card" >
                             <CardHeader title="Page de profil" />
 
                             <CardContent>

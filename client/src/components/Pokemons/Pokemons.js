@@ -1,3 +1,4 @@
+import './Pokemons.css'; 
 import Pokemon from './Pokemon/Pokemon.js';
 import { useEffect}  from 'react';
 import { PokemonRequest } from '../../requests/index.js';

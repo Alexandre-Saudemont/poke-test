@@ -14,7 +14,7 @@ import { width } from '@mui/system';
 function Footer() {
     return (
 
-        <div>
+        <div id="footer">
             <div className='footer-title'>
                 <Typography>Développé par</Typography>
             </div>
