@@ -1,4 +1,5 @@
 .nav-menu {
+    
     margin: 0.5rem;
     text-decoration: none; 
     transition: all 0.2s ease-in;
@@ -16,7 +17,10 @@
     padding-left:1em;
     color:black
 }
-.navbar{
+#navbar-toolbar{
+    /* z-index:99;
+    position:fixed;
+    width:100%; */
     background-color: lightcoral;
     justify-content: space-between;    
 }
@@ -48,23 +52,19 @@
     height:2.5em
 }
 
-.items{
-    padding:0
-}
 
 .nav-element-right-empty{
     width:8.3vw
 }
 
 @media (max-width:500px) {
-    .navbar{
+    #navbar-toolbar{
        flex-direction: column;
        width: fit-content;
        
     }
     .nav-pokedex{
-        width: fit-content;
-        
+        width: fit-content;        
     }
 
 }

@@ -15,7 +15,6 @@ function Footer() {
                 <Typography>Développé par</Typography>
             </div>
             <div className='footer-container'>
-
                 <Typography >
                     Adam Gaoua
                     <BottomNavigationAction
@@ -42,9 +41,10 @@ function Footer() {
                         onClick={() => window.open("https://github.com/Alexandre-Saudemont")}
                     />
                 </Typography>
-
             </div>
-
+                <Typography sx={{bgcolor:"lightcoral", fontSize:".8rem", pb:"1%"}}>
+                    Les pokémons et leurs noms sont déposés par Nintendo
+                </Typography>     
         </div>
     );
 }

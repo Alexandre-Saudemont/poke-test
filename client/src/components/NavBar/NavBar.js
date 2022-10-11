@@ -64,10 +64,10 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
         }
     })
     return (
-        <nav>
-            <ul className='items'>
-                <AppBar position="static" >
-                    <Toolbar className="navbar">
+        <nav id="navbar">
+            
+                <AppBar  >
+                    <Toolbar id="navbar-toolbar">
                         <div>
                             <Button>
                                 <NavLink className="nav-menu" to="/">Accueil </NavLink>
@@ -129,7 +129,7 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
                          }
                     </Toolbar>
                 </AppBar>
-            </ul>
+            
         </nav >
     )
 
