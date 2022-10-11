@@ -97,7 +97,7 @@ function DetailsType() {
     }, [deck])
 
     return (
-        <>
+        
         <div className="detail-type">
             {state.data.map((data) => (
                 <div className="detail-type-container" key={data.id}>
@@ -151,7 +151,7 @@ function DetailsType() {
             </Modal>    
             
         </div>           
-        </>
+        
     )
 }
 

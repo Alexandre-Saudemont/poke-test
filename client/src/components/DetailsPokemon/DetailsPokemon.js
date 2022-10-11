@@ -12,20 +12,20 @@ function DetailsPokemon({setIsActive}) {
         }, []);
     return (
         <>
-            <div className="pokemons">
-                <div className="detail-container">         
-                   <div>
+            <div id="detail">
+                <div className="detail-container">   
+                  
                      <Typography variant="h3" className="detail-name"> {state.nom}</Typography>
-                   </div>           
+                           
                     <div id="detail-pokemon-comp"> 
                         <img src={state.url} alt="pokemon" className="detail-pokemon-img"/>
                         <div id="detail-pokemon-list-stats">
-                            <p><span className='detail-pokemon-stats'>Pv : {state.pv}</span></p>
-                            <p><span className='detail-pokemon-stats'>Attaque : {state.attaque}</span></p>
-                            <p><span className='detail-pokemon-stats'>Attaque spé : {state.attaque_spe}</span></p>
-                            <p><span className='detail-pokemon-stats'>Defense : {state.defense}</span></p>
-                            <p><span className='detail-pokemon-stats'>Defense spé : {state.defense_spe}</span></p>
-                            <p><span className='detail-pokemon-stats'>Vitesse : {state.vitesse}</span></p>
+                            <p className='detail-pokemon-stats'>Pv : {state.pv}</p>
+                            <p className='detail-pokemon-stats'>Attaque : {state.attaque}</p>
+                            <p className='detail-pokemon-stats'>Attaque spé : {state.attaque_spe}</p>
+                            <p className='detail-pokemon-stats'>Defense : {state.defense}</p>
+                            <p className='detail-pokemon-stats'>Defense spé : {state.defense_spe}</p>
+                            <p className='detail-pokemon-stats'>Vitesse : {state.vitesse}</p>
                         </div>                      
                     </div>
                 </div>

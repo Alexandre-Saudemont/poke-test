@@ -1,5 +1,7 @@
-.nav-menu {
-    
+/* #navbar{
+    height:10vh;
+} */
+.nav-menu {    
     margin: 0.5rem;
     text-decoration: none; 
     transition: all 0.2s ease-in;

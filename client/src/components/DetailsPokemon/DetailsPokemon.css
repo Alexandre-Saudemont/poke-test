@@ -1,28 +1,34 @@
-
-.detail-container{
-    width:fit-content;
-    height:fit-content;
-    margin: 1rem;
+#detail{
+    flex-grow:1;
+    padding-top:7rem;
+    
+}
+.detail-container {
+    width: fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    margin: auto;
     padding: 1rem;
     background-color: lightcoral;
-    color:white;
+    color: white;
     border-radius: 2%;
 }
 
-.detail-name{
-    font-size: 1em;
+.detail-name{    
     text-align:center;
-    color: black;
 }
+
 #detail-pokemon-comp{
     display:flex;
     
 }
 .detail-pokemon-stats{
+    padding-bottom:1rem;
     font-size: 1.5rem;
     font-weight: bold;
 }
-#detail-pokemon-list-stats{
+#detail-pokemon-list-stats {
     margin: auto;
-    padding: 0 5rem;
+    text-align: center;
+    margin: 5rem;
 }
