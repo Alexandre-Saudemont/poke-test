@@ -95,7 +95,7 @@ function DetailsType({isLogged}) {
     useEffect(() => {
 
     }, [deck])
-    console.log(isLogged);
+    
     return (
         
         <div className="detail-type">
@@ -131,8 +131,7 @@ function DetailsType({isLogged}) {
                                 e.target.value=data.id
                                 handleAdd(e)}}>
                                 <ControlPointRoundedIcon />
-                            </Button>
-                                         
+                            </Button>                                        
                     )}
                     </Box>
                     

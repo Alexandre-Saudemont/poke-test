@@ -43,7 +43,7 @@ function Inscription({setIsActive}) {
                 console.log(response.data.success)
                 setSuccess(response.data.success);                
                 setIsActive(false);
-                setTimeout(timeOutFunction, 5000)    
+                setTimeout(timeOutFunction, 3000)    
                 
                 console.log(success);
                 Swal.fire({
