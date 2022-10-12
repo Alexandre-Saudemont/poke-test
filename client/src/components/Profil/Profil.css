@@ -4,7 +4,8 @@
 /* c'est quoi .container ?*/
 
 #profil{
-    padding:3%
+    padding:3%;
+    padding-top:5%
 }
 .profil-card{
     align-items:center;
