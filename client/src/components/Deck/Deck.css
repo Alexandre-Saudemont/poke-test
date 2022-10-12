@@ -1,6 +1,7 @@
 #deck{
 padding:3%;
-padding-top:5%
+padding-top:5%;
+flex-grow:1
 }
 
 .deck-container{
