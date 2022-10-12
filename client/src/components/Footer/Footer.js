@@ -12,7 +12,7 @@ function Footer() {
 
         <div id="footer">
             <div className='footer-title'>
-                <Typography>Développé par</Typography>
+                <Typography>Développé avec React - NodeJs - Material UI par</Typography>
             </div>
             <div className='footer-container'>
                 <Typography >

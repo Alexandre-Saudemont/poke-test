@@ -23,6 +23,8 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
 
     function handleClick() {
         sessionStorage.removeItem("token");
+        localStorage.removeItem("id");
+        localStorage.removeItem("deck");
         setIsLogged(false);
         setSuccess("");
         navigate("/");

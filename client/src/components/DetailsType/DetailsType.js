@@ -7,7 +7,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import './DetailsType.css';
 
-function DetailsType() {
+function DetailsType({isLogged}) {
     const { state } = useLocation();
     const UserId = localStorage.getItem('id');
     const token = sessionStorage.getItem('token');
@@ -95,7 +95,7 @@ function DetailsType() {
     useEffect(() => {
 
     }, [deck])
-
+    console.log(isLogged);
     return (
         
         <div className="detail-type">
@@ -112,29 +112,33 @@ function DetailsType() {
                     <h3 className="detail-type-comp">Vitesse : {data.vitesse}</h3>
                     </Box>
                     <Box sx={{pt:".3em"}}>
-                    {deck && deck.some(pokemon => pokemon.id === data.id) ?
-                            <Button
-                                className="pokemon-icon"                                
-                                onClick={(e)=>{
-                                    e.target.value=data.id
-                                    handleDelete(e)}}
+                     
+                    {isLogged &&(
+                       deck && deck.some(pokemon => pokemon.id === data.id) ?
+                        <Button
+                        className="pokemon-icon"                                
+                        onClick={(e)=>{
+                            e.target.value=data.id
+                            handleDelete(e)}}
                             >
                                 <RemoveCircleOutlineIcon/>
                             </Button>                             
                             :
-                             <></>       
-                            // <Button
-                            //     className="pokemon-icon"                                
-                            //     onClick={(e)=>{
-                            //         e.target.value=data.id
-                            //         handleAdd(e)}}>
-                            //     <ControlPointRoundedIcon />
-                            // </Button>
-                    }
+                            
+                            <Button
+                            className="pokemon-icon"                                
+                            onClick={(e)=>{
+                                e.target.value=data.id
+                                handleAdd(e)}}>
+                                <ControlPointRoundedIcon />
+                            </Button>
+                                         
+                    )}
                     </Box>
                     
                 </div>
             ))}
+            
             <Modal
                 open={open}
                 onClose={handleClose}                

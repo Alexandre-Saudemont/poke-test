@@ -27,7 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Pokemons pokedex={pokedex} setPokedex={setPokedex} isLogged={isLogged} setIsActive={setIsActive} />} />
         <Route path="/detailsPokemon" element={<DetailsPokemon setIsActive={setIsActive} />} />
-        <Route path="/detailsType" element={<DetailsType setIsActive={setIsActive} />} />
+        <Route path="/detailsType" element={<DetailsType setIsActive={setIsActive} isLogged={isLogged} />} />
         <Route path="/types" element={<TypesPokemon setIsActive={setIsActive} />} />
         <Route path="Inscription" element={<Inscription setIsActive={setIsActive} />} />
         <Route path="Connexion" element={<Connexion success={success} setSuccess={setSuccess} isLogged={isLogged} setIsLogged={setIsLogged} setIsActive={setIsActive} />} />
