@@ -71,7 +71,8 @@ function Deck({ setIsActive }) {
                 showCancelButton: true,
                 confirmButtonText:"Oui, je suis sur",
                 cancelButtonText:"Non, annuler"
-            }).then(async(result)=>{
+            })
+            .then(async(result)=>{
                 if (result.isConfirmed) {
                     const response = await deleteAllPokemons(userId);
                     if (response.status === 200) {
@@ -92,26 +93,40 @@ function Deck({ setIsActive }) {
     }
 
     async function handleDeletePokemon(e) {
-        try {
+        console.log(e.target.value, e.target.name, e.target, e)
+        Swal.fire({                
+            icon:"question",
+            title:`Êtes vous sur de vouloir supprimer ${e.target.name} de votre deck ?`,
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonText:"Oui, je suis sur",
+            cancelButtonText:"Non, annuler"
+        })
+        .then(async(result)=>{
+            if (result.isConfirmed) {
+                Swal.fire({ 
+                    text: `${e.target.name} supprimé avec succès`,
+                    icon:"success"
+                })
 
-            saveAuthorization(token);
-            const response = await deletePokemon(userId, { pokemon_id: e.target.value });
-
-            if (response.status === 200) {
-
-                const newDeckFiltered = deck.filter((pokemon => pokemon.id !== Number(e.target.value)));
-                setSuccess(response.data.success);
-                setDeck(newDeckFiltered);
-                localStorage.setItem("deck", JSON.stringify(newDeckFiltered));
+                saveAuthorization(token);
+                const response = await deletePokemon(userId, { pokemon_id: e.target.value });
+    
+                if (response.status === 200) {
+    
+                    const newDeckFiltered = deck.filter((pokemon => pokemon.id !== Number(e.target.value)));
+                    setSuccess(response.data.success);
+                    setDeck(newDeckFiltered);
+                    localStorage.setItem("deck", JSON.stringify(newDeckFiltered));                    
+                }
                 
+                setError(response.data.error)
             }
-            setOpen(true);
-            setError(response.data.error)
-        } catch (error) {
+        })    
+       .catch ((error) =>{
             console.error(error)
-            setError(error.response.data.error)
-            setOpen(true)
-        }
+            setError(error.response.data.error)            
+        })
     }
 
     useEffect(() => {
@@ -138,7 +153,7 @@ function Deck({ setIsActive }) {
             }
 
             <div className="deck-container">
-                <Modal
+                {/* <Modal
                 open={open}
                 onClose={handleClose}
                 >
@@ -154,7 +169,7 @@ function Deck({ setIsActive }) {
                             </p>
                         }
                     </Box>
-                </Modal>
+                </Modal> */}
                 {deck && deck.map((pokemon) => (
                     <>
                         <div key={pokemon.id} className="deck-pokemon">
@@ -173,7 +188,9 @@ function Deck({ setIsActive }) {
                             <Button
                                 sx={styledelete}
                                 className="deck-buttonDelete-pokemon"
-                                onClick={handleDeletePokemon}
+                                onClick={(e)=>{
+                                    e.target.name= pokemon.nom
+                                handleDeletePokemon(e)}}
                                 value={pokemon.id}
                             >
                                 Supprimer {pokemon.nom} de votre Deck
