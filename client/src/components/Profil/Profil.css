@@ -26,6 +26,12 @@
     background-color: lightblue;
     justify-content: center;
     margin: auto;
-    padding: 1rem;
-    
+    padding: 1rem;    
+}
+
+.profil-form input{
+   text-align:center
+}
+.profil-form-input{
+    text-align: center!important
 }

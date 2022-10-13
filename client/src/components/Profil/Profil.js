@@ -45,7 +45,9 @@ function Profil({setIsLogged, setIsActive}) {
     const handleCloseDelete = () => {
         setOpenDelete(false);
     }
-
+    const styleInput={
+        textAlign:"center"
+    }
     const style = {
         position: 'absolute',
         top: '50%',
@@ -178,27 +180,33 @@ function Profil({setIsLogged, setIsActive}) {
                         <form className="profil-form" onSubmit={handleSubmit(onSubmit)}>
                             <InputLabel> Pseudo</InputLabel>
                             <Input
+                                // id='profil-form-input'
+                                sx={{textalign:"center"}}
                                 value={username}
                                 {...register('username')}
                                 onChange={(e) => setUsername(e.target.value) }
+                                required
                             />
                             <InputLabel> Prénom</InputLabel>
                             <Input
                                 value={firstname}
                                 {...register('firstname')}
                                 onChange={(e) => setFirstname(e.target.value)}
+                                required
                             />
                             <InputLabel> Nom</InputLabel>
                             <Input
                                 value={lastname}
                                 {...register('lastname')}
                                 onChange={(e) => setLastname(e.target.value)}
+                                required
                             />
                             <InputLabel> Email</InputLabel>
                             <Input
                                 value={email}                                
                                 {...register('email')}
                                 onChange={(e) => setEmail(e.target.value)}
+                                required
                             />
                             <Button type="submit">Valider </Button>
 
