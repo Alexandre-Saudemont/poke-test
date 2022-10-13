@@ -15,13 +15,11 @@ import {useNavigate} from 'react-router-dom';
 
 
 function Profil({setIsLogged, setIsActive}) {
-    
     const token = sessionStorage.getItem("token");
     const id = localStorage.getItem("id");
     const [infosUser, setInfosUser] = useState("");
     const [open, setOpen] = useState(false);
-    const [openDelete, setOpenDelete] = useState(false);
-
+    const [openDelete, setOpenDelete] = useState(false);    
     const [username, setUsername] = useState("");
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState("");
@@ -29,10 +27,12 @@ function Profil({setIsLogged, setIsActive}) {
     const [success,setSuccess] = useState("");
     const [error, setError] = useState("");
     const { register, handleSubmit } = useForm();
-    const Navigate = useNavigate();
-
-    const handleOpen = () => {
-        setOpen(true);
+    const Navigate = useNavigate();   
+    
+    const handleOpen = () => {        
+        setOpen(true);    
+        setError(""); 
+        setSuccess("")  
     }
 
     const handleClose = () => {
@@ -75,26 +75,38 @@ function Profil({setIsLogged, setIsActive}) {
             setLastname(response.data.lastname);
             
         } catch (error) {
-            console.error(error)
-            
+            console.error(error)            
         }
     }
     
-    async function onSubmit( data) {
-        try {
-           
+    async function onSubmit(data, e) {
+        console.log(data);
+        console.log(e)
+        try {           
             saveAuthorization(token);
             const response = await UpdateUserRequest(id, data);
-            
+            console.log(response)
             if (response.status===200 && response.data.success) {
-                
+                setEmail(data.email);
+                setFirstname(data.firstname);
+                setLastname(data.lastname);
+                setUsername(data.username);             
                 setSuccess(response.data.success);
-                handleClose();           
-            }
+                setInfosUser(prevState =>({...prevState,email, username, firstname, lastname}));   
+                setError("");
+                handleClose();  
+                return null;                         
+            }   
+            console.log("je suis dans le else")      
+            setEmail(infosUser.email);
+            setFirstname(infosUser.firstname);
+            setLastname(infosUser.lastname);
+            setUsername(infosUser.username);  
             setError(response.data.error);
         } catch (error) {
             console.error(error)
             setError(error.response.data.error)
+            setSuccess("");            
         }
     }
 
@@ -114,9 +126,9 @@ function Profil({setIsLogged, setIsActive}) {
     }
 
     useEffect(() => {
+        console.log("montage du composant")
         requestInfoUser();
-        setIsActive(false)
-
+        setIsActive(false);
     }, [])
 
     return (
@@ -128,15 +140,18 @@ function Profil({setIsLogged, setIsActive}) {
                             <CardHeader title="Page de profil" />
 
                             <CardContent>
-                                <Typography >Pseudo : {username}</Typography>
-                                <Typography>Prénom : {firstname}</Typography>
-                                <Typography>Nom : {lastname}</Typography>
-                                <Typography>Email : {email}</Typography>
+                                
+                                <Typography >Pseudo : {infosUser.username}</Typography>
+                                <Typography>Prénom : {infosUser.firstname}</Typography>
+                                <Typography>Nom : {infosUser.lastname}</Typography>
+                                <Typography>Email : {infosUser.email}</Typography>
                             </CardContent>
                             <Button onClick={handleOpen}>Modifier vos informations</Button>
-                                {success && 
+
+                                {success && !error &&                                
+                                <p> {success}</p>
+                                }
                                 
-                                <p> {success}</p>}
                             <Button onClick={handleOpenDelete}> Supprimer votre compte </Button>
                         </Card>
                     </Box>
@@ -154,6 +169,7 @@ function Profil({setIsLogged, setIsActive}) {
                     </Modal>  
 
                     <Modal
+                        keepMounted={true}
                         open={open}
                         onClose={handleClose}
                         className="profil-modal"
@@ -164,7 +180,7 @@ function Profil({setIsLogged, setIsActive}) {
                             <Input
                                 value={username}
                                 {...register('username')}
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value) }
                             />
                             <InputLabel> Prénom</InputLabel>
                             <Input
@@ -180,7 +196,7 @@ function Profil({setIsLogged, setIsActive}) {
                             />
                             <InputLabel> Email</InputLabel>
                             <Input
-                                value={email}
+                                value={email}                                
                                 {...register('email')}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
