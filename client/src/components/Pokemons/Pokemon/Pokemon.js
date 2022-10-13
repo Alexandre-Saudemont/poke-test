@@ -69,7 +69,7 @@ function Pokemon({ nom, url, id, isLogged }) {
 
             saveAuthorization(token);
             const response = await addPokemonToDeck(UserId, { pokemon_id: id });            
-            if (response.status === 200) {
+            if (response.status === 200 && response.data.success) {
                 setSuccessPokemonAdded(response.data.success);
                 setErrorPokemonAdded("");
                 setOpen(true)

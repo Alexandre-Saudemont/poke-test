@@ -61,7 +61,7 @@ const deckController = {
 
             if (deckPokemon.length === 5){               
                 
-                return res.status(404).json({
+                return res.status(200).json({
                     error: `Vous avez déjà 5 pokemons enregistrés dans votre deck.`
                 })
             }

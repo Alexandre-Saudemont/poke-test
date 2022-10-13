@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import './Deck.css';
 import Button from '@mui/material/Button';
-import { Modal, Box } from '@mui/material';
+import { Modal, Box} from '@mui/material';
+import Swal from 'sweetalert2'
 
 function Deck({ setIsActive }) {
     const token = sessionStorage.getItem("token");
@@ -62,22 +63,34 @@ function Deck({ setIsActive }) {
         }
     }
     async function handleDeleteDeck() {
-        try {
-            const response = await deleteAllPokemons(userId);
-            if (response.status === 200) {
-                setSuccess(response.data.success);
-                setDeck([]);
-                localStorage.setItem("deck",)                
-            }
-            setError(response.data.error);
-            setOpen(true)
-
-        } catch (error) {
+        // try {
+            Swal.fire({                
+                icon:"question",
+                title:"Êtes vous sur de vouloir réinitialiser votre deck ?",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText:"Oui, je suis sur",
+                cancelButtonText:"Non, annuler"
+            }).then(async(result)=>{
+                if (result.isConfirmed) {
+                    const response = await deleteAllPokemons(userId);
+                    if (response.status === 200) {
+                        Swal.fire({title:'deck supprimé avec succès !', icon:'success'})            
+                        setSuccess(response.data.success);
+                        setDeck([]);
+                        localStorage.setItem("deck",)                
+                    }
+                    setError(response.data.error);
+                    setOpen(true)
+                }
+        })
+        .catch ((error) =>{
             console.error(error)
             setError(error.response.data.error)
             setOpen(true)
-        }
+        })
     }
+
     async function handleDeletePokemon(e) {
         try {
 
