@@ -49,7 +49,7 @@ function Inscription({setIsActive}) {
                 Swal.fire({
                     text:`Bravo ${username} a bien été créé avec succès`,
                     icon:"success",
-                    timer: 5000,
+                    timer: 3000,
                     timerProgressBar: true,
                     showConfirmButton: false,
                     customClass:{

@@ -3,12 +3,8 @@ import { PokemonRequestByID, addPokemonToDeck, saveAuthorization, deletePokemon,
 import { useNavigate } from 'react-router-dom';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import { useEffect, useState } from 'react';
-// import Modal from '@mui/material/Modal';
-// import Box from '@mui/material/Box';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Swal from 'sweetalert2';
-
-
 
 function Pokemon({ nom, url, id, isLogged }) {
 
@@ -16,35 +12,7 @@ function Pokemon({ nom, url, id, isLogged }) {
     const UserId = localStorage.getItem('id');
     const token = sessionStorage.getItem('token');
     const [deck, setDeck] = useState(JSON.parse(localStorage.getItem('deck')))
-    const [errorPokemonAdded, setErrorPokemonAdded] = useState("");
-    const [successPokemonAdded, setSuccessPokemonAdded] = useState("");
-    const [open, setOpen] = useState(false);
-    // let deck = JSON.parse(localStorage.getItem('deck'));
-
-    const style = {
-        display: 'flex',
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: "20rem",
-        maxheigth: "500px",
-        bgcolor: 'rgba(54, 89, 89, 0.65)',
-        textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: '2px solid #000',
-        color: "#C7C7C7",
-        boxShadow: 24,
-        p: 4,
-        borderRadius: '15px',
-        fontWeigth: 'bold',
-    };
-
-    // const handleClose = () => {
-    //     setOpen(false);
-    // }
-
+    
     async function handleClick() {
         const response = await PokemonRequestByID(id);
 
@@ -67,7 +35,7 @@ function Pokemon({ nom, url, id, isLogged }) {
     }
 
     async function handleAdd() {
-        console.log("avant ajout", deck)        
+          
         try {
             saveAuthorization(token);
             const response = await addPokemonToDeck(UserId, { pokemon_id: id });  
@@ -78,24 +46,21 @@ function Pokemon({ nom, url, id, isLogged }) {
                 if (res.status === 200) {
                     setDeck(res.data);
                     console.log("modification du deck", deck)
-                    // setOpen(true);
+                    
                     return Swal.fire({
                         icon:"success",
                         text: `${nom} a été ajouté avec succès`
                     })    
-                }
-                                    
+                }                                    
             }   
-            //setOpen(true);          
-                Swal.fire({
-                    icon:"error",
-                    text: response.data.error
-                })      
-                             
+                          
+            Swal.fire({
+                icon:"error",
+                text: response.data.error
+            })                             
 
         } catch (error) {
-            console.error(error)
-            
+            console.error(error)            
         }
     }
 
@@ -108,11 +73,9 @@ function Pokemon({ nom, url, id, isLogged }) {
             console.log(response);
             if (response.status === 200) {
                
-                const newDeckFiltered = deck.filter((pokemon => pokemon.id !== id));
-                // localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
+                const newDeckFiltered = deck.filter((pokemon => pokemon.id !== id));              
                 setDeck(newDeckFiltered);
                 console.log(newDeckFiltered, deck)
-                // setOpen(true);
                 return Swal.fire({
                     icon:"success",
                     text:`${nom} supprimé avec succès`
@@ -126,7 +89,7 @@ function Pokemon({ nom, url, id, isLogged }) {
     }
     useEffect(() => {
         console.log("montage du composant", deck)
-    }, [deck.length])
+    }, [deck])
 
     return (
         <div className="pokemon-container">            
@@ -158,21 +121,7 @@ function Pokemon({ nom, url, id, isLogged }) {
 
                     </div>
                 }
-            </div>
-            {/* <Modal
-                open={open}
-                onClose={handleClose}                
-            >
-                <Box
-                sx={style}>
-                    {errorPokemonAdded &&
-                        <p className="pokemon-modal-text">{errorPokemonAdded}</p>
-                    }
-                    {successPokemonAdded &&
-                        <p className="pokemon-modal-text">{successPokemonAdded}</p>
-                    }
-                </Box>
-            </Modal> */}
+            </div>           
         </div>
     )
 }
