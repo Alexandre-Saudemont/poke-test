@@ -3,10 +3,9 @@ import { PokemonRequestByID, addPokemonToDeck, saveAuthorization, deletePokemon,
 import { useNavigate } from 'react-router-dom';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import { useEffect, useState } from 'react';
-// import Modal from '@mui/material/Modal';
-// import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import Swal from 'sweetalert2';
 
 
 
@@ -15,11 +14,10 @@ function Pokemon({ nom, url, id, isLogged }) {
     const navigate = useNavigate();
     const UserId = localStorage.getItem('id');
     const token = sessionStorage.getItem('token');
-    const [deck, setDeck] = useState(JSON.parse(localStorage.getItem('deck')))
     const [errorPokemonAdded, setErrorPokemonAdded] = useState("");
     const [successPokemonAdded, setSuccessPokemonAdded] = useState("");
     const [open, setOpen] = useState(false);
-    // let deck = JSON.parse(localStorage.getItem('deck'));
+    const deck = JSON.parse(localStorage.getItem('deck'));
 
     const style = {
         display: 'flex',
@@ -41,9 +39,9 @@ function Pokemon({ nom, url, id, isLogged }) {
         fontWeigth: 'bold',
     };
 
-    // const handleClose = () => {
-    //     setOpen(false);
-    // }
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     async function handleClick() {
         const response = await PokemonRequestByID(id);
@@ -67,35 +65,28 @@ function Pokemon({ nom, url, id, isLogged }) {
     }
 
     async function handleAdd() {
-        console.log("avant ajout", deck)        
         try {
+
             saveAuthorization(token);
-            const response = await addPokemonToDeck(UserId, { pokemon_id: id });  
-            console.log(response)          
-            if (response.status === 200 && response.data.success) {               
+            const response = await addPokemonToDeck(UserId, { pokemon_id: id });            
+            if (response.status === 200 && response.data.success) {
+                setSuccessPokemonAdded(response.data.success);
+                setErrorPokemonAdded("");
+                setOpen(true)
                 const res = await DeckRequest(UserId);
-                console.log(res);
                 if (res.status === 200) {
-                    setDeck(res.data);
-                    console.log("modification du deck", deck)
-                    // setOpen(true);
-                    return Swal.fire({
-                        icon:"success",
-                        text: `${nom} a été ajouté avec succès`
-                    })    
+
+                    localStorage.setItem("deck", JSON.stringify(res.data));
                 }
-                                    
-            }   
-            //setOpen(true);          
-                Swal.fire({
-                    icon:"error",
-                    text: response.data.error
-                })      
-                             
+
+            }           
+            setErrorPokemonAdded(response.data.error);            
+            setOpen(true)
 
         } catch (error) {
             console.error(error)
-            
+            setErrorPokemonAdded(error.response.data.error);
+            setOpen(true)
         }
     }
 
@@ -107,26 +98,26 @@ function Pokemon({ nom, url, id, isLogged }) {
             const response = await deletePokemon(UserId, { pokemon_id: id });
             console.log(response);
             if (response.status === 200) {
-               
+                console.log("response.status est 200, handleDelete")
+                setSuccessPokemonAdded(response.data.success);
                 const newDeckFiltered = deck.filter((pokemon => pokemon.id !== id));
-                // localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
-                setDeck(newDeckFiltered);
+                localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
                 console.log(newDeckFiltered, deck)
-                // setOpen(true);
-                return Swal.fire({
-                    icon:"success",
-                    text:`${nom} supprimé avec succès`
-                })                
-            }            
+                setOpen(true);
+            }
+            console.log("si c'est pas 200, handleDelete")
+            setErrorPokemonAdded(response.data.error);
+            setOpen(true)
 
         } catch (error) {
             console.error(error)
-            
+            setErrorPokemonAdded(error.response.data.error);
+            setOpen(true)
         }
     }
     useEffect(() => {
-        console.log("montage du composant", deck)
-    }, [deck.length])
+
+    }, [deck])
 
     return (
         <div className="pokemon-container">            
@@ -159,7 +150,7 @@ function Pokemon({ nom, url, id, isLogged }) {
                     </div>
                 }
             </div>
-            {/* <Modal
+            <Modal
                 open={open}
                 onClose={handleClose}                
             >
@@ -172,7 +163,7 @@ function Pokemon({ nom, url, id, isLogged }) {
                         <p className="pokemon-modal-text">{successPokemonAdded}</p>
                     }
                 </Box>
-            </Modal> */}
+            </Modal>
         </div>
     )
 }

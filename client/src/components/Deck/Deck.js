@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import './Deck.css';
 import Button from '@mui/material/Button';
-import { Modal, Box} from '@mui/material';
+import { Box} from '@mui/material';
 import Swal from 'sweetalert2'
 
 function Deck({ setIsActive }) {
@@ -104,23 +104,30 @@ function Deck({ setIsActive }) {
         })
         .then(async(result)=>{
             if (result.isConfirmed) {
-                Swal.fire({ 
-                    text: `${e.target.name} supprimé avec succès`,
-                    icon:"success"
-                })
+                // Swal.fire({ 
+                //     text: `${e.target.name} supprimé avec succès`,
+                //     icon:"success"
+                // })
 
                 saveAuthorization(token);
                 const response = await deletePokemon(userId, { pokemon_id: e.target.value });
     
                 if (response.status === 200) {
-    
                     const newDeckFiltered = deck.filter((pokemon => pokemon.id !== Number(e.target.value)));
                     setSuccess(response.data.success);
                     setDeck(newDeckFiltered);
-                    localStorage.setItem("deck", JSON.stringify(newDeckFiltered));                    
+                    localStorage.setItem("deck", JSON.stringify(newDeckFiltered));   
+                    Swal.fire({ 
+                        text: `${e.target.name} supprimé avec succès`,
+                        icon:"success"
+                    })                 
+                } else {
+                    Swal.fire({ 
+                        text: `${e.target.name} n'a pas pu être supprimé`,
+                        icon:"error"
+                    })
+                    setError(response.data.error)
                 }
-                
-                setError(response.data.error)
             }
         })    
        .catch ((error) =>{
@@ -189,7 +196,7 @@ function Deck({ setIsActive }) {
                                 sx={styledelete}
                                 className="deck-buttonDelete-pokemon"
                                 onClick={(e)=>{
-                                    e.target.name= pokemon.nom
+                                    e.target.name = pokemon.nom
                                 handleDeletePokemon(e)}}
                                 value={pokemon.id}
                             >
