@@ -4,15 +4,13 @@ import { useEffect}  from 'react';
 import { PokemonRequest } from '../../requests/index.js';
 
 
-function Pokemons ({setPokedex, pokedex, isLogged, setIsActive}){
+function Pokemons ({setPokedex, pokedex, isLogged, setIsActive, deck, setDeck}){
     
-
     async function requestForPokemon(){
         try {
             const response = await PokemonRequest();
             setPokedex(response.data);
-            setIsActive(true)
-            
+            setIsActive(true)            
         } catch (error){
             console.error(error)         
         }          
@@ -28,7 +26,7 @@ function Pokemons ({setPokedex, pokedex, isLogged, setIsActive}){
         
         <div className="pokemons">
         {pokedex.length > 0 && pokedex.map((pokemon)=>(
-        <Pokemon key={pokemon.id} {...pokemon} isLogged={isLogged} />
+        <Pokemon key={pokemon.id} {...pokemon} isLogged={isLogged} setDeck={setDeck} deck={deck} />
         ))
         }
         </div>

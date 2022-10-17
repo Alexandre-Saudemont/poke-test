@@ -2,16 +2,15 @@ import './Pokemon.css';
 import { PokemonRequestByID, addPokemonToDeck, saveAuthorization, deletePokemon, DeckRequest } from '../../../requests/index.js'
 import { useNavigate } from 'react-router-dom';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Swal from 'sweetalert2';
 
-function Pokemon({ nom, url, id, isLogged }) {
+function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
 
     const navigate = useNavigate();
     const UserId = localStorage.getItem('id');
     const token = sessionStorage.getItem('token');
-    const [deck, setDeck] = useState(JSON.parse(localStorage.getItem('deck')))
     
     async function handleClick() {
         const response = await PokemonRequestByID(id);

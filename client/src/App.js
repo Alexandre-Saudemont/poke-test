@@ -15,6 +15,7 @@ import { useState } from 'react';
 
 function App() {
   const [success, setSuccess] = useState("");
+  const [deck, setDeck] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const [pokedex, setPokedex] = useState([]);
   const [isActive, setIsActive] = useState(false);
@@ -25,13 +26,13 @@ function App() {
     <div className="App">
       <Navbar setSuccess={setSuccess} isLogged={isLogged} setIsLogged={setIsLogged} setPokedex={setPokedex} isActive={isActive} />
       <Routes>
-        <Route path="/" element={<Pokemons pokedex={pokedex} setPokedex={setPokedex} isLogged={isLogged} setIsActive={setIsActive} />} />
+        <Route path="/" element={<Pokemons pokedex={pokedex} setPokedex={setPokedex} isLogged={isLogged} setIsActive={setIsActive} setDeck={setDeck} deck={deck}/>} />
         <Route path="/detailsPokemon" element={<DetailsPokemon setIsActive={setIsActive} />} />
-        <Route path="/detailsType" element={<DetailsType setIsActive={setIsActive} isLogged={isLogged} />} />
+        <Route path="/detailsType" element={<DetailsType setIsActive={setIsActive} isLogged={isLogged} deck={deck} />} />
         <Route path="/types" element={<TypesPokemon setIsActive={setIsActive} />} />
         <Route path="Inscription" element={<Inscription setIsActive={setIsActive} />} />
         <Route path="Connexion" element={<Connexion success={success} setSuccess={setSuccess} isLogged={isLogged} setIsLogged={setIsLogged} setIsActive={setIsActive} />} />
-        <Route path="/Deck" element={<Deck setIsActive={setIsActive} />} />
+        <Route path="/Deck" element={<Deck setIsActive={setIsActive} setDeck={setDeck} deck={deck} />} />
         <Route path="/Profil" element={<Profil setIsLogged={setIsLogged} setIsActive={setIsActive} />} />
       </Routes>
       <Footer />

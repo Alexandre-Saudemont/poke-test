@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import {useNavigate} from "react-router-dom"
-import { LoginRequest} from "../../requests";
+import { LoginRequest, DeckRequest} from "../../requests";
 import {Input, InputLabel, Button, Modal, Box} from '@mui/material';
 import './Connexion.css'
 
-function Connexion({ setIsLogged, setIsActive }) {
+function Connexion({ setIsLogged, setIsActive, setDeck }) {
 
 
     const [email, setEmail] = useState("");
@@ -53,6 +53,12 @@ function Connexion({ setIsLogged, setIsActive }) {
                 setIsLogged(true);
                 sessionStorage.setItem("token", response.data.token);
                 navigate("/")
+            }
+
+            const res= await DeckRequest(response.data.id);
+            if (res.status === 200) {
+                setDeck(response.data);
+                             
             }
 
         } catch (error) {

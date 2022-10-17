@@ -1,22 +1,15 @@
 import { DeckRequest, saveAuthorization, deleteAllPokemons, deletePokemon } from '../../requests';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import './Deck.css';
 import Button from '@mui/material/Button';
 import { Box} from '@mui/material';
 import Swal from 'sweetalert2'
 
-function Deck({ setIsActive }) {
+function Deck({ setIsActive, setDeck, deck }) {
     const token = sessionStorage.getItem("token");
     const userId = localStorage.getItem("id");
-    const [deck, setDeck] = useState([]);
-    const [success, setSuccess] = useState("");
-    const [error, setError] = useState("");
-    const [open, setOpen] = useState(false);
-
-    const handleClose= () => {
-        setOpen(false);
-    };
+    
     const styledelete = {    
           
         "&:hover": {
@@ -24,46 +17,22 @@ function Deck({ setIsActive }) {
             color: "green"
           }, 
     }
-    const style = {
-        display: 'flex',
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: "20rem",
-        maxheigth: "500px",
-        bgcolor: 'rgba(54, 89, 89, 0.65)',
-        textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: '2px solid #000',
-        color: "#C7C7C7",
-        boxShadow: 24,
-        p: 4,
-        borderRadius: '15px',
-        fontWeigth: 'bold',
-    };
 
     async function RequestForDeck() {
 
         try {
             saveAuthorization(token);
             const response = await DeckRequest(userId);
-            console.log(response)
             if (response.status === 200) {
-                setDeck(response.data);
-                localStorage.setItem("deck", JSON.stringify(response.data));                
+                setDeck(response.data);                         
             }
-            setError(response.data.error)
-           
+
         } catch (error) {
-            console.error(error);
-            setError(error.response.data.error);
-            
+            console.error(error);           
         }
     }
     async function handleDeleteDeck() {
-        // try {
+       
             Swal.fire({                
                 icon:"question",
                 title:"Êtes vous sur de vouloir réinitialiser votre deck ?",
@@ -76,24 +45,18 @@ function Deck({ setIsActive }) {
                 if (result.isConfirmed) {
                     const response = await deleteAllPokemons(userId);
                     if (response.status === 200) {
-                        Swal.fire({title:'deck supprimé avec succès !', icon:'success'})            
-                        setSuccess(response.data.success);
+                        Swal.fire({title:'deck supprimé avec succès !', icon:'success'});         
                         setDeck([]);
                         localStorage.setItem("deck",)                
-                    }
-                    setError(response.data.error);
-                    setOpen(true)
+                    }                    
                 }
         })
         .catch ((error) =>{
-            console.error(error)
-            setError(error.response.data.error)
-            setOpen(true)
+            console.error(error);          
         })
     }
 
     async function handleDeletePokemon(e) {
-        console.log(e.target.value, e.target.name, e.target, e)
         Swal.fire({                
             icon:"question",
             title:`Êtes vous sur de vouloir supprimer ${e.target.name} de votre deck ?`,
@@ -104,17 +67,11 @@ function Deck({ setIsActive }) {
         })
         .then(async(result)=>{
             if (result.isConfirmed) {
-                // Swal.fire({ 
-                //     text: `${e.target.name} supprimé avec succès`,
-                //     icon:"success"
-                // })
-
                 saveAuthorization(token);
                 const response = await deletePokemon(userId, { pokemon_id: e.target.value });
     
                 if (response.status === 200) {
                     const newDeckFiltered = deck.filter((pokemon => pokemon.id !== Number(e.target.value)));
-                    setSuccess(response.data.success);
                     setDeck(newDeckFiltered);
                     localStorage.setItem("deck", JSON.stringify(newDeckFiltered));   
                     Swal.fire({ 
@@ -126,13 +83,11 @@ function Deck({ setIsActive }) {
                         text: `${e.target.name} n'a pas pu être supprimé`,
                         icon:"error"
                     })
-                    setError(response.data.error)
                 }
             }
         })    
        .catch ((error) =>{
-            console.error(error)
-            setError(error.response.data.error)            
+            console.error(error)     
         })
     }
 
@@ -160,23 +115,7 @@ function Deck({ setIsActive }) {
             }
 
             <div className="deck-container">
-                {/* <Modal
-                open={open}
-                onClose={handleClose}
-                >
-                    <Box
-                    sx={style}
-                    >
-                        {success &&
-                            <p>{success}
-                            </p>
-                        }
-                        {error &&
-                            <p>{error}
-                            </p>
-                        }
-                    </Box>
-                </Modal> */}
+               
                 {deck && deck.map((pokemon) => (
                     <>
                         <div key={pokemon.id} className="deck-pokemon">
