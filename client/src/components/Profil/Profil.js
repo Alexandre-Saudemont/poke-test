@@ -20,6 +20,8 @@ import {CardHeader,
         InputLabel} 
         from '@mui/material';
 
+import Swal from 'sweetalert2';
+
 function Profil({setIsLogged, setIsActive}) {
 
     const token = sessionStorage.getItem("token");
@@ -34,7 +36,7 @@ function Profil({setIsLogged, setIsActive}) {
     const [success,setSuccess] = useState("");
     const [error, setError] = useState("");
     const { register, handleSubmit } = useForm();
-    const Navigate = useNavigate();   
+    const navigate = useNavigate();   
     
     const handleOpen = () => {        
         setOpen(true);    
@@ -46,12 +48,6 @@ function Profil({setIsLogged, setIsActive}) {
         setOpen(false);
     }
 
-    const handleOpenDelete = () =>{
-        setOpenDelete(true);
-    }
-    const handleCloseDelete = () => {
-        setOpenDelete(false);
-    }
     
     const style = {
         position: 'absolute',
@@ -70,6 +66,9 @@ function Profil({setIsLogged, setIsActive}) {
         fontWeigth:'bold',
       };
 
+    const timeOutFunction = () =>{
+        navigate("/")
+    };
 
     async function requestInfoUser() {
         try {
@@ -86,13 +85,10 @@ function Profil({setIsLogged, setIsActive}) {
         }
     }
     
-    async function onSubmit(data, e) {
-        console.log(data);
-        console.log(e)
+    async function onSubmit(data) {        
         try {           
             saveAuthorization(token);
             const response = await UpdateUserRequest(id, data);
-            console.log(response)
             if (response.status===200 && response.data.success) {
                 setEmail(data.email);
                 setFirstname(data.firstname);
@@ -104,12 +100,13 @@ function Profil({setIsLogged, setIsActive}) {
                 handleClose();  
                 return null;                         
             }   
-            console.log("je suis dans le else")      
+             
             setEmail(infosUser.email);
             setFirstname(infosUser.firstname);
             setLastname(infosUser.lastname);
             setUsername(infosUser.username);  
             setError(response.data.error);
+
         } catch (error) {
             console.error(error)
             setError(error.response.data.error)
@@ -118,18 +115,39 @@ function Profil({setIsLogged, setIsActive}) {
     }
 
     async function handleDelete(){
-        try {
-            saveAuthorization(token);
-            const response = await UserDeleteRequest(id);
-            if (response.status===201){
-                localStorage.removeItem('id');
-                sessionStorage.removeItem('token');
-                setIsLogged(false)
-                Navigate("/");
+        
+        Swal.fire({
+            icon:"question",
+            title:"Êtes vous sur de vouloir supprimer votre compte ?",
+            ShowCancelButton:true
+        }).then(async (result)=>{
+            if (result.isConfirmed) {
+            // try {
+                saveAuthorization(token);
+                const response = await UserDeleteRequest(id);
+                if (response.status===201){
+                    localStorage.removeItem('id');
+                    sessionStorage.removeItem('token');
+                    setIsLogged(false);
+                    setTimeout(timeOutFunction, 2000)
+                    Swal.fire({
+                        icon:"success",
+                        text:"Compte supprimé avec succès",
+                        timer:2000,
+                        timerProgressBar:true,
+                        showConfirmButton: false,
+                    })
+                }
             }
-        } catch (error) {
+        })
+        // } 
+        .catch ((error) =>{
             console.error(error)
-        }
+            Swal.fire({
+                icon:"error",
+                text:`${error.response.data.error}`
+            })
+        })
     }
 
     useEffect(() => {
@@ -159,21 +177,9 @@ function Profil({setIsLogged, setIsActive}) {
                                 <p> {success}</p>
                                 }
                                 
-                            <Button onClick={handleOpenDelete}> Supprimer votre compte </Button>
+                            <Button onClick={handleDelete}> Supprimer votre compte </Button>
                         </Card>
                     </Box>
-
-                     <Modal
-                     open={openDelete}    
-                     onClose={handleCloseDelete}  
-                     className="profil-delete-modal">
-                        <Box fontWeight="fontWeightBold" sx={style}>
-                            <p> Etes vous sur de supprimer votre compte ?</p>
-                                <Button style={{fontFamily:'Quantico',backgroundColor:'GREEN',marginTop:'50px',marginLeft:'50px', color:'white'}} onClick={handleDelete}> oui, je valide</Button>
-                                <Button style={{fontFamily:'Quantico',backgroundColor:'RED',marginTop:'50px',marginLeft:'50px', color:'white'}} onClick={()=>{setOpenDelete(false)}}> Annuler </Button>
-
-                        </Box> 
-                    </Modal>  
 
                     <Modal
                         keepMounted={true}

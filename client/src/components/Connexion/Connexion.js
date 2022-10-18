@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import {useNavigate} from "react-router-dom";
 
 import {LoginRequest,
-        DeckRequest
+        DeckRequest,
+        saveAuthorization
         } from "../../requests";
 
 import './Connexion.css'
@@ -38,11 +39,13 @@ function Connexion({ setIsLogged, setIsActive, setDeck }) {
                     icon:"success", 
                     text: `Bienvenue ${response.data.username},  Redirection en cours ...`,
                     timer: 2000,
+                    showConfirmButton: false,
                     timerProgressBar: true,
                 })
                 setTimeout(timeOutFunction, 2000);
+                sessionStorage.setItem("token", response.data.token);
             }
-
+            saveAuthorization(response.data.token);
             const res= await DeckRequest(response.data.id);
             if (res.status === 200) {
                 setDeck(res.data);                             
