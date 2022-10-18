@@ -1,12 +1,17 @@
 import { useEffect} from 'react';
 import { useLocation } from 'react-router-dom'
+import {addPokemonToDeck, 
+        saveAuthorization, 
+        deletePokemon, 
+        DeckRequest } from '../../requests/index.js'
+
+import './DetailsType.css';
+
 import {Box, Button} from '@mui/material'
-import {addPokemonToDeck, saveAuthorization, deletePokemon, DeckRequest } from '../../requests/index.js'
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Swal from "sweetalert2"
 
-import './DetailsType.css';
 
 function DetailsType({isLogged, deck, setDeck}) {
     const { state } = useLocation();

@@ -26,7 +26,6 @@ function Deck({ setIsActive, setDeck, deck }) {
             if (response.status === 200) {
                 setDeck(response.data);                         
             }
-
         } catch (error) {
             console.error(error);           
         }
@@ -144,7 +143,6 @@ function Deck({ setIsActive, setDeck, deck }) {
                         </div>
                     </>
                 ))
-
                 }
 
             </div>

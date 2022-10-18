@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom'
-import { PokemonByTypesRequest } from '../../../requests'
+import {useNavigate} from 'react-router-dom'
+import {PokemonByTypesRequest} from '../../../requests'
 import './TypePokemon.css';
 
 function TypePokemon({ id, nom }) {
@@ -9,20 +9,16 @@ function TypePokemon({ id, nom }) {
         if (response.status === 200) {
             navigate('/detailsType', { state: { data: response.data} })
         }
-
     }
     return (
-        <div className="type-container">
-           
+        <div className="type-container">           
             <button
                 className={`type-button type-button-${nom}`}
                 value={id}
                 onClick={handleClick}
                 >
                 {nom}
-            </button>
-            
-           
+            </button>          
         </div>
     )
 }

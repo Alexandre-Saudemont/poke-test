@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
-import {useNavigate} from "react-router-dom"
-import { LoginRequest, DeckRequest} from "../../requests";
-import {Input, InputLabel, Button, Modal, Box} from '@mui/material';
+import {useNavigate} from "react-router-dom";
+
+import {LoginRequest,
+        DeckRequest
+        } from "../../requests";
+
 import './Connexion.css'
+import {Input, 
+        InputLabel, 
+        Button, 
+        Modal, 
+        Box} from '@mui/material';
 
 function Connexion({ setIsLogged, setIsActive, setDeck }) {
 
@@ -48,21 +56,17 @@ function Connexion({ setIsLogged, setIsActive, setDeck }) {
             const response = await LoginRequest({ email, password });
 
             if (response.status === 200) {
-
                 localStorage.setItem("id", response.data.id);
                 setIsLogged(true);
-                sessionStorage.setItem("token", response.data.token);
                 navigate("/")
             }
 
             const res= await DeckRequest(response.data.id);
             if (res.status === 200) {
-                setDeck(response.data);
-                             
+                setDeck(response.data);                             
             }
 
         } catch (error) {
-
             console.error("erreur:", error);
             setError(error.response.data.error);
             setOpen(true)

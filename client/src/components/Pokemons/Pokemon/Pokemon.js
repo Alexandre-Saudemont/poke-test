@@ -1,9 +1,17 @@
-import './Pokemon.css';
-import { PokemonRequestByID, addPokemonToDeck, saveAuthorization, deletePokemon, DeckRequest } from '../../../requests/index.js'
+import {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import {PokemonRequestByID, 
+    addPokemonToDeck, 
+    saveAuthorization, 
+    deletePokemon, 
+    DeckRequest 
+} from '../../../requests/index.js'
+
+import './Pokemon.css';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
-import { useEffect} from 'react';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+
 import Swal from 'sweetalert2';
 
 function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {

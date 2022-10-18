@@ -1,22 +1,23 @@
-import './DetailsPokemon.css';
 import {useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
+
+import './DetailsPokemon.css';
 import Typography from '@mui/material/Typography';
 
 
 function DetailsPokemon({setIsActive}) {
 
     const { state } = useLocation();
+    
     useEffect(() => {
         setIsActive(false);
         }, []);
+
     return (
         <>
             <div id="detail">
-                <div className="detail-container">   
-                  
+                <div className="detail-container">  
                      <Typography variant="h3" className="detail-name"> {state.nom}</Typography>
-                           
                     <div id="detail-pokemon-comp"> 
                         <img src={state.url} alt="pokemon" className="detail-pokemon-img"/>
                         <div id="detail-pokemon-list-stats">

@@ -1,10 +1,10 @@
-import React from 'react';
+
+import './Footer.css';
+
+import {BottomNavigationAction,
+        Typography} from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import Typography from '@mui/material/Typography';
-import { NavLink, useNavigate } from "react-router-dom";
-import './Footer.css';
 
 
 function Footer() {

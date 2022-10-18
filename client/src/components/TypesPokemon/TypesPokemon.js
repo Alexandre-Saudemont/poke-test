@@ -1,8 +1,8 @@
 
+import {useState, useEffect} from 'react';
 import {TypesRequest} from '../../requests'
 import TypePokemon from './TypePokemon/TypePokemon.js';
 import "./TypesPokemon.css"
-import { useState, useEffect } from 'react';
 
 
 function TypesPokemon ({setIsActive}) {
@@ -21,22 +21,15 @@ function TypesPokemon ({setIsActive}) {
 
     useEffect(()=>{
         RequestForTypes();
-        // setIsActive(false);
     }, []);
 
     return (
-        <div id="types">
-
-        
+        <div id="types">        
             <h2 className="types-title">Types de Pokemon </h2>
-            <div className="types-pokemon">
-            
-            
-            {types.length > 0 && types.map((type)=>(
-                <TypePokemon key ={type.id} {...type} />
-                )
-                )}
-
+            <div className="types-pokemon">            
+                {types.length > 0 && types.map((type)=>(
+                    <TypePokemon key ={type.id} {...type} />
+                ))}
             </div>
         </div>        
     )

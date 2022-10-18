@@ -1,20 +1,27 @@
 import { useState, useEffect } from 'react';
-import { userInfosRequest, saveAuthorization, UpdateUserRequest, UserDeleteRequest } from '../../requests';
-import { useForm } from 'react-hook-form';
-import './Profil.css';
-import CardHeader from '@mui/material/CardHeader';
-import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel'
 import {useNavigate} from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { userInfosRequest, 
+        saveAuthorization, 
+        UpdateUserRequest, 
+        UserDeleteRequest
+        } from '../../requests';
 
+import './Profil.css';
+
+import {CardHeader, 
+        Card, 
+        Box, 
+        CardContent, 
+        Typography, 
+        Modal, 
+        Button, 
+        Input, 
+        InputLabel} 
+        from '@mui/material';
 
 function Profil({setIsLogged, setIsActive}) {
+
     const token = sessionStorage.getItem("token");
     const id = localStorage.getItem("id");
     const [infosUser, setInfosUser] = useState("");
@@ -45,9 +52,7 @@ function Profil({setIsLogged, setIsActive}) {
     const handleCloseDelete = () => {
         setOpenDelete(false);
     }
-    const styleInput={
-        textAlign:"center"
-    }
+    
     const style = {
         position: 'absolute',
         top: '50%',

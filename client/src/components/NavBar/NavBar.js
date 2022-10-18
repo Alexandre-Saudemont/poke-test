@@ -1,25 +1,23 @@
-import { useEffect, useState } from "react";
-import {  NavLink, useNavigate}  from "react-router-dom";
-import { PokemonRequest } from "../../requests";
+import {useEffect, useState} from "react";
+import {NavLink, useNavigate}  from "react-router-dom";
+import {PokemonRequest} from "../../requests";
+
 import "./NavBar.css";
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+
+import {AppBar, 
+        Toolbar, 
+        IconButton, 
+        Input, 
+        InputLabel, 
+        Button, 
+        Typography} 
+        from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-
-
-
 function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
-
     const navigate = useNavigate();
     const token = sessionStorage.getItem("token");
-    const [value, setValue] = useState("");
-    
+    const [value, setValue] = useState("");    
 
     function handleClick() {
         sessionStorage.removeItem("token");
@@ -47,7 +45,6 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
     async function requestForFilteredPokemon(pokemonSearched) {
 
         try {
-
             const response = await PokemonRequest();
             const searchPokemonFiltered = response.data.filter((pokemon) => {
                 const pokemonToLowerCase = pokemon.nom.toLowerCase();
