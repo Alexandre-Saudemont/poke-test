@@ -35,23 +35,19 @@ function Inscription({setIsActive}) {
     }
     
     async function handleSubmit(e) {
-
         e.preventDefault()
         try {
             const response = await RegisterRequest({ email, password, username, lastname, firstname });
-            console.log(response);
             console.log(response.status===201)
             if (response.status === 200) {
-                setError(response.data.error)
+                Swal.fire({
+                    icon:"error",
+                    text:`${response.data.error}`
+                })
             }
 
-            if (response.status === 201) {
-                console.log(response.data.success)
-                setSuccess(response.data.success);                
-                setIsActive(false);
-                setTimeout(timeOutFunction, 3000)    
-                
-                console.log(success);
+            if (response.status === 201) { 
+                setTimeout(timeOutFunction, 3000);               
                 Swal.fire({
                     text:`Bravo ${username} a bien été créé avec succès`,
                     icon:"success",
@@ -66,11 +62,16 @@ function Inscription({setIsActive}) {
 
         } catch (error) {
             console.error(error);
+            Swal.fire({
+                icon:"error",
+                text: `${error.response.data.error}`
+            })
         }
     }
     useEffect(() => {        
         setIsActive(false);
         }, []);
+
     return (
         <div className="inscription-container">
             <Box sx={styleBox}>
@@ -100,7 +101,7 @@ function Inscription({setIsActive}) {
                         Adresse Email
                     </InputLabel>
                     <Input
-                    i   id="email"
+                        id="email"
                         type="email"                               
                         name="email"
                         value={email}

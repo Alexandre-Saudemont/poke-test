@@ -14,12 +14,9 @@ import {Input,
 import Swal from 'sweetalert2'
 
 function Connexion({ setIsLogged, setIsActive, setDeck }) {
-
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
-   
+    const navigate = useNavigate();   
 
     const styleBox={
         bgcolor: 'lightgrey',
@@ -34,7 +31,6 @@ function Connexion({ setIsLogged, setIsActive, setDeck }) {
         e.preventDefault();
         try {
             const response = await LoginRequest({ email, password });
-            console.log(response)
             if (response.status === 200) {
                 localStorage.setItem("id", response.data.id);
                 setIsLogged(true);
