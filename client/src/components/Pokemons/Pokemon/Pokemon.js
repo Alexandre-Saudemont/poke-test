@@ -37,22 +37,17 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
           
         try {
             saveAuthorization(token);
-            const response = await addPokemonToDeck(UserId, { pokemon_id: id });  
-            console.log(response)          
+            const response = await addPokemonToDeck(UserId, { pokemon_id: id });       
             if (response.status === 200 && response.data.success) {               
                 const res = await DeckRequest(UserId);
-                console.log(res);
                 if (res.status === 200) {
-                    setDeck(res.data);
-                    console.log("modification du deck", deck)
-                    
+                    setDeck(res.data);              
                     return Swal.fire({
                         icon:"success",
                         text: `${nom} a été ajouté avec succès`
                     })    
                 }                                    
-            }   
-                          
+            }                          
             Swal.fire({
                 icon:"error",
                 text: response.data.error
@@ -65,13 +60,9 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
 
     async function handleDelete() {
         try {
-            console.log(id)
-            console.log(deck)
             saveAuthorization(token);
             const response = await deletePokemon(UserId, { pokemon_id: id });
-            console.log(response);
-            if (response.status === 200) {
-               
+            if (response.status === 200) {               
                 const newDeckFiltered = deck.filter((pokemon => pokemon.id !== id));              
                 setDeck(newDeckFiltered);
                 console.log(newDeckFiltered, deck)
@@ -82,12 +73,11 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
             }            
 
         } catch (error) {
-            console.error(error)
-            
+            console.error(error)            
         }
     }
     useEffect(() => {
-        console.log("montage du composant", deck)
+      
     }, [deck])
 
     return (

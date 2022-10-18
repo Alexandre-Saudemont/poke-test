@@ -1,94 +1,59 @@
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useLocation } from 'react-router-dom'
-import {Box, Modal, Button} from '@mui/material'
+import {Box, Button} from '@mui/material'
 import {addPokemonToDeck, saveAuthorization, deletePokemon, DeckRequest } from '../../requests/index.js'
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import Swal from "sweetalert2"
 
 import './DetailsType.css';
 
-function DetailsType({isLogged, deck}) {
+function DetailsType({isLogged, deck, setDeck}) {
     const { state } = useLocation();
     const UserId = localStorage.getItem('id');
     const token = sessionStorage.getItem('token');
-    const [errorPokemonAdded, setErrorPokemonAdded] = useState("");
-    const [successPokemonAdded, setSuccessPokemonAdded] = useState("");    
-    const [open, setOpen] = useState(false);
-
-    const handleClose= () => {
-        setOpen(false);
-    }
-
-    const style = {
-        display: 'flex',
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: "20rem",
-        maxheigth: "500px",
-        bgcolor: 'rgba(54, 89, 89, 0.65)',
-        textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: '2px solid #000',
-        color: "#C7C7C7",
-        boxShadow: 24,
-        p: 4,
-        borderRadius: '15px',
-        fontWeigth: 'bold',
-    };
 
     async function handleAdd(e) {
         try {
-
             saveAuthorization(token);
             const response = await addPokemonToDeck(UserId, { pokemon_id: e.target.value });            
             if (response.status === 200 && response.data.success) {
-                setSuccessPokemonAdded(response.data.success);
-                setErrorPokemonAdded("");
-                setOpen(true)
                 const res = await DeckRequest(UserId);
                 if (res.status === 200) {
-                    localStorage.setItem("deck", JSON.stringify(res.data));
+                    setDeck(res.data)
+                    return Swal.fire({
+                        icon:"success",
+                        text: `${e.target.name} a été ajouté avec succès`
+                    })
                 }
-
             }           
-            setErrorPokemonAdded(response.data.error);            
-            setOpen(true)
+            Swal.fire({
+                icon:"error",
+                text: response.data.error
+            }) 
 
         } catch (error) {
-            console.error(error)
-            setErrorPokemonAdded(error.response.data.error);
-            setOpen(true)
+            console.error(error)            
         }
     }
    
 
     async function handleDelete(e) {
-       
         try {
-            console.log(deck)
+            
             saveAuthorization(token);
             const response = await deletePokemon(UserId, { pokemon_id: e.target.value});
-            console.log(response);
             if (response.status === 200) {
-                setSuccessPokemonAdded(response.data.success);
                 const newDeckFiltered = deck.filter((pokemon => pokemon.id !== e.target.value));
-                localStorage.setItem("deck", JSON.stringify(newDeckFiltered))
-                setOpen(true);
-                setErrorPokemonAdded();
-            } else {
-
-                setErrorPokemonAdded(response.data.error);
-                setOpen(true)
-                setSuccessPokemonAdded();
-            }
+                setDeck(newDeckFiltered)
+                return Swal.fire({
+                    icon:"success",
+                    text:` ${e.target.name} supprimé avec succès`
+                })                
+            } 
 
         } catch (error) {
             console.error(error)
-            setErrorPokemonAdded(error.response.data.error);
-            setOpen(true)
         }
     }
     useEffect(() => {
@@ -117,6 +82,7 @@ function DetailsType({isLogged, deck}) {
                         <Button
                         className="pokemon-icon"                                
                         onClick={(e)=>{
+                            e.target.name=data.nom;
                             e.target.value=data.id
                             handleDelete(e)}}
                             >
@@ -127,6 +93,7 @@ function DetailsType({isLogged, deck}) {
                             <Button
                             className="pokemon-icon"                                
                             onClick={(e)=>{
+                                e.target.name=data.nom;
                                 e.target.value=data.id
                                 handleAdd(e)}}>
                                 <ControlPointRoundedIcon />
@@ -135,25 +102,8 @@ function DetailsType({isLogged, deck}) {
                     </Box>
                     
                 </div>
-            ))}
-            
-            <Modal
-                open={open}
-                onClose={handleClose}                
-            >
-                <Box
-                sx={style}>
-                    {errorPokemonAdded &&
-                        <p className="pokemon-modal-text">{errorPokemonAdded}</p>
-                    }
-                    {successPokemonAdded && !errorPokemonAdded &&
-                        <p className="pokemon-modal-text">{successPokemonAdded}</p>
-                    }
-                </Box>
-            </Modal>    
-            
-        </div>           
-        
+            ))}       
+        </div>     
     )
 }
 
