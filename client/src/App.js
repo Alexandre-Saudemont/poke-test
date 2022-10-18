@@ -31,7 +31,7 @@ function App() {
         <Route path="/detailsType" element={<DetailsType setIsActive={setIsActive} isLogged={isLogged} deck={deck} setDeck={setDeck}/>} />
         <Route path="/types" element={<TypesPokemon setIsActive={setIsActive} />} />
         <Route path="Inscription" element={<Inscription setIsActive={setIsActive} />} />
-        <Route path="Connexion" element={<Connexion success={success} setSuccess={setSuccess} isLogged={isLogged} setIsLogged={setIsLogged} setIsActive={setIsActive} />} />
+        <Route path="Connexion" element={<Connexion success={success} setSuccess={setSuccess} isLogged={isLogged} setIsLogged={setIsLogged} setIsActive={setIsActive} setDeck={setDeck} />} />
         <Route path="/Deck" element={<Deck setIsActive={setIsActive} setDeck={setDeck} deck={deck} />} />
         <Route path="/Profil" element={<Profil setIsLogged={setIsLogged} setIsActive={setIsActive} />} />
       </Routes>

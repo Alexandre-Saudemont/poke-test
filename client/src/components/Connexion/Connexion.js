@@ -8,68 +8,56 @@ import {LoginRequest,
 import './Connexion.css'
 import {Input, 
         InputLabel, 
-        Button, 
-        Modal, 
+        Button,
         Box} from '@mui/material';
+
+import Swal from 'sweetalert2'
 
 function Connexion({ setIsLogged, setIsActive, setDeck }) {
 
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
     const navigate = useNavigate();
-    const [open, setOpen] = useState(false);
-    const handleClose=()=> {
-        setOpen(false)
-    }
-
-    const styleModalBox = {
-        display: 'flex',
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: "20rem",
-        maxheigth: "500px",
-        bgcolor: 'rgba(54, 89, 89, 0.65)',
-        textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: '2px solid #000',
-        color: "#C7C7C7",
-        boxShadow: 24,
-        p: 4,
-        borderRadius: '15px',
-        fontWeigth: 'bold',
-    };
+   
 
     const styleBox={
         bgcolor: 'lightgrey',
         p:"2rem",
         textAlign:"center"
       }
+    const timeOutFunction = () => {
+        navigate("/");
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
             const response = await LoginRequest({ email, password });
-
+            console.log(response)
             if (response.status === 200) {
                 localStorage.setItem("id", response.data.id);
                 setIsLogged(true);
-                navigate("/")
+                Swal.fire({
+                    icon:"success", 
+                    text: `Bienvenue ${response.data.username},  Redirection en cours ...`,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+                setTimeout(timeOutFunction, 2000);
             }
 
             const res= await DeckRequest(response.data.id);
             if (res.status === 200) {
-                setDeck(response.data);                             
+                setDeck(res.data);                             
             }
 
         } catch (error) {
             console.error("erreur:", error);
-            setError(error.response.data.error);
-            setOpen(true)
+            Swal.fire({
+                icon:"error",
+                text:`${error.response.data.error}`
+            })
             setEmail("");
             setPassword("");
         }
@@ -123,21 +111,7 @@ function Connexion({ setIsLogged, setIsActive, setDeck }) {
                         </Button>
                     </div>
                 </form>
-            </div>
-             
-            {
-            error && 
-            <Modal 
-            open={open}
-            onClose={handleClose}
-           >
-            <Box
-            sx={styleModalBox}>
-                {error}
-            </Box>
-            
-            </Modal>
-            }
+            </div>          
         </Box>
         </div>
     )
