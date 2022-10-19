@@ -32,10 +32,6 @@
    
 }
 
-.nav-element-right{
-    padding-bottom: 1.5rem;
-}
-
 .nav-menu:hover{
     box-sizing: border-box;
     border-bottom: solid white .15em;

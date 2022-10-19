@@ -4,6 +4,7 @@
     justify-content: center;
     padding:3%;
     padding-top:5%;
+    flex-grow: 1;
 }
 
 .inscription-title{
@@ -22,4 +23,14 @@
 .inscription-swal-timer{
     color: #3383D2
 }
+
+@media (max-width: 500PX){
+
+    .inscription-container{
+        margin-top: 10.5rem;
+        
+    }
+}
+
+
 

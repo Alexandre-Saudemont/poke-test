@@ -1,5 +1,6 @@
 #types{
     padding-top:4.5rem;
+    flex-grow:1;
 }
 .types-title{
     text-align:center;
