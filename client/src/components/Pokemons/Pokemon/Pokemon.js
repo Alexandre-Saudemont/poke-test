@@ -1,11 +1,12 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import {PokemonRequestByID, 
-    addPokemonToDeck, 
-    saveAuthorization, 
-    deletePokemon, 
-    DeckRequest 
+import {
+    PokemonRequestByID,
+    addPokemonToDeck,
+    saveAuthorization,
+    deletePokemon,
+    DeckRequest
 } from '../../../requests/index.js'
 
 import './Pokemon.css';
@@ -19,7 +20,7 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
     const navigate = useNavigate();
     const UserId = localStorage.getItem('id');
     const token = sessionStorage.getItem('token');
-    
+
     async function handleClick() {
         const response = await PokemonRequestByID(id);
 
@@ -42,27 +43,27 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
     }
 
     async function handleAdd() {
-          
+
         try {
             saveAuthorization(token);
-            const response = await addPokemonToDeck(UserId, { pokemon_id: id });       
-            if (response.status === 200 && response.data.success) {               
+            const response = await addPokemonToDeck(UserId, { pokemon_id: id });
+            if (response.status === 200 && response.data.success) {
                 const res = await DeckRequest(UserId);
                 if (res.status === 200) {
-                    setDeck(res.data);              
+                    setDeck(res.data);
                     return Swal.fire({
-                        icon:"success",
+                        icon: "success",
                         text: `${nom} a été ajouté avec succès`
-                    })    
-                }                                    
-            }                          
+                    })
+                }
+            }
             Swal.fire({
-                icon:"error",
+                icon: "error",
                 text: response.data.error
-            })                             
+            })
 
         } catch (error) {
-            console.error(error)            
+            console.error(error)
         }
     }
 
@@ -70,36 +71,37 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
         try {
             saveAuthorization(token);
             const response = await deletePokemon(UserId, { pokemon_id: id });
-            if (response.status === 200) {               
-                const newDeckFiltered = deck.filter((pokemon => pokemon.id !== id));              
+            if (response.status === 200) {
+                const newDeckFiltered = deck.filter((pokemon => pokemon.id !== id));
                 setDeck(newDeckFiltered);
                 console.log(newDeckFiltered, deck)
                 return Swal.fire({
-                    icon:"success",
-                    text:`${nom} supprimé avec succès`
-                })                
-            }            
+                    icon: "success",
+                    text: `${nom} supprimé avec succès`
+                })
+            }
 
         } catch (error) {
-            console.error(error)            
+            console.error(error)
         }
     }
 
-    async function requestForDeck (){
-        if (UserId){
+    async function requestForDeck() {
+
+        if (UserId) {
             const res = await DeckRequest(UserId);
             if (res.status === 200) {
-                setDeck(res.data);           
+                setDeck(res.data);
             }
         }
     }
-    
-    useEffect(() => {        
-        requestForDeck();
+
+    useEffect(() => {
+        // requestForDeck();
     }, [deck])
 
     return (
-        <div className="pokemon-container">            
+        <div className="pokemon-container">
 
             <button onClick={handleClick}>
                 <img className="pokemon-img" src={url} alt="pokemon" />
@@ -114,7 +116,7 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
 
                         {deck && deck.some(pokemon => pokemon.id === id) ?
                             <button
-                                className="pokemon-icon"                                
+                                className="pokemon-icon"
                                 onClick={handleDelete}
                             >
                                 <RemoveCircleOutlineIcon />
@@ -128,7 +130,7 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
 
                     </div>
                 }
-            </div>           
+            </div>
         </div>
     )
 }
