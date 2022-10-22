@@ -13,6 +13,8 @@ import {AppBar,
         Typography} 
         from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 
 function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
     const navigate = useNavigate();
@@ -66,8 +68,10 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
         <nav id="navbar">
             
                 <AppBar  >
+                    
                     <Toolbar id="navbar-toolbar">
-                        <div>
+                        <div id="navbar-container-menu">
+                        
                             <Button>
                                 <NavLink className="nav-menu" to="/">Accueil </NavLink>
                             </Button>
@@ -95,26 +99,28 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
                             }
                         </div>
                         <div className="nav-pokedex">
-                           
+                            <Button 
+                            id="nav-burger"
+                            > 
+                                <MenuIcon/> 
+                            </Button>
                             <img className="nav-logo" src="/img/pokeball.png" alt="logo pokeball" />
                             <ThemeProvider theme={theme}>
                             <Typography variant="h2" id="nav-pokedex-typo">
                                 Pokedex
                             </Typography>
                             </ThemeProvider>
+                            <Button 
+                            id="nav-search-responsive"
+                            >
+                                <SearchIcon sx={{transform: "scale(2)", width:"2rem"}}/>
+                            </Button>
                         </div>
                         {isActive ?
                        
-                        <div className="nav-element-right">
-                            <IconButton
-                                size="large"
-                                edge="start"
-                                color="inherit"
-                                aria-label="open drawer"
-                                sx={{ mr: 2 }}
-                            >
-                            </IconButton>
+                        <div className="nav-element-right">                            
                             <InputLabel htmlFor="search" />
+                          
                             <Input sx={{ display: "inline-flex", paddingLeft: "2rem", width: "80%" }}
                                 className="nav-search"
                                 id="search"

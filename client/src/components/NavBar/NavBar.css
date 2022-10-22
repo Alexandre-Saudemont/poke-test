@@ -14,7 +14,9 @@
     width: 25rem;
     
 }
-
+#nav-searh-responsive{
+    display:none;
+}
 .css-1frpczi-MuiTypography-root{
     padding-left:1em;
     color:black
@@ -58,15 +60,33 @@
 .nav-element-right-empty{
     width:8.3vw
 }
-
+#nav-burger{
+    display:none
+}
+#nav-search-responsive{
+    display: none;
+}
 @media (max-width:500px) {
+    #nav-burger{
+        display:inline;
+    }
+    #navbar-container-menu{
+        display:none
+    }
+    .nav-search{
+        display:none!important
+    }
+    #nav-search-responsive{
+        display: block;
+    }
+    .nav-element-right{
+        display:none
+    }
     #navbar-toolbar{
-       flex-direction: column;
-       width: fit-content;
-       
+       flex-direction: column;      
     }
     .nav-pokedex{
-        width: fit-content;        
+        width: fit-content;       
     }
 
 }

@@ -84,8 +84,18 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
             console.error(error)            
         }
     }
-    useEffect(() => {
-      
+
+    async function requestForDeck (){
+        if (UserId){
+            const res = await DeckRequest(UserId);
+            if (res.status === 200) {
+                setDeck(res.data);           
+            }
+        }
+    }
+    
+    useEffect(() => {        
+        requestForDeck();
     }, [deck])
 
     return (

@@ -1,4 +1,5 @@
-import './App.css';
+import { useState, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom'
 
 import Pokemons from './components/Pokemons/Pokemons.js'
 import DetailsPokemon from './components/DetailsPokemon/DetailsPokemon.js';
@@ -10,8 +11,8 @@ import Navbar from './components/NavBar/NavBar.js';
 import Deck from './components/Deck/Deck';
 import Profil from './components/Profil/Profil';
 import Footer from './components/Footer/Footer';
-import { Route, Routes } from 'react-router-dom'
-import { useState } from 'react';
+
+import './App.css';
 
 function App() {
   const [success, setSuccess] = useState("");
@@ -20,7 +21,9 @@ function App() {
   const [pokedex, setPokedex] = useState([]);
   const [isActive, setIsActive] = useState(false);
 
-
+  useEffect(()=>{
+    console.log("montage du composant app");
+  }, [])
 
   return (
     <div className="App">
