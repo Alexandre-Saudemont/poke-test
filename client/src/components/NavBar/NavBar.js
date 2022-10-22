@@ -113,7 +113,7 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
                             <Button 
                             id="nav-search-responsive"
                             >
-                                <SearchIcon sx={{, width:"2rem"}}/>
+                                <SearchIcon sx={{width:"2rem"}}/>
                             </Button>
                         </div>
                         {isActive ?
