@@ -1,0 +1,29 @@
+#footer{
+    color: white;
+    /* height:5%;
+    width:100%;
+    min-height: 100vh; */
+    /* position: relative; 
+    bottom: 0;  */
+    width: 100%;
+    text-align: center;
+}
+.footer-title{    
+background-color: lightcoral;
+text-align: center;
+padding-top:1%;
+
+}
+.footer-container{
+background-color: lightcoral;
+text-align: center;
+display: flex;
+justify-content: space-around;
+  
+}
+
+@media (max-width:500px){
+    .footer-container{
+        padding: 1rem;
+    }
+}

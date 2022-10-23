@@ -1,0 +1,9 @@
+.pokemons {
+    flex-grow:1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #f4fefe;
+    padding: 3%;
+    padding-top:5%;
+}

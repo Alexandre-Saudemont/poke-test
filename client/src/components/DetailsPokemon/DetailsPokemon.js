@@ -1,29 +1,38 @@
-import './DetailsPokemon.css';
+import {useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 
+import './DetailsPokemon.css';
+import Typography from '@mui/material/Typography';
 
-function DetailsPokemon() {
+
+function DetailsPokemon({setIsActive}) {
 
     const { state } = useLocation();
+    
+    useEffect(() => {
+        setIsActive(false);
+        }, []);
 
     return (
         <>
-
-            <div className="pokemons">
-                <div className="detail-container">
-                    <h2 className="detail-name"> {state.nom}</h2>
-                    <img src={state.url} alt="pokemon" />
-                    <h3>pv : {state.pv}</h3>
-                    <h3>attaque : {state.attaque}</h3>
-                    <h3>attaque spé : {state.attaque_spe}</h3>
-                    <h3>defense : {state.defense}</h3>
-                    <h3>defense spé : {state.defense_spe}</h3>
-                    <h3>vitesse : {state.vitesse}</h3>
+            <div id="detail">
+                <div className="detail-container">  
+                     <Typography variant="h3" className="detail-name"> {state.nom}</Typography>
+                    <div id="detail-pokemon-comp"> 
+                        <img src={state.url} alt="pokemon" className="detail-pokemon-img"/>
+                        <div id="detail-pokemon-list-stats">
+                            <p className='detail-pokemon-stats'>Pv : {state.pv}</p>
+                            <p className='detail-pokemon-stats'>Attaque : {state.attaque}</p>
+                            <p className='detail-pokemon-stats'>Attaque spé : {state.attaque_spe}</p>
+                            <p className='detail-pokemon-stats'>Defense : {state.defense}</p>
+                            <p className='detail-pokemon-stats'>Defense spé : {state.defense_spe}</p>
+                            <p className='detail-pokemon-stats'>Vitesse : {state.vitesse}</p>
+                        </div>                      
+                    </div>
                 </div>
             </div>
         </>
     )
-
 }
 
 export default DetailsPokemon;

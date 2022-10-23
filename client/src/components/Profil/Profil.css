@@ -1,5 +1,11 @@
-.container {
+/* .container {
     display: flex;
+} */ 
+/* c'est quoi .container ?*/
+
+#profil{
+    padding:3%;
+    padding-top:5%
 }
 .profil-card{
     align-items:center;
@@ -9,7 +15,6 @@
 
 .profil-modal{
     display: flex;
-    
 }
 
 .profil-form{
@@ -21,6 +26,12 @@
     background-color: lightblue;
     justify-content: center;
     margin: auto;
-    padding: 1rem;
-    
+    padding: 1rem;    
+}
+
+.profil-form input{
+   text-align:center
+}
+.profil-form-input{
+    text-align: center!important
 }

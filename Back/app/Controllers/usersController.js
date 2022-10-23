@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { User, Deck } = require('../Models');
+const { User, Deck, DeckPokemon } = require('../Models');
 const bcrypt = require("bcrypt");
 const emailValidator = require('email-validator');
 const jwt = require('jsonwebtoken');
@@ -146,6 +146,12 @@ const usersController = {
             await deck.save();
             console.log("after save", deck);
 
+            // const deckPokemon = DeckPokemon.build({
+            //     id,
+            //     deck_id: deck.dataValues.id
+            // })
+
+            // deckPokemon.save();
             return res.status(201).json({
                 success: "Utilisateur créé avec succès."
             });
@@ -171,7 +177,7 @@ const usersController = {
                 })
             }
             if (getUser) {
-                const passwordCheck = bcrypt.compare(req.body.password, getUser.password);
+                const passwordCheck = await bcrypt.compare(req.body.password, getUser.password);
                 console.log("passwordCheck", passwordCheck)
                 if (!passwordCheck) {
                     return res.status(400).json({
@@ -184,9 +190,7 @@ const usersController = {
                         userId: getUser.id,
                         userEmail: getUser.email
                     },
-
                     process.env.accessTokenSecret,
-
                     {
                         expiresIn: "24h"
                     }
@@ -198,28 +202,19 @@ const usersController = {
                 return res.status(200).json({
 
                     success: "Vous êtes connecté",
-
                     id: getUser.id,
                     email: getUser.email,
-
                     username: getUser.username,
-
                     firstname: getUser.firstname,
-
                     lastname: getUser.lastname,
-
                     token
-
                 });
             }
         } catch (error) {
 
             console.error(error);
-
             res.status(400).json({
-
                 error: "ereur lors de la requête"
-
             })
 
         }
@@ -276,7 +271,6 @@ const usersController = {
         } catch (error) {
             console.error(error);
             res.status(404).json({
-                
                 error: `L'utilisateur n'existe pas`
             });
         }

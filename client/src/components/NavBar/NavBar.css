@@ -1,3 +1,88 @@
-.nav-menu {
+/* #navbar{
+    height:10vh;
+} */
+.nav-menu {    
     margin: 0.5rem;
+    text-decoration: none; 
+    transition: all 0.2s ease-in;
+    color: black;
+    font-weight: bold;
+}
+
+.nav-pokedex{
+    display:flex;
+    width: 25rem;
+    
+}
+#nav-searh-responsive{
+    display:none;
+}
+.css-1frpczi-MuiTypography-root{
+    padding-left:1em;
+    color:black
+}
+#navbar-toolbar{
+    /* z-index:99;
+    position:fixed;
+    width:100%; */
+    background-color: lightcoral;
+    justify-content: space-between;    
+}
+
+.nav-search{
+    background-color: white;
+   
+}
+
+.nav-menu:hover{
+    box-sizing: border-box;
+    border-bottom: solid white .15em;
+}
+
+.nav-menu:active{
+    text-decoration: underline;
+}
+
+.nav-button-connexion:hover{
+    background-color: lightblue;
+}
+.nav-logo{
+    padding-top:1em;
+    width:2.5em;
+    height:2.5em
+}
+
+
+.nav-element-right-empty{
+    width:8.3vw
+}
+#nav-burger{
+    display:none
+}
+#nav-search-responsive{
+    display: none;
+}
+@media (max-width:500px) {
+    #nav-burger{
+        display:inline;
+    }
+    #navbar-container-menu{
+        display:none
+    }
+    .nav-search{
+        display:none!important
+    }
+    #nav-search-responsive{
+        display: block;
+    }
+    .nav-element-right{
+        display:none
+    }
+    #navbar-toolbar{
+       flex-direction: column;      
+    }
+    .nav-pokedex{
+        width: fit-content;       
+    }
+
 }

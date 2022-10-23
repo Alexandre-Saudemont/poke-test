@@ -39,7 +39,7 @@ DeckPokemon.belongsToMany(Deck,{
     as:"deckPokemon",
     through:"deck_pokemon",
     foreignKey:"pokemon_id",
-    otherKeu:"deck_id"
+    otherKey:"deck_id"
 })
 
 DeckPokemon.belongsToMany(Pokemon,{
@@ -48,4 +48,19 @@ DeckPokemon.belongsToMany(Pokemon,{
     foreignKey:"deck_id",
     otherkey:"pokemon_id"
 })
+
+Pokemon.belongsToMany(Deck,{
+   as: "pokeDeck",
+   through: "deck_pokemon",
+   foreignKey: "pokemon_id",
+   otherkey: "deck_id"
+})
+
+Deck.belongsToMany(Pokemon,{    
+    as: "deckPokemon",
+    through: "deck_pokemon",
+    foreignKey: "deck_id",
+    otherkey: "pokemon_id"
+    })
+
 module.exports = { User, Pokemon, Types, PokemonTypes, Deck, DeckPokemon};

@@ -1,76 +1,40 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { PokemonRequest } from "../../requests";
+
 import "./NavBar.css";
-import { NavLink } from "react-router-dom";
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-// import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-// import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-// import MenuIcon from '@mui/icons-material/Menu';
+
+import {
+    AppBar,
+    Toolbar,
+    IconButton,
+    Input,
+    InputLabel,
+    Button,
+    Typography
+}
+    from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 
-
-function Navbar({ isLogged, setIsLogged, setSuccess }) {
-    console.log("je suis setIsLogged dans la navbar", setIsLogged);
-
-    const Search = styled('div')(({ theme }) => ({
-        position: 'right',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
-    }));
-
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }));
-
-    const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: 'inherit',
-        '& .MuiInputBase-input': {
-            padding: theme.spacing(1, 1, 1, 0),
-            // vertical padding + font size from searchIcon
-            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-            transition: theme.transitions.create('width'),
-            width: '100%',
-            [theme.breakpoints.up('sm')]: {
-                width: '12ch',
-                '&:focus': {
-                    width: '20ch',
-                },
-            },
-        },
-    }));
-
+function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
+    const navigate = useNavigate();
     const token = sessionStorage.getItem("token");
-    const id = localStorage.getItem("id");
-
-    // const setIsLogged = useState(false);
-
+    const [value, setValue] = useState("");
 
     function handleClick() {
         sessionStorage.removeItem("token");
+        localStorage.removeItem("id");
+        localStorage.removeItem("deck");
         setIsLogged(false);
         setSuccess("");
+        navigate("/");
     };
 
     useEffect(() => {
-        if (id) {
+
+        if (token) {
             setIsLogged(true);
         }
         setIsLogged(false)
@@ -78,53 +42,102 @@ function Navbar({ isLogged, setIsLogged, setSuccess }) {
     }, [id])
 
     function handleChange(event) {
-        console.log(event.target.value)
+        console.log(value)
+        setValue(event.target.value);
+        requestForFilteredPokemon(event.target.value);
     }
+
+    async function requestForFilteredPokemon(pokemonSearched) {
+
+        try {
+            const response = await PokemonRequest();
+            const searchPokemonFiltered = response.data.filter((pokemon) => {
+                const pokemonToLowerCase = pokemon.nom.toLowerCase();
+                return pokemonToLowerCase.includes(pokemonSearched);
+            })
+            console.log("filtré", searchPokemonFiltered);
+            setPokedex(searchPokemonFiltered)
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    const theme = createTheme({
+        typography: {
+            "fontFamily": `"Alumni Sans Collegiate One", sans-serif`,
+        }
+    })
     return (
-        <nav>
-            <ul className='items'>
-                <AppBar position="static">
-                    <Toolbar>
-                        <NavLink className="nav-menu" to="/">Accueil </NavLink>
-                        <NavLink className="nav-menu" to="/types">Types </NavLink>
-
-                        {isLogged ?
-
-                            <>
-                                <NavLink className="nav-menu" to="/Deck">Deck</NavLink>
-                                <NavLink className="nav-menu" to="/Profil"> Profil</NavLink>
-                                <button type="button" onClick={handleClick}>Déconnexion</button>
-                            </> :
-                            <>
-                                <NavLink className="nav-menu" to="/Inscription">Inscription</NavLink>
-                                <NavLink className="nav-menu" to="/Connexion">Connexion</NavLink>
-                            </>
-
-                        }
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer"
-                            sx={{ mr: 2 }}
-                        >
-
-                        </IconButton>
-                        <Search>
+        <nav id="navbar">
+            
+                <AppBar  >
+                    
+                    <Toolbar id="navbar-toolbar">
+                        <div id="navbar-container-menu">
+                        
+                            <Button>
+                                <NavLink className="nav-menu" to="/">Accueil </NavLink>
+                            </Button>
+                            <Button>
+                                <NavLink className="nav-menu" to="/types">Types </NavLink>
+                            </Button>
+                            {isLogged ?
+                                <>
+                                <Button>
+                                    <NavLink className="nav-menu" to="/Deck">Deck</NavLink>
+                                </Button>
+                                <Button>
+                                    <NavLink className="nav-menu" to="/Profil"> Profil</NavLink>
+                                </Button> 
+                                    <Button sx={{ ":hover": { bgcolor: "lightblue" } }} className="nav-menu" type="button" onClick={handleClick}>Déconnexion</Button>
+                                </> :
+                                <>
+                                    <Button >
+                                        <NavLink className="nav-menu" to="/Inscription">Inscription</NavLink>
+                                    </Button>
+                                    <Button sx={{ ":hover": { bgcolor: "lightblue" } }}>
+                                        <NavLink className="nav-menu " to="/Connexion">Connexion</NavLink>
+                                    </Button>
+                                </>
+                            }
+                        </div>
+                        <div className="nav-pokedex">
+                            <Button 
+                            id="nav-burger"
+                            > 
+                                <MenuIcon/> 
+                            </Button>
+                            <img className="nav-logo" src="/img/pokeball.png" alt="logo pokeball" />
+                            <ThemeProvider theme={theme}>
+                            <Typography variant="h2" id="nav-pokedex-typo">
+                                Pokedex
+                            </Typography>
+                            </ThemeProvider>
+                            <Button 
+                            id="nav-search-responsive"
+                            >
+                                <SearchIcon sx={{transform: "scale(2)", width:"2rem"}}/>
+                            </Button>
+                        </div>
+                        {isActive ?
                        
-                            <StyledInputBase
+                        <div className="nav-element-right">                            
+                            <InputLabel htmlFor="search" />
+                          
+                            <Input sx={{ display: "inline-flex", paddingLeft: "2rem", width: "80%" }}
+                                className="nav-search"
+                                id="search"
+                                type="search"
+                                value={value}
                                 onChange={handleChange}
-                                placeholder="Recherche…"
-                                // startAdornment={<SearchIcon/>}
-                                inputProps={{}}
+                                placeholder="Rechercher..."
                             />
-                        </Search>
-                    </Toolbar>
-                </AppBar>
-
-
-            </ul>
-        </nav>
+                        </div> :
+                        <div className="nav-element-right-empty"></div>
+                    }
+                </Toolbar>
+            </AppBar>
+        </nav >
     )
 
 }
