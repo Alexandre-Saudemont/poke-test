@@ -7,7 +7,6 @@ import "./NavBar.css";
 import {
     AppBar,
     Toolbar,
-    IconButton,
     Input,
     InputLabel,
     Button,
@@ -37,9 +36,8 @@ function Navbar({ isLogged, setIsLogged, setSuccess, setPokedex, isActive }) {
         if (token) {
             setIsLogged(true);
         }
-        setIsLogged(false)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id])
+    }, [isLogged])
 
     function handleChange(event) {
         console.log(value)

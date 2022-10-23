@@ -87,6 +87,7 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
 
     async function requestForDeck (){
         if (UserId){
+            saveAuthorization(token)
             const res = await DeckRequest(UserId);
             if (res.status === 200) {
                 setDeck(res.data);           
@@ -96,7 +97,7 @@ function Pokemon({ nom, url, id, isLogged, setDeck, deck }) {
     
     useEffect(() => {        
         requestForDeck();
-    }, [deck])
+    }, [deck.length])
 
     return (
         <div className="pokemon-container">            

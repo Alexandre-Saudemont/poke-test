@@ -116,7 +116,7 @@ function Deck({ setIsActive, setDeck, deck }) {
             <div className="deck-container">
                
                 {deck && deck.map((pokemon) => (
-                    <>
+                 
                         <div key={pokemon.id} className="deck-pokemon">
                             <p className="deck-pokemon-nom">{pokemon.nom}</p>
                             <div className='deck-image'>
@@ -141,7 +141,7 @@ function Deck({ setIsActive, setDeck, deck }) {
                                 Supprimer {pokemon.nom} de votre Deck
                             </Button>
                         </div>
-                    </>
+                    
                 ))
                 }
 
