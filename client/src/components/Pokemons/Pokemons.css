@@ -7,3 +7,10 @@
     padding: 3%;
     padding-top:5%;
 }
+
+@media (max-width:500px){
+
+    .pokemons{
+        padding-top: 5rem;
+    }
+}

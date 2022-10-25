@@ -34,6 +34,10 @@
    
 }
 
+.nav-element-right{
+    padding-bottom: 1.5rem;
+}
+
 .nav-menu:hover{
     box-sizing: border-box;
     border-bottom: solid white .15em;
@@ -62,9 +66,15 @@
 #nav-search-responsive{
     display: none;
 }
+#navbar-container-menu-burger{
+    display: none;
+}
+
 @media (max-width:500px) {
     #nav-burger{
         display:inline;
+        padding: 0.3rem 2rem 0 0;
+        transform: scale(1.5);
     }
     #navbar-container-menu{
         display:none
@@ -73,16 +83,23 @@
         display:none!important
     }
     #nav-search-responsive{
-        display: block;
+        display: inline-grid;
+        transform: scale(1.6);
+        padding: 0.3rem 0 0 1.5rem;
     }
     .nav-element-right{
         display:none
     }
     #navbar-toolbar{
-       flex-direction: column;      
+       flex-direction: column; 
+       
     }
     .nav-pokedex{
         width: fit-content;       
+    }
+    
+    #navbar-container-menu-burger{
+        display: block;
     }
 
 }

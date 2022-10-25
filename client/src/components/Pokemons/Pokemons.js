@@ -8,6 +8,7 @@ function Pokemons({ setPokedex, pokedex, isLogged, setIsActive, deck, setDeck })
 
     const UserId = localStorage.getItem('id');
     const token = sessionStorage.getItem('token');
+
     async function requestForDeck() {
         try {
             saveAuthorization(token);
@@ -35,7 +36,7 @@ function Pokemons({ setPokedex, pokedex, isLogged, setIsActive, deck, setDeck })
         }
         requestForPokemon();
 
-    }, []);
+    }, [deck.length]);
 
     return (
         <>

@@ -5,14 +5,25 @@
 
 #profil{
     padding:3%;
-    padding-top:5%
+    padding-top:5%;
+    flex-grow: 1;
 }
 .profil-card{
     align-items:center;
-    background-color: #0f0;
     justify-content: center;
 }
 
+.profil-title{
+    text-align: center;
+
+}
+
+.profil-user-info{
+    justify-content: center;
+}
+.profil-button{
+    text-align: center;
+}
 .profil-modal{
     display: flex;
 }
@@ -34,4 +45,15 @@
 }
 .profil-form-input{
     text-align: center!important
+}
+
+@media(max-width:500px){
+    #profil{
+        height: fit-content;
+    flex-grow: 1;
+    padding-top: 6rem;
+    }
+    .profil-user-info{
+        
+    }
 }

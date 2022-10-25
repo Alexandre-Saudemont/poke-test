@@ -11,7 +11,7 @@ flex-grow:1
     justify-content: center;
 }
 
-.deck-image{
+.deck-infos-container{
     padding-bottom: 0.7rem;
 }
 
@@ -60,4 +60,27 @@ flex-grow:1
     padding-top:.4em;
     font-size:1.2em;
     color:white
+}
+
+@media (max-width:500px){
+    #deck{
+        padding-top: 6rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .deck-text-container{
+        text-align: center;
+        margin: auto;
+    }
+    .deck-pokemon{
+        width: 80%;
+    }
+
+    .deck-image{
+        width: -webkit-fill-available;
+    }
+
+
 }

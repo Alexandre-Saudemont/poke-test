@@ -14,3 +14,17 @@
     justify-content: space-between;
     background-color: rgb(45, 106, 180);   
 }
+
+@media( max-width:500px){
+    .type-button{
+
+    }
+
+    .types-pokemon{
+
+    }
+
+    .type-container{
+        width: 10rem;
+    }
+}
