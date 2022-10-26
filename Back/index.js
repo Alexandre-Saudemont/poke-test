@@ -5,7 +5,6 @@ const router = require('./app/router');
 const app = express();
 const cors = require('cors');
 
-
 app.set('views', './views');
 app.use(cors('*'));
 
