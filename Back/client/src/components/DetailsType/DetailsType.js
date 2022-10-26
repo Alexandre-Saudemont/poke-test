@@ -10,8 +10,8 @@ import {
 import './DetailsType.css';
 
 import { Box, Button } from '@mui/material'
-import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded.js';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline.js';
 import Swal from "sweetalert2"
 
 

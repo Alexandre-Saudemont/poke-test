@@ -23,7 +23,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start\" \"cd ../Back && node-dev index\"",
+    "start": "concurrently \"react-scripts start\" \"cd .. && node-dev index\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -45,6 +45,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "homepage": "."
+  }
+  
 }
