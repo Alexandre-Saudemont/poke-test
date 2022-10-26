@@ -154,7 +154,7 @@ function Profil({ setIsLogged, setIsActive }) {
     }
 
     useEffect(() => {
-        console.log("montage du composant")
+
         requestInfoUser();
         setIsActive(false);
     }, [])
