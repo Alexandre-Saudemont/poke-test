@@ -30,8 +30,8 @@
     "client-install": "npm install --prefix client",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild":      "NPM_CONFIG_PRODUCTION=false npm install --prefix client        && npm run build --prefix client"  
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+    
   },
   "eslintConfig": {
     "extends": [
@@ -50,7 +50,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }, 
-  "heroku-postbuild": "cd client && npm install && npm run build"
+  }
   
 }

@@ -21,8 +21,8 @@ function App() {
   const [pokedex, setPokedex] = useState([]);
   const [isActive, setIsActive] = useState(false);
 
-  useEffect(()=>{
-    console.log("montage du composant app");
+  useEffect(() => {
+
   }, [])
 
   return (
